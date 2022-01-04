@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings" translatable="true">Настрйоки</string>
+    <string name="start" translatable="true">Играть</string>
+    <string name="saved" translatable="true">Сохраненное</string>
+    <string name="light" translatable="true">Светлая тема</string>
+    <string name="dark" translatable="true">Темная тема</string>
+    <string name="acc" translatable="true">Аккаунт:</string>
+    <string name="aboutName" translatable="true">О разработке:</string>
+    <string name="aboutText" translatable="true">&#160;&#160;&#160;&#160;Данное приложение создано в ходе обучения в Samsung IT School. Спасибо Константину Актыбаеву, за обучение в целом, и помощь по всем вопросам в частности. Вы можете найти наш проект на GitHub:\n<a href="https://github.com/Keworker">https://github.com/Keworker</a></string>
+    <string name="back" translatable="true">Назад</string>
+    <string name="friendsW" translatable="true">Играть с друзьями</string>
+    <string name="randomW" translatable="true">Играть со случайными людьми</string>
+    <string name="editTextHint" translatable="true">Напишите короткую историю</string>
+</resources>
