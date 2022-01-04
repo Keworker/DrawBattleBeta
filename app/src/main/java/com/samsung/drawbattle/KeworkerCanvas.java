@@ -36,7 +36,8 @@ public class KeworkerCanvas extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (MainGameActivity.getGameStage() % 2 == 1) {
+        //This is faster then (MainGameActivity.getGameStage() % 2 != 0)
+        if ((MainGameActivity.getGameStage() & 2) != 0) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN: {
                     if (paintMode) { //Paint mode
