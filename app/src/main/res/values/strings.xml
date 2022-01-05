@@ -12,4 +12,7 @@
     <string name="friendsW" translatable="true">Play with friends</string>
     <string name="randomW" translatable="true">Play with random peoples</string>
     <string name="editTextHint" translatable="true">Write a short story</string>
+    <string name="question" translatable="true">Are you sure want to change them?</string>
+    <string name="yes" translatable="true">Yes</string>
+    <string name="no" translatable="true">No</string>
 </resources>

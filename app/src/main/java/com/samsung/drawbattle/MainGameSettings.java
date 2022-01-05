@@ -26,12 +26,14 @@ public class MainGameSettings extends Activity implements View.OnClickListener {
             case R.id.rBut:{
                 friends = false;
                 Intent intent = new Intent(this, MainGameRoom.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }
             case R.id.fBut:{
                 friends = true;
                 Intent intent = new Intent(this, MainGameRoom.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }

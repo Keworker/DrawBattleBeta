@@ -12,4 +12,7 @@
     <string name="friendsW" translatable="true">Играть с друзьями</string>
     <string name="randomW" translatable="true">Играть со случайными людьми</string>
     <string name="editTextHint" translatable="true">Напишите короткую историю</string>
+    <string name="question" translatable="true">Вы уверены, что хотите сменить тему?</string>
+    <string name="yes" translatable="true">Да</string>
+    <string name="no" translatable="true">Нет</string>
 </resources>

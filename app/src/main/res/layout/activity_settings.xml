@@ -13,18 +13,6 @@
             style="@style/topicText"
             android:text="@string/settings"
             android:layout_gravity="left"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right">
-            <ImageButton
-                android:layout_width="26sp"
-                android:layout_height="26sp"
-                android:background="@drawable/off"
-                android:id="@+id/off"/>
-        </LinearLayout>
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"

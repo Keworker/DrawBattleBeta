@@ -26,16 +26,19 @@ public class Menu extends Activity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.settings:{
                 Intent intent = new Intent(this, Settings.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }
             case R.id.start:{
                 Intent intent = new Intent(this, MainGameSettings.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }
             case R.id.saved:{
                 Intent intent = new Intent(this, Saved.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }

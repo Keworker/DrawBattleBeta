@@ -234,5 +234,11 @@ public class MainGameActivity extends Activity
                 }
                 break;
             }
-        }}
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //We must not do something on back pressed
+    }
 }

@@ -85,6 +85,7 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
             case R.id.start:{
                 //Условие, что размер массива игроков в комнате равен 6
                 Intent intent = new Intent(this, MainGameActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }
