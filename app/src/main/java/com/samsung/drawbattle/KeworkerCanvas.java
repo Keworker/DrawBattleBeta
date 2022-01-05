@@ -71,6 +71,9 @@ public class KeworkerCanvas extends View {
             canvas.drawLine(lines.get(i).x1, lines.get(i).y1,
                     lines.get(i).x2, lines.get(i).y2, lines.get(i).getPaint());
         }
+        canvas.drawBitmap(bitmap, 0, 0, bitmapPaint);
+        canvas.drawPath(path,  paint);
+        canvas.drawPath( circlePath,  circlePaint);
         super.onDraw(canvas);
     }
 
