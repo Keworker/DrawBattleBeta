@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+//Добавь кнопку назад и вперед
 public class MainGameActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static byte gameStage;

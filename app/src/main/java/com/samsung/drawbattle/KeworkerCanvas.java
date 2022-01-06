@@ -15,14 +15,13 @@ import java.util.List;
 
 public class KeworkerCanvas extends View {
     protected Paint paint, line, eraser;
-    protected List<Line> lines = new ArrayList<>();
+    protected List<Drawable> lines = new ArrayList<>();
+    private List<Path> paths = new ArrayList<>();
     protected final int MAX_ARGB = 255, MAX_WIDTH = 80;
     //If paintMode mode = paint, else if lineMode mode = line, else mode = eraser
     protected boolean paintMode = true, lineMode = false;
     protected float pointX, pointY;
-    protected Path path, circlePath;
-    protected Paint bitmapPaint, circlePaint;
-    protected int width, height;
+    protected Paint bitmapPaint;
     protected Canvas canvas;
     protected Bitmap bitmap;
     protected Context context;
@@ -32,15 +31,7 @@ public class KeworkerCanvas extends View {
     public KeworkerCanvas(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         this.context = context;
-        path = new Path();
-        circlePath = new Path();
         bitmapPaint = new Paint(Paint.DITHER_FLAG);
-        circlePaint = new Paint();
-        circlePaint.setAntiAlias(true);
-        circlePaint.setARGB(255, 255, 0, 0);
-        circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setStrokeJoin(Paint.Join.MITER);
-        circlePaint.setStrokeWidth(4f);
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setDither(true);
@@ -49,11 +40,6 @@ public class KeworkerCanvas extends View {
         paint.setStrokeCap(Paint.Cap.ROUND);
         line = new Paint();
         eraser = new Paint();
-        eraser.setAntiAlias(true);
-        eraser.setDither(true);
-        eraser.setStyle(Paint.Style.STROKE);
-        eraser.setStrokeJoin(Paint.Join.ROUND);
-        eraser.setStrokeCap(Paint.Cap.ROUND);
         eraser.setARGB(MAX_ARGB, MAX_ARGB, MAX_ARGB, MAX_ARGB);
     }
 
@@ -68,19 +54,14 @@ public class KeworkerCanvas extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(getResources().getColor(R.color.white));
         for (int i = 0; i < lines.size(); i++) {
-            canvas.drawLine(lines.get(i).x1, lines.get(i).y1,
-                    lines.get(i).x2, lines.get(i).y2, lines.get(i).getPaint());
+            lines.get(i).onDraw(canvas);
         }
-        canvas.drawBitmap(bitmap, 0, 0, bitmapPaint);
-        canvas.drawPath(path,  paint);
-        canvas.drawPath( circlePath,  circlePaint);
         super.onDraw(canvas);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //This is equals, but faster then (MainGameActivity.getGameStage() % 2 != 0)
-        if ((MainGameActivity.getGameStage() & 2) == 0) {
+        if (MainGameActivity.getGameStage() % 2 != 0) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN: {
                     if (paintMode) { //Paint mode
@@ -100,29 +81,27 @@ public class KeworkerCanvas extends View {
                 case MotionEvent.ACTION_MOVE: {
                     if (paintMode) {
                         onPaintActionMove(event.getX(), event.getY());
-                        invalidate();
                     } else if (!lineMode) {
                         lines.add(new Line(pointX, pointY, event.getX(), event.getY()));
-                        lines.get(lines.size() - 1).paint.setColor(eraser.getColor());
-                        lines.get(lines.size() - 1).paint.setStrokeWidth(eraser.getStrokeWidth());
+                        lines.get(lines.size() - 1).setARGBW(eraser.getColor(),
+                                eraser.getStrokeWidth());
                         pointX = event.getX();
                         pointY = event.getY();
-                        invalidate();
                     }
+                    invalidate();
                     break;
                 }
 
                 case MotionEvent.ACTION_UP: {
                     if (paintMode) {
                         onPaintActionUp();
-                        invalidate();
                     }
                     else if (lineMode) {
                         lines.get(lines.size() - 1).setEndXY(event.getX(), event.getY());
-                        lines.get(lines.size() - 1).paint.setColor(paint.getColor());
-                        lines.get(lines.size() - 1).paint.setStrokeWidth(paint.getStrokeWidth());
-                        invalidate();
+                        lines.get(lines.size() - 1).setARGBW(paint.getColor(),
+                                paint.getStrokeWidth());
                     }
+                    invalidate();
                     break;
                 }
             }
@@ -131,36 +110,35 @@ public class KeworkerCanvas extends View {
     }
 
     private void onPaintActionDown(float x, float y) {
-        //showDialog();
-        path.reset();
-        path.moveTo(x, y);
+        paths.add(new Path());
+        paths.get(paths.size() - 1).reset();
+        paths.get(paths.size() - 1).moveTo(x, y);
         mX = x;
         mY = y;
-
     }
 
     private void onPaintActionMove(float x, float y) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            path.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+            paths.get(paths.size() - 1).quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
             mX = x;
             mY = y;
         }
     }
 
     private void onPaintActionUp() {
-        path.lineTo(mX, mY);
-        canvas.drawPath(path, paint);
-        path.reset();
+        paths.get(paths.size() - 1).lineTo(mX, mY);
+        canvas.drawPath(paths.get(paths.size() - 1), paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
+        resetPaint();
     }
 
-    public List<Line> getLines() {
+    public List<Drawable> getLines() {
         return lines;
     }
 
-    public void setLines(List<Line> lines) {
+    public void setLines(List<Drawable> lines) {
         this.lines.clear();
         this.lines.addAll(lines);
     }
@@ -210,7 +188,12 @@ public class KeworkerCanvas extends View {
         lineMode = true;
     }
 
-    public class Line {
+    public void resetPaint() {
+        lines.add(new KeworkerPath(paint, paths.get(paths.size() - 1), bitmap, bitmapPaint));
+        bitmapPaint = new Paint(Paint.DITHER_FLAG);
+    }
+
+    public class Line implements Drawable {
         public float x1, y1, x2, y2;
         public Paint paint;
 
@@ -233,8 +216,62 @@ public class KeworkerCanvas extends View {
             y2 = y;
         }
 
+        public void setARGBW(int c, float w) {
+            paint.setColor(c);
+            paint.setStrokeWidth(w);
+        }
+
         public Paint getPaint() {
             return this.paint;
         }
+
+        @Override
+        public void onDraw(Canvas canvas) {
+            canvas.drawLine(x1, y1, x2, y2, paint);
+        }
+    }
+
+    public class KeworkerPath implements Drawable, Cloneable {
+        Paint bitmapPaint;
+        Bitmap bitmap;
+        Paint paint;
+        Path path;
+
+        public KeworkerPath(Paint paint, Path path, Bitmap bitmap, Paint bitmapPaint) {
+            this.paint = new Paint();
+            this.paint.setColor(paint.getColor());
+            paint.setAntiAlias(true);
+            paint.setDither(true);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeJoin(Paint.Join.ROUND);
+            paint.setStrokeCap(Paint.Cap.ROUND);
+            this.path = path;
+            this.bitmap = bitmap;
+            this.bitmapPaint = new Paint();
+            this.bitmapPaint.setColor(paint.getColor());
+            this.bitmapPaint.setStrokeWidth(paint.getStrokeWidth());
+            this.bitmapPaint.setAntiAlias(true);
+        }
+
+        @Override
+        public void setEndXY(float x, float y) {}
+
+        @Override
+        public void setARGBW(int c, float w) {
+
+        }
+
+        public void onDraw(Canvas canvas) {
+            canvas.drawBitmap(bitmap, 0, 0, bitmapPaint);
+            canvas.drawPath(this.path, paint);
+        }
+    }
+
+    public interface Drawable {
+        void setEndXY(float x, float y);
+
+        void setARGBW(int c, float w);
+
+        void onDraw(Canvas canvas);
     }
 }
