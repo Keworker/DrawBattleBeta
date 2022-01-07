@@ -26,7 +26,7 @@ public class KeworkerCanvas extends View {
     protected float paintX, paintY;
     protected float eraserX, eraserY;
     private final float TOUCH_TOLERANCE = 4;
-    private KeworkerPath cur;
+    protected KeworkerPath cur;
 
     public KeworkerCanvas(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -72,6 +72,7 @@ public class KeworkerCanvas extends View {
                 case MotionEvent.ACTION_DOWN: {
                     if (paintMode) {
                         onPaintActionDown(event.getX(), event.getY());
+                        cur = (KeworkerPath) lines.get(lines.size() - 1);
                         invalidate();
                     }
                     else if (lineMode) {
@@ -81,6 +82,7 @@ public class KeworkerCanvas extends View {
                     }
                     else if (eraserMode) {
                         onEraserActionDown(event.getX(), event.getY());
+                        cur = (KeworkerPath) lines.get(lines.size() - 1);
                         invalidate();
                     }
                     break;
@@ -122,6 +124,8 @@ public class KeworkerCanvas extends View {
         paths.add(new Path());
         paths.get(paths.size() - 1).reset();
         paths.get(paths.size() - 1).moveTo(x, y);
+        lines.add(new KeworkerPath(paint, paths.get(paths.size() - 1),
+                bitmap, bitmapPaint));
         paintX = x;
         paintY = y;
     }
@@ -130,14 +134,14 @@ public class KeworkerCanvas extends View {
         float dx = Math.abs(x - paintX);
         float dy = Math.abs(y - paintY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            paths.get(paths.size() - 1).quadTo(paintX, paintY, (x + paintX)/2, (y + paintY)/2);
+            cur.path.quadTo(paintX, paintY, (x + paintX)/2, (y + paintY)/2);
             paintX = x;
             paintY = y;
         }
     }
 
     private void onPaintActionUp() {
-        paths.get(paths.size() - 1).lineTo(paintX, paintY);
+        cur.path.lineTo(paintX, paintY);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
         resetPaint();
     }
@@ -146,6 +150,8 @@ public class KeworkerCanvas extends View {
         paths.add(new Path());
         paths.get(paths.size() - 1).reset();
         paths.get(paths.size() - 1).moveTo(x, y);
+        lines.add(new KeworkerPath(eraser, paths.get(paths.size() - 1),
+                bitmap, bitmapEraser));
         eraserX = x;
         eraserY = y;
     }
@@ -154,7 +160,7 @@ public class KeworkerCanvas extends View {
         float dx = Math.abs(x - eraserX);
         float dy = Math.abs(y - eraserY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            paths.get(paths.size() - 1).quadTo(eraserX, eraserY,
+            cur.path.quadTo(eraserX, eraserY,
                     (x + eraserX)/2, (y + eraserY)/2);
             eraserX = x;
             eraserY = y;
@@ -162,7 +168,7 @@ public class KeworkerCanvas extends View {
     }
 
     private void onEraserActionUp() {
-        paths.get(paths.size() - 1).lineTo(eraserX, eraserY);
+        cur.path.lineTo(eraserX, eraserY);
         eraser.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
         resetEraser();
     }
