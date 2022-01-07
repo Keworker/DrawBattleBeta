@@ -17,9 +17,9 @@ public class KeworkerCanvas extends View {
     protected Paint paint, line, eraser;
     protected List<Drawable> lines = new ArrayList<>();
     private List<Path> paths = new ArrayList<>();
+    protected List<Short> flags = new ArrayList<>();
     protected final int MAX_ARGB = 255, MAX_WIDTH = 80;
-    //If paintMode mode = paint, else if lineMode mode = line, else mode = eraser
-    protected boolean paintMode = true, lineMode = false;
+    protected boolean paintMode = true, lineMode = false, eraserMode = false;
     protected float pointX, pointY;
     protected Paint bitmapPaint;
     protected Canvas canvas;
@@ -64,16 +64,17 @@ public class KeworkerCanvas extends View {
         if (MainGameActivity.getGameStage() % 2 != 0) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN: {
-                    if (paintMode) { //Paint mode
+                    if (paintMode) {
                         onPaintActionDown(event.getX(), event.getY());
                         invalidate();
                     }
-                    else if (lineMode) { //Line mode
+                    else if (lineMode) {
                         lines.add(new Line(event.getX(), event.getY()));
                     }
-                    else { //Eraser mode
+                    else if (eraserMode) {
                         pointX = event.getX();
                         pointY = event.getY();
+                        flags.add((short) lines.size());
                     }
                     break;
                 }
@@ -81,7 +82,8 @@ public class KeworkerCanvas extends View {
                 case MotionEvent.ACTION_MOVE: {
                     if (paintMode) {
                         onPaintActionMove(event.getX(), event.getY());
-                    } else if (!lineMode) {
+                    }
+                    else if (eraserMode) {
                         lines.add(new Line(pointX, pointY, event.getX(), event.getY()));
                         lines.get(lines.size() - 1).setARGBW(eraser.getColor(),
                                 eraser.getStrokeWidth());
@@ -100,6 +102,9 @@ public class KeworkerCanvas extends View {
                         lines.get(lines.size() - 1).setEndXY(event.getX(), event.getY());
                         lines.get(lines.size() - 1).setARGBW(paint.getColor(),
                                 paint.getStrokeWidth());
+                    }
+                    else if (eraserMode) {
+                        flags.add((short) lines.size());
                     }
                     invalidate();
                     break;
@@ -129,7 +134,6 @@ public class KeworkerCanvas extends View {
 
     private void onPaintActionUp() {
         paths.get(paths.size() - 1).lineTo(mX, mY);
-        canvas.drawPath(paths.get(paths.size() - 1), paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
         resetPaint();
     }
@@ -163,7 +167,8 @@ public class KeworkerCanvas extends View {
     }
 
     public void setWidth(float width) throws Exception {
-        if (width > 0 && width <= MAX_WIDTH) {
+        if (width * MAX_WIDTH / 100 > 0
+                && width * MAX_WIDTH / 100 <= MAX_WIDTH) {
             paint.setStrokeWidth(width * MAX_WIDTH / 100);
             line.setStrokeWidth(width * MAX_WIDTH / 100);
             eraser.setStrokeWidth(width * MAX_WIDTH / 100);
@@ -173,19 +178,36 @@ public class KeworkerCanvas extends View {
         }
     }
 
-    public void setEraserMode() {
-        paintMode = false;
-        lineMode = false;
+    public void back() {
+        if (flags.size() > 1 && flags.get(flags.size() - 1) == lines.size()) {
+            while (lines.size() > flags.get(flags.size() - 2)) {
+                lines.remove(lines.size() - 1);
+            }
+            flags.remove(flags.size() - 1);
+            flags.remove(flags.size() - 1);
+        }
+        else {
+            lines.remove(lines.size() - 1);
+        }
+        invalidate();
     }
 
     public void setPaintMode() {
         paintMode = true;
         lineMode = false;
+        eraserMode = false;
     }
 
     public void setLineMode() {
         paintMode = false;
         lineMode = true;
+        eraserMode = false;
+    }
+
+    public void setEraserMode() {
+        paintMode = false;
+        lineMode = false;
+        eraserMode = true;
     }
 
     public void resetPaint() {
@@ -240,11 +262,12 @@ public class KeworkerCanvas extends View {
         public KeworkerPath(Paint paint, Path path, Bitmap bitmap, Paint bitmapPaint) {
             this.paint = new Paint();
             this.paint.setColor(paint.getColor());
-            paint.setAntiAlias(true);
-            paint.setDither(true);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeJoin(Paint.Join.ROUND);
-            paint.setStrokeCap(Paint.Cap.ROUND);
+            this.paint.setAntiAlias(true);
+            this.paint.setDither(true);
+            this.paint.setStyle(Paint.Style.STROKE);
+            this.paint.setStrokeJoin(Paint.Join.ROUND);
+            this.paint.setStrokeCap(Paint.Cap.ROUND);
+            this.paint.setStrokeWidth(paint.getStrokeWidth());
             this.path = path;
             this.bitmap = bitmap;
             this.bitmapPaint = new Paint();

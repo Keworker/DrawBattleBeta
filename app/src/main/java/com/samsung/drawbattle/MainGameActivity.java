@@ -18,7 +18,7 @@ public class MainGameActivity extends Activity
     protected EditText editMainGameText;
     //Red, green, blue, yellow, orange, black, brown, purple
     protected ImageButton r, g, b, y, o, sch, br, p,
-            paintMode, lineMode, eraserMode, stickerAdd;
+            paintMode, lineMode, eraserMode, stickerAdd, back;
     protected SeekBar strokeWidth;
     protected com.samsung.drawbattle.KeworkerCanvas canvas;
 
@@ -57,6 +57,8 @@ public class MainGameActivity extends Activity
         stickerAdd.setOnClickListener(this);
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
+        back = findViewById(R.id.back);
+        back.setOnClickListener(this);
         editMainGameText = findViewById(R.id.editMainGameText);
 
         //Временно переход по кнопке New, но потом будет по таймеру
@@ -204,6 +206,10 @@ public class MainGameActivity extends Activity
 
                 break;
             }
+            case R.id.back:{
+                canvas.back();
+                break;
+            }
             default:{
                 onGameStageUpdate();
             }
@@ -212,6 +218,11 @@ public class MainGameActivity extends Activity
 
     public static byte getGameStage() {
         return gameStage;
+    }
+
+    public static boolean boundView() {
+
+        return false;
     }
 
     @Override
