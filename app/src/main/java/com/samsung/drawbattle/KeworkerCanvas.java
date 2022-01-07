@@ -16,7 +16,6 @@ import java.util.List;
 public class KeworkerCanvas extends View {
     protected Paint paint, line, eraser;
     protected List<Drawable> lines = new ArrayList<>();
-    private List<Path> paths = new ArrayList<>();
     protected final int MAX_ARGB = 255, MAX_WIDTH = 80;
     protected boolean paintMode = true, lineMode = false, eraserMode = false;
     protected Paint bitmapPaint, bitmapEraser;
@@ -121,11 +120,10 @@ public class KeworkerCanvas extends View {
     }
 
     private void onPaintActionDown(float x, float y) {
-        paths.add(new Path());
-        paths.get(paths.size() - 1).reset();
-        paths.get(paths.size() - 1).moveTo(x, y);
-        lines.add(new KeworkerPath(paint, paths.get(paths.size() - 1),
-                bitmap, bitmapPaint));
+        Path path = new Path();
+        path.reset();
+        path.moveTo(x, y);
+        lines.add(new KeworkerPath(paint, path, bitmap, bitmapPaint));
         paintX = x;
         paintY = y;
     }
@@ -143,15 +141,13 @@ public class KeworkerCanvas extends View {
     private void onPaintActionUp() {
         cur.path.lineTo(paintX, paintY);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
-        resetPaint();
     }
 
     private void onEraserActionDown(float x, float y) {
-        paths.add(new Path());
-        paths.get(paths.size() - 1).reset();
-        paths.get(paths.size() - 1).moveTo(x, y);
-        lines.add(new KeworkerPath(eraser, paths.get(paths.size() - 1),
-                bitmap, bitmapEraser));
+        Path path = new Path();
+        path.reset();
+        path.moveTo(x, y);
+        lines.add(new KeworkerPath(eraser, path, bitmap, bitmapEraser));
         eraserX = x;
         eraserY = y;
     }
@@ -170,7 +166,6 @@ public class KeworkerCanvas extends View {
     private void onEraserActionUp() {
         cur.path.lineTo(eraserX, eraserY);
         eraser.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
-        resetEraser();
     }
 
     public List<Drawable> getLines() {
@@ -236,18 +231,6 @@ public class KeworkerCanvas extends View {
         paintMode = false;
         lineMode = false;
         eraserMode = true;
-    }
-
-    public void resetPaint() {
-        lines.add(new KeworkerPath(paint, paths.get(paths.size() - 1), bitmap, bitmapPaint));
-        paths.remove(paths.size() - 1);
-        bitmapPaint = new Paint(Paint.DITHER_FLAG);
-    }
-
-    public void resetEraser() {
-        lines.add(new KeworkerPath(eraser, paths.get(paths.size() - 1), bitmap, bitmapEraser));
-        paths.remove(paths.size() - 1);
-        bitmapEraser = new Paint(Paint.DITHER_FLAG);
     }
 
     public class Line implements Drawable {
