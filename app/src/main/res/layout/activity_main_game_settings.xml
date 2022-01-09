@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:text="@string/randomW"
         android:textSize="18sp"
-        android:id="@+id/rBut"/>
+        android:id="@+id/randomButton"/>
 
     <Button
         style="@style/Buttons"
@@ -22,5 +22,5 @@
         android:layout_weight="1"
         android:text="@string/friendsW"
         android:textSize="18sp"
-        android:id="@+id/fBut"/>
+        android:id="@+id/friendButton"/>
 </LinearLayout>

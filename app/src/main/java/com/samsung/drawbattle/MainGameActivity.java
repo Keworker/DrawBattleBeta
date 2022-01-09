@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
-//Добавь кнопку назад и вперед
 public class MainGameActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static byte gameStage;
@@ -20,7 +19,7 @@ public class MainGameActivity extends Activity
     protected ImageButton r, g, b, y, o, sch, br, p,
             paintMode, lineMode, eraserMode, stickerAdd, back;
     protected SeekBar strokeWidth;
-    protected com.samsung.drawbattle.KeworkerCanvas canvas;
+    protected KeworkerCanvas canvas;
 
     Button news;
 
@@ -31,34 +30,21 @@ public class MainGameActivity extends Activity
         editTextLayout = findViewById(R.id.editTextLayout);
         toolbarLayout = findViewById(R.id.toolbarLayout);
         canvas = findViewById(R.id.canvas);
-        r = findViewById(R.id.r);
-        r.setOnClickListener(this);
-        g = findViewById(R.id.g);
-        g.setOnClickListener(this);
-        b = findViewById(R.id.b);
-        b.setOnClickListener(this);
-        y = findViewById(R.id.y);
-        y.setOnClickListener(this);
-        o = findViewById(R.id.o);
-        o.setOnClickListener(this);
-        sch = findViewById(R.id.sch);
-        sch.setOnClickListener(this);
-        br = findViewById(R.id.br);
-        br.setOnClickListener(this);
-        p = findViewById(R.id.p);
-        p.setOnClickListener(this);
-        paintMode = findViewById(R.id.paintMode);
-        paintMode.setOnClickListener(this);
-        lineMode = findViewById(R.id.lineMode);
-        lineMode.setOnClickListener(this);
-        eraserMode = findViewById(R.id.eraserMode);
-        eraserMode.setOnClickListener(this);
-        stickerAdd = findViewById(R.id.stickerAdd);
-        stickerAdd.setOnClickListener(this);
+        findButtonAndSetOnClick(r, R.id.r);
+        findButtonAndSetOnClick(g, R.id.g);
+        findButtonAndSetOnClick(b, R.id.b);
+        findButtonAndSetOnClick(y, R.id.y);
+        findButtonAndSetOnClick(o, R.id.o);
+        findButtonAndSetOnClick(sch, R.id.sch);
+        findButtonAndSetOnClick(br, R.id.br);
+        findButtonAndSetOnClick(p, R.id.p);
+        findButtonAndSetOnClick(paintMode, R.id.paintMode);
+        findButtonAndSetOnClick(lineMode, R.id.lineMode);
+        findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
+        findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
-        back = findViewById(R.id.back);
-        back.setOnClickListener(this);
+        findButtonAndSetOnClick(back, R.id.back);
         editMainGameText = findViewById(R.id.editMainGameText);
 
         //Временно переход по кнопке New, но потом будет по таймеру
@@ -72,7 +58,6 @@ public class MainGameActivity extends Activity
             case 2:
             case 4:
             case 6:{
-                Log.d("My", "TextInput");
                 editTextLayout.setVisibility(View.VISIBLE);
                 toolbarLayout.setVisibility(View.GONE);
                 break;
@@ -80,7 +65,6 @@ public class MainGameActivity extends Activity
             case 1:
             case 3:
             case 5:{
-                Log.d("My", "Toolbar");
                 editTextLayout.setVisibility(View.GONE);
                 toolbarLayout.setVisibility(View.VISIBLE);
                 break;
@@ -247,6 +231,16 @@ public class MainGameActivity extends Activity
                 break;
             }
         }
+    }
+
+    private void findButtonAndSetOnClick(Button button, int id) {
+        button = findViewById(id);
+        button.setOnClickListener(this);
+    }
+
+    private void findButtonAndSetOnClick(ImageButton button, int id) {
+        button = findViewById(id);
+        button.setOnClickListener(this);
     }
 
     @Override

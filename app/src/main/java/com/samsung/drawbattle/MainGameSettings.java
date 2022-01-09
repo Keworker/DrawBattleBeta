@@ -7,31 +7,31 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainGameSettings extends Activity implements View.OnClickListener {
-    protected Button rBut, fBut;
-    private static boolean friends;
+    protected Button randomButton, friendButton;
+    private static boolean friendsMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game_settings);
-        rBut = findViewById(R.id.rBut);
-        rBut.setOnClickListener(this);
-        fBut = findViewById(R.id.fBut);
-        fBut.setOnClickListener(this);
+        randomButton = findViewById(R.id.randomButton);
+        randomButton.setOnClickListener(this);
+        friendButton = findViewById(R.id.friendButton);
+        friendButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rBut:{
-                friends = false;
+            case R.id.randomButton:{
+                friendsMode = false;
                 Intent intent = new Intent(this, MainGameRoom.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }
-            case R.id.fBut:{
-                friends = true;
+            case R.id.friendButton:{
+                friendsMode = true;
                 Intent intent = new Intent(this, MainGameRoom.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -41,6 +41,6 @@ public class MainGameSettings extends Activity implements View.OnClickListener {
     }
 
     public static boolean getIfFriends() {
-        return friends;
+        return friendsMode;
     }
 }

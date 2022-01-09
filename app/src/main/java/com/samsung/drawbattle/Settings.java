@@ -46,19 +46,20 @@ public class Settings extends Activity implements View.OnClickListener,
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (radioGroup.getCheckedRadioButtonId()) {
-            case R.id.darkTheme:{
-                createDialog(getString(R.string.app_name), getString(R.string.question));
-                if (sure) {
-
-                }
-                break;
-            }
-            case R.id.lightTheme:{
-                createDialog(getString(R.string.app_name), getString(R.string.question));
-                break;
-            }
-        }
+        //Now this block stoped, because we have not got any color themes
+//        switch (radioGroup.getCheckedRadioButtonId()) {
+//            case R.id.darkTheme:{
+//                createDialog(getString(R.string.app_name), getString(R.string.question));
+//                if (sure) {
+//
+//                }
+//                break;
+//            }
+//            case R.id.lightTheme:{
+//                createDialog(getString(R.string.app_name), getString(R.string.question));
+//                break;
+//            }
+//        }
     }
 
     private void createDialog(String title, String content) {

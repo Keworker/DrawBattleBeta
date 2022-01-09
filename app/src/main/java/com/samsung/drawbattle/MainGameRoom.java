@@ -14,8 +14,8 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
     protected FrameLayout frameLayout;
     protected Button start;
     protected ImageButton player0, player1, player2, player3, player4, player5;
-    protected FragmentManager fm;
-    protected FragmentTransaction ft;
+    protected FragmentManager fragmentManager;
+    protected FragmentTransaction fragmentTransaction;
     protected FriendFragment friendFragment;
     protected RandFragment randFragment;
     protected final static String FRIEND_TAG = "Friend_Fragment";
@@ -40,16 +40,16 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
         player4.setOnClickListener(this);
         player5 = findViewById(R.id.player5);
         player5.setOnClickListener(this);
-        fm = getFragmentManager();
+        fragmentManager = getFragmentManager();
         if (MainGameSettings.getIfFriends()) {
             friendFragment = new FriendFragment();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.frameLayout, friendFragment, FRIEND_TAG);
             fragmentTransaction.commit();
         }
         else {
             randFragment = new RandFragment();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.frameLayout, randFragment, RAND_TAG);
             fragmentTransaction.commit();
         }
