@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/DrawBattle">
         <activity
+            android:name=".DrawTournamentActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DrawTournamentRoom"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DrawTournamentSettings"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".MainGameActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
