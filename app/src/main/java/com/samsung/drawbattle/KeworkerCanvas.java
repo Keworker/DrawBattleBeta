@@ -182,14 +182,14 @@ public class KeworkerCanvas extends View {
         return paint;
     }
 
-    public void setPaintARGB(int a, int r, int g, int b) throws Exception {
+    public void setPaintARGB(int a, int r, int g, int b) throws KeworkerException {
         if (a >= 0 && a <= MAX_ARGB && r >= 0 && r <= MAX_ARGB
                 && g >= 0 && g <= MAX_ARGB && b >= 0 && b <= MAX_ARGB) {
             paint.setARGB(a, r, g, b);
             line.setARGB(a, r, g, b);
         }
         else {
-            throw new Exception();
+            throw new KeworkerException();
         }
     }
 
@@ -197,7 +197,7 @@ public class KeworkerCanvas extends View {
         return eraser;
     }
 
-    public void setWidth(float width) throws Exception {
+    public void setWidth(float width) throws KeworkerException {
         if (width * MAX_WIDTH / 100 > 0
                 && width * MAX_WIDTH / 100 <= MAX_WIDTH) {
             paint.setStrokeWidth(width * MAX_WIDTH / 100);
@@ -205,7 +205,7 @@ public class KeworkerCanvas extends View {
             eraser.setStrokeWidth(width * MAX_WIDTH / 100);
         }
         else {
-            throw new Exception();
+            throw new KeworkerException();
         }
     }
 
@@ -299,5 +299,10 @@ public class KeworkerCanvas extends View {
 
     public interface Drawable {
         void onDraw(Canvas canvas);
+    }
+
+    public class KeworkerException extends Exception {
+        /*We made our own exception class, because if we use the standard exception class,
+                we will not be able to notice an exception that is not related to our methods*/
     }
 }

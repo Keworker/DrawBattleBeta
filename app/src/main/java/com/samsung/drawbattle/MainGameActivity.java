@@ -84,7 +84,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 255, 0, 0);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -96,7 +96,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 0, 255, 0);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -108,7 +108,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 0, 0, 255);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -120,7 +120,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 245, 220, 15);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -132,7 +132,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 250, 140, 15);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -144,7 +144,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 0, 0, 0);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -156,7 +156,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 100, 70, 30);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -168,7 +168,7 @@ public class MainGameActivity extends Activity
                         canvas.setPaintARGB(255, 155, 30, 245);
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this ARGB for paint");
                     }
                 }
@@ -224,7 +224,7 @@ public class MainGameActivity extends Activity
                         canvas.setWidth((float) seekBar.getProgress());
                         break;
                     }
-                    catch (Exception exception) {
+                    catch (KeworkerCanvas.KeworkerException keworkerException) {
                         Log.d("Exceptions", "Can not set this stroke width for paint");
                     }
                 }
