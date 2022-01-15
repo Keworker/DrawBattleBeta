@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.samsung.drawbattle">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DrawBattle">
+        <activity
+            android:name=".Menu"
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".DrawTournamentActivity"
             android:exported="false"
@@ -46,7 +52,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Menu"
+            android:name=".GoogleSingIn"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>

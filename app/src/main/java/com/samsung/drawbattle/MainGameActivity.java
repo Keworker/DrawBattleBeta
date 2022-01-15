@@ -204,11 +204,6 @@ public class MainGameActivity extends Activity
         return gameStage;
     }
 
-    public static boolean boundView() {
-
-        return false;
-    }
-
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {}
 

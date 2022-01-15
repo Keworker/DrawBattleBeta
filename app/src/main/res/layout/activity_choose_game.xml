@@ -2,8 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Menu"
-    android:background="@color/menu_background">
+    android:orientation="horizontal"
+    tools:context=".ChooseGame"
+    android:background="@color/settings_background">
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/Buttons"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/goToMainGame"
+        android:text="@string/MainGame"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/Buttons"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/goToDrawTournament"
+        android:text="@string/DrawTournament"/>
 </LinearLayout>
