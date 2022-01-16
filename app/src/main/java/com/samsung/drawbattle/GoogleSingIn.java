@@ -75,6 +75,11 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
         try {
             setCashTrue();
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            LocalPersonalData.setAccountData(account.getDisplayName(),
+                    account.getGivenName(),
+                    account.getFamilyName(),
+                    account.getEmail(),
+                    account.getId());
             Intent intent = new Intent(this, Menu.class);
             startActivity(intent);
         }
