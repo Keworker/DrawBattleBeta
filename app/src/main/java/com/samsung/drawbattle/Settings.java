@@ -50,7 +50,7 @@ public class Settings extends Activity
             }
             case R.id.signOut: {
                 singOut();
-
+                GoogleSingIn.setCashFalse();
                 Intent intent = new Intent(this, GoogleSingIn.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);

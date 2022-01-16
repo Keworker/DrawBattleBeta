@@ -22,8 +22,7 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sPref  = getSharedPreferences("AndroidManifest.xml",
-                0);
+        sPref = getSharedPreferences("AndroidManifest.xml", 0);
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         if (sPref.getBoolean("alreadySignIn", true)) {
@@ -74,12 +73,7 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            sPref = getSharedPreferences("AndroidManifest.xml",
-                    0);
-            sPref = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor ed = sPref.edit();
-            ed.putBoolean("alreadySignIn", true);
-            ed.commit();
+            setCashTrue();
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Intent intent = new Intent(this, Menu.class);
             startActivity(intent);
@@ -96,12 +90,12 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
     public static void setCashFalse() {
         SharedPreferences.Editor ed = sPref.edit();
         ed.putBoolean("alreadySignIn", false);
-        ed.commit();
+        ed.apply();
     }
 
     public static void setCashTrue() {
         SharedPreferences.Editor ed = sPref.edit();
         ed.putBoolean("alreadySignIn", true);
-        ed.commit();
+        ed.apply();
     }
 }
