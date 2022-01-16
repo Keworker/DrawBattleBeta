@@ -44,6 +44,13 @@
                 android:text="@string/acc"
                 android:textColor="@color/topic_text"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/signOut"
+                style="@style/Buttons"
+                android:text="@string/singOut"/>
+
             <TextView
                 style="@style/normalText"
                 android:text="@string/aboutName"

@@ -15,10 +15,10 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class GoogleSingIn extends Activity implements View.OnClickListener {
-    SignInButton signInButton;
-    GoogleSignInClient googleSignInClient;
-    int RC_SIGN_IN = 0;
-    SharedPreferences sPref;
+    protected static SignInButton signInButton;
+    protected static GoogleSignInClient googleSignInClient;
+    protected static int RC_SIGN_IN = 0;
+    protected static SharedPreferences sPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
                 0);
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
-        if (sPref.getBoolean("readRules", true)) {
+        if (sPref.getBoolean("alreadySignIn", true)) {
             Intent intent = new Intent(this, Menu.class);
             startActivity(intent);
         }
@@ -78,7 +78,7 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
                     0);
             sPref = getPreferences(MODE_PRIVATE);
             SharedPreferences.Editor ed = sPref.edit();
-            ed.putBoolean("readRules", true);
+            ed.putBoolean("alreadySignIn", true);
             ed.commit();
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Intent intent = new Intent(this, Menu.class);
@@ -87,5 +87,21 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
         catch (ApiException e) {
             Log.w("Exceptions", "signInResult:failed code=" + e.getStatusCode());
         }
+    }
+
+    public static GoogleSignInClient getGoogleSignInClient() {
+        return googleSignInClient;
+    }
+
+    public static void setCashFalse() {
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putBoolean("alreadySignIn", false);
+        ed.commit();
+    }
+
+    public static void setCashTrue() {
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putBoolean("alreadySignIn", true);
+        ed.commit();
     }
 }

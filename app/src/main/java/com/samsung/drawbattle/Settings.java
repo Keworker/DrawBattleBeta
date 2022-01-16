@@ -11,9 +11,14 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class Settings extends Activity implements View.OnClickListener,
-        RadioGroup.OnCheckedChangeListener {
-    protected Button back;
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+public class Settings extends Activity
+        implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+    protected Button back, singOut;
     protected RadioGroup theme;
     protected TextView aboutDev;
     protected boolean sure;
@@ -24,6 +29,8 @@ public class Settings extends Activity implements View.OnClickListener,
         setContentView(R.layout.activity_settings);
         theme = findViewById(R.id.theme);
         theme.setOnCheckedChangeListener(this);
+        singOut = findViewById(R.id.signOut);
+        singOut.setOnClickListener(this);
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
         aboutDev = findViewById(R.id.aboutDev);
@@ -35,8 +42,16 @@ public class Settings extends Activity implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:{
+            case R.id.back: {
                 Intent intent = new Intent(this, Menu.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                break;
+            }
+            case R.id.signOut: {
+                singOut();
+
+                Intent intent = new Intent(this, GoogleSingIn.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
@@ -79,5 +94,15 @@ public class Settings extends Activity implements View.OnClickListener,
                     }
                 });
         builder.show();
+    }
+
+    private void singOut() {
+        GoogleSingIn.getGoogleSignInClient().signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
     }
 }

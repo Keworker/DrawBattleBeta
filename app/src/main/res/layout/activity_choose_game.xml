@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/goToMainGame"
-        android:text="@string/MainGame"/>
+        android:text="@string/mainGame"/>
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/Buttons"
@@ -19,5 +19,5 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/goToDrawTournament"
-        android:text="@string/DrawTournament"/>
+        android:text="@string/drawTournament"/>
 </LinearLayout>

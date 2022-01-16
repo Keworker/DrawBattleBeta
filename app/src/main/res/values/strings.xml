@@ -15,6 +15,7 @@
     <string name="question" translatable="true">Are you sure want to change them?</string>
     <string name="yes" translatable="true">Yes</string>
     <string name="no" translatable="true">No</string>
-    <string name="MainGame" translatable="true">Complicated story</string>
-    <string name="DrawTournament" translatable="true">Draw Tournament</string>
+    <string name="mainGame" translatable="true">Complicated story</string>
+    <string name="drawTournament" translatable="true">Draw Tournament</string>
+    <string name="singOut" translatable="true">Log out with Google</string>
 </resources>
