@@ -2,6 +2,7 @@ package com.samsung.drawbattle;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +12,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainGameActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+    protected final int SECONDS_FOR_ROUND = 90;
     private static byte gameStage;
     protected LinearLayout editTextLayout, toolbarLayout;
     protected EditText editMainGameText;
@@ -21,6 +25,8 @@ public class MainGameActivity extends Activity
             paintMode, lineMode, eraserMode, stickerAdd ;
     protected SeekBar strokeWidth;
     protected KeworkerCanvas canvas;
+    protected Button timerView;
+    protected Timer timer;
 
     Button news;
 
@@ -28,6 +34,9 @@ public class MainGameActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
+        timer = new Timer(SECONDS_FOR_ROUND);
+        timer.setSeconds(SECONDS_FOR_ROUND);
+        timer.reload(SECONDS_FOR_ROUND);
         editTextLayout = findViewById(R.id.editTextLayout);
         toolbarLayout = findViewById(R.id.toolbarLayout);
         canvas = findViewById(R.id.canvas);
@@ -43,6 +52,7 @@ public class MainGameActivity extends Activity
         findButtonAndSetOnClick(lineMode, R.id.lineMode);
         findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
         findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
+        findButtonAndSetOnClick(timerView, R.id.timerView);
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
         editMainGameText = findViewById(R.id.editMainGameText);
@@ -237,4 +247,60 @@ public class MainGameActivity extends Activity
     public void onBackPressed() {
         canvas.back();
     }
+
+    public class Timer  {
+        private int seconds;
+
+        public Timer(int seconds) {
+            this.seconds = seconds;
+            this.asyncTask = new MyAsyncTask();
+        }
+
+        public void setSeconds(int seconds) {
+            this.seconds = seconds;
+        }
+
+        private MyAsyncTask asyncTask;
+
+        public void reload(int seconds) {
+            this.seconds = seconds;
+            asyncTask.execute();
+        }
+
+        public void end() {
+
+        }
+
+        private class MyAsyncTask extends AsyncTask<Void, Integer, String> {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                while (seconds > 0) {
+                    seconds--;
+                    publishProgress(seconds);
+                }
+                return "All right";
+            }
+
+            @Override
+            protected void onPostExecute(String unused) {
+                super.onPostExecute(unused);
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                super.onProgressUpdate(values);
+                timerView.setText((values[0] / 60 < 10) ?
+                        ("0" + Integer.toString(values[0] / 60))
+                        : Integer.toString(values[0] / 60) + ":"
+                        + ((values[0] % 60 < 10) ? ("0" + Integer.toString(values[0] % 60))
+                        : Integer.toString(values[0] % 60))); //Time like 09:35
+            }
+        }
+    }
+
 }
