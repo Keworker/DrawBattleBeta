@@ -17,12 +17,13 @@
             android:id="@+id/news"
             android:layout_weight="6"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/timerView"
             android:layout_weight="1"
-            style="@style/Buttons"/>
+            style="@style/Buttons"
+            android:text="we"/>
     </LinearLayout>
 
     <LinearLayout

@@ -5,18 +5,15 @@
     android:orientation="vertical"
     tools:context=".Menu"
     android:background="@color/menu_background">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="4">
-        <!--Здесь будет картинка с логотипом приложения и текстом-->
-    </LinearLayout>
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/preview"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:orientation="horizontal"
-        android:layout_weight="1"
         android:gravity="center">
         <androidx.appcompat.widget.AppCompatButton
             style="@style/Buttons"

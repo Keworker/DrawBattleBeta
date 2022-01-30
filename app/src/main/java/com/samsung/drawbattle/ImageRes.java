@@ -1,25 +1,37 @@
 package com.samsung.drawbattle;
 
+import android.util.Log;
+import android.widget.ImageView;
+
 public class ImageRes {
     private int resId;
-    private String width;
-    private String height;
+    private int width;
+    private int height;
+    private ImageView imageView;
 
-    public ImageRes(int resId, String width, String height) {
+    public ImageRes(int resId, ImageView imageView, float width, float height) {
         this.resId = resId;
-        this.width = width;
-        this.height = height;
+        this.width = (int) Math.floor(width);
+        this.height = (int) Math.floor(height);
+        this.imageView = imageView;
+//        imageView.setMinimumWidth(this.width - 1);
+//        imageView.setMaxWidth(this.width);
+//        imageView.setMinimumHeight(this.height - 1);
+//        imageView.setMaxHeight(this.height);
+//        imageView.setBackgroundResource(resId);
+        Log.d("My", Integer.toString(imageView.getHeight()) + " высота, толщина - " +
+                Integer.toString(imageView.getWidth()));
     }
 
     public int getResId() {
         return resId;
     }
 
-    public String getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public String getHeight() {
+    public float getHeight() {
         return height;
     }
 }

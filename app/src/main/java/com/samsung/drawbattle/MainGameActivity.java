@@ -52,14 +52,15 @@ public class MainGameActivity extends Activity
         findButtonAndSetOnClick(lineMode, R.id.lineMode);
         findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
         findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
+
+        news = findViewById(R.id.news);
+        news.setOnClickListener(this);
         findButtonAndSetOnClick(timerView, R.id.timerView);
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
         editMainGameText = findViewById(R.id.editMainGameText);
 
         //Временно переход по кнопке New, но потом будет по таймеру
-        news = findViewById(R.id.news);
-        news.setOnClickListener(this);
     }
 
     protected void onGameStageUpdate() {

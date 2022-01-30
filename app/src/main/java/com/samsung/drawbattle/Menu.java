@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -15,6 +18,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 public class Menu extends Activity implements View.OnClickListener {
     protected Button settings, start, saved;
     public static SharedPreferences readRules;
+    public float screenWidth, screenHeight;
+    protected ImageRes preview;
+    protected ImageView imagePerview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +29,11 @@ public class Menu extends Activity implements View.OnClickListener {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-//        screenWidth = size.x;
-//        screenHeight = size.y;
+        screenWidth = size.x;
+        screenHeight = size.y;
+        imagePerview= findViewById(R.id.preview);
+        preview = new ImageRes(R.drawable.preview, imagePerview,
+                screenWidth / 3 * 2, screenWidth / 3 * 2 / 16 * 9);
         settings = findViewById(R.id.settings);
         settings.setOnClickListener(this);
         start = findViewById(R.id.start);
@@ -43,9 +52,7 @@ public class Menu extends Activity implements View.OnClickListener {
                     acct.getEmail(),
                     acct.getId());
         }
-
         readRules = getPreferences(MODE_PRIVATE);
-
     }
 
     @Override
