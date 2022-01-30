@@ -13,7 +13,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 public class Menu extends Activity implements View.OnClickListener {
     protected Button settings, start, saved;
     public static SharedPreferences readRules;
-    private String s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

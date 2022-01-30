@@ -8,39 +8,39 @@
     android:padding="20dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="0.3"
         android:layout_gravity="top|center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">
         <ImageButton
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:background="@drawable/circle_need_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/krug_mihail"
             android:id="@+id/player0"/>
 
         <ImageButton
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:background="@drawable/circle_need_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/krug_mihail"
             android:id="@+id/player1"/>
 
         <ImageButton
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:background="@drawable/circle_need_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/krug_mihail"
             android:id="@+id/player2"/>
 
         <ImageButton
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:background="@drawable/circle_need_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/krug_mihail"
             android:id="@+id/player3"/>
 
         <ImageButton
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:background="@drawable/circle_need_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/krug_mihail"
             android:id="@+id/player4"/>
     </LinearLayout>
 

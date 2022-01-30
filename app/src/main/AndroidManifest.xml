@@ -12,9 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/DrawBattle">
         <activity
+            android:name=".MainGameResults"
+            android:exported="false" />
+        <activity
+            android:name=".DrawTournamentResults"
+            android:exported="false" />
+        <activity
             android:name=".Menu"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".DrawTournamentActivity"
             android:exported="false"

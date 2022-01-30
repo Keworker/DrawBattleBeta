@@ -1,6 +1,7 @@
 package com.samsung.drawbattle;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,7 @@ public class MainGameActivity extends Activity
     protected EditText editMainGameText;
     //Red, green, blue, yellow, orange, black, brown, purple
     protected ImageButton r, g, b, y, o, sch, br, p,
-            paintMode, lineMode, eraserMode, stickerAdd, back;
+            paintMode, lineMode, eraserMode, stickerAdd ;
     protected SeekBar strokeWidth;
     protected KeworkerCanvas canvas;
 
@@ -44,7 +45,6 @@ public class MainGameActivity extends Activity
         findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
-        findButtonAndSetOnClick(back, R.id.back);
         editMainGameText = findViewById(R.id.editMainGameText);
 
         //Временно переход по кнопке New, но потом будет по таймеру
@@ -53,25 +53,24 @@ public class MainGameActivity extends Activity
     }
 
     protected void onGameStageUpdate() {
-        gameStage++;
-        switch (gameStage) {
-            case 2:
-            case 4:
-            case 6:{
-                editTextLayout.setVisibility(View.VISIBLE);
-                toolbarLayout.setVisibility(View.GONE);
-                break;
-            }
-            case 1:
-            case 3:
-            case 5:{
-                editTextLayout.setVisibility(View.GONE);
-                toolbarLayout.setVisibility(View.VISIBLE);
-                break;
-            }
-            default:{
-                gameStage = 7;
-            }
+        if (gameStage % 2 == 0) {
+
+            toolbarLayout.setVisibility(View.GONE);
+            editTextLayout.setVisibility(View.VISIBLE);
+            gameStage++;
+        }
+        else if (gameStage < 6) {
+
+            editTextLayout.setVisibility(View.GONE);
+            toolbarLayout.setVisibility(View.VISIBLE);
+            gameStage++;
+        }
+        else {
+
+            gameStage = 0;
+            Intent intent = new Intent(this, MainGameResults.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
         }
     }
 
@@ -190,10 +189,6 @@ public class MainGameActivity extends Activity
 
                 break;
             }
-            case R.id.back:{
-                canvas.back();
-                break;
-            }
             default:{
                 onGameStageUpdate();
             }
@@ -240,6 +235,6 @@ public class MainGameActivity extends Activity
 
     @Override
     public void onBackPressed() {
-        //We must not do something on back pressed
+        canvas.back();
     }
 }

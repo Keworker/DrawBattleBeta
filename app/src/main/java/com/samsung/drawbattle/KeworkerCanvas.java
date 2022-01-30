@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class KeworkerCanvas extends View {
     protected Paint paint, line, eraser;
     protected List<Drawable> lines = new ArrayList<>();
     protected final int MAX_ARGB = 255, MAX_WIDTH = 80;
-    protected boolean paintMode = true, lineMode = false, eraserMode = false;
+    protected boolean paintMode = true, lineMode = false, eraserMode = false, stickerAdd = false;
     protected Paint bitmapPaint, bitmapEraser;
     protected Canvas canvas;
     protected Bitmap bitmap;
@@ -67,7 +68,7 @@ public class KeworkerCanvas extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (MainGameActivity.getGameStage() % 2 != 0) {
+        if (MainGameActivity.getGameStage() % 2 != 0 || DrawTournamentActivity.isTournament()) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN: {
                     if (paintMode) {
@@ -85,6 +86,9 @@ public class KeworkerCanvas extends View {
                         curPath = (KeworkerPath) lines.get(lines.size() - 1);
                         invalidate();
                     }
+                    else if (stickerAdd) {
+
+                    }
                     break;
                 }
 
@@ -97,6 +101,9 @@ public class KeworkerCanvas extends View {
                     }
                     else if (eraserMode) {
                         onEraserActionMove(event.getX(), event.getY());
+                    }
+                    else if (stickerAdd) {
+
                     }
                     invalidate();
                     break;
@@ -302,7 +309,12 @@ public class KeworkerCanvas extends View {
     }
 
     public class KeworkerException extends Exception {
+        protected final String LOG_TAG_EXC = "Exception";
         /*We made our own exception class, because if we use the standard exception class,
                 we will not be able to notice an exception that is not related to our methods*/
+        public KeworkerException() {
+            Log.e(LOG_TAG_EXC, "Exception was called because you make mistake while" +
+                    "write code, Keworker!");
+        }
     }
 }

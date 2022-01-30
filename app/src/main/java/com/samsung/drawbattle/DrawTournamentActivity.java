@@ -1,29 +1,50 @@
 package com.samsung.drawbattle;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class DrawTournamentActivity extends Activity implements
-        View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class DrawTournamentActivity extends Activity
+        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     //Red, green, blue, yellow, orange, black, brown, purple
     protected ImageButton r, g, b, y, o, sch, br, p,
-            paintMode, lineMode, eraserMode, back;
+            paintMode, lineMode, eraserMode;
     protected TextView question;
     protected SeekBar strokeWidth;
     protected KeworkerCanvas canvas;
+    private static boolean tournament;
+    protected int gameStage;
+    protected LinearLayout toolbarLayout, gradeLayout;
+    //1 star, 2 stars, 3 stars, ..., 10 stars
+    protected ImageButton st1, st2, st3, st4,st5, st6, st7, st8, st9, s10;
+    private boolean isClickOnStar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tournament = true;
         setContentView(R.layout.activity_draw_tournament);
         canvas = findViewById(R.id.canvas);
         question = findViewById(R.id.question);
+        toolbarLayout = findViewById(R.id.toolbarLayout);
+        gradeLayout = findViewById(R.id.gradeLayout);
+        findButtonAndSetOnClick(st1, R.id.st1);
+        findButtonAndSetOnClick(st2, R.id.st2);
+        findButtonAndSetOnClick(st3, R.id.st3);
+        findButtonAndSetOnClick(st4, R.id.st4);
+        findButtonAndSetOnClick(st5, R.id.st5);
+        findButtonAndSetOnClick(st6, R.id.st6);
+        findButtonAndSetOnClick(st7, R.id.st7);
+        findButtonAndSetOnClick(st8, R.id.st8);
+        findButtonAndSetOnClick(st9, R.id.st9);
+        findButtonAndSetOnClick(s10, R.id.s10);
         findButtonAndSetOnClick(r, R.id.r);
         findButtonAndSetOnClick(g, R.id.g);
         findButtonAndSetOnClick(b, R.id.b);
@@ -35,9 +56,28 @@ public class DrawTournamentActivity extends Activity implements
         findButtonAndSetOnClick(paintMode, R.id.paintMode);
         findButtonAndSetOnClick(lineMode, R.id.lineMode);
         findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
-        findButtonAndSetOnClick(back, R.id.back);
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
+    }
+
+    protected void onGameStageUpdate() {
+        if (gameStage % 2 != 0) {
+
+            gradeLayout.setVisibility(View.GONE);
+            toolbarLayout.setVisibility(View.VISIBLE);
+            gameStage++;
+        }
+        else if (gameStage < 6) {
+
+            toolbarLayout.setVisibility(View.GONE);
+            gradeLayout.setVisibility(View.VISIBLE);
+            gameStage++;
+        }
+        else {
+            Intent intent = new Intent(this, DrawTournamentResults.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -151,9 +191,36 @@ public class DrawTournamentActivity extends Activity implements
                 canvas.setEraserMode();
                 break;
             }
-            case R.id.back:{
-                canvas.back();
-                break;
+            case R.id.s10: {
+                if (!isClickOnStar) {}
+                //Set fullstar image
+            }
+            case R.id.st9: {
+
+            }
+            case R.id.st8: {
+                //Set fullstar image
+            }
+            case R.id.st7: {
+
+            }
+            case R.id.st6: {
+
+            }
+            case R.id.st5: {
+                //Set fullstar image
+            }
+            case R.id.st4: {
+
+            }
+            case R.id.st3: {
+
+            }
+            case R.id.st2: {
+                //Set fullstar image
+            }
+            case R.id.st1: {
+
             }
         }
     }
@@ -194,6 +261,10 @@ public class DrawTournamentActivity extends Activity implements
 
     @Override
     public void onBackPressed() {
-        //We must not do something on back pressed
+        canvas.back();
+    }
+
+    public static boolean isTournament() {
+        return tournament;
     }
 }
