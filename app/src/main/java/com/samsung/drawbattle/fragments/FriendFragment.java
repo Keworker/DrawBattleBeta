@@ -1,10 +1,12 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.app.Fragment;
+
+import com.samsung.drawbattle.R;
 
 public class FriendFragment extends Fragment {
 

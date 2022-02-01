@@ -1,7 +1,9 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities.frommenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.samsung.drawbattle.R;
 
 public class Saved extends AppCompatActivity {
 

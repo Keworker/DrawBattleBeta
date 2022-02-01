@@ -1,7 +1,4 @@
-package com.samsung.drawbattle;
-
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+package com.samsung.drawbattle.classes;
 
 public class LocalPersonalData {
     private static String personName;

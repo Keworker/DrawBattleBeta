@@ -12,53 +12,53 @@
         android:supportsRtl="true"
         android:theme="@style/DrawBattle">
         <activity
-            android:name=".MainGameResults"
+            android:name=".activities.maingame.MainGameResults"
             android:exported="false" />
         <activity
-            android:name=".DrawTournamentResults"
+            android:name=".activities.drawtournament.DrawTournamentResults"
             android:exported="false" />
         <activity
-            android:name=".Menu"
+            android:name=".activities.Menu"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".DrawTournamentActivity"
+            android:name=".activities.drawtournament.DrawTournamentActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".DrawTournamentRoom"
+            android:name=".activities.drawtournament.DrawTournamentRoom"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".DrawTournamentSettings"
+            android:name=".activities.drawtournament.DrawTournamentSettings"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MainGameActivity"
+            android:name=".activities.maingame.MainGameActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MainGameRoom"
+            android:name=".activities.maingame.MainGameRoom"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MainGameSettings"
+            android:name=".activities.maingame.MainGameSettings"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ChooseGame"
+            android:name=".activities.frommenu.ChooseGame"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Saved"
+            android:name=".activities.frommenu.Saved"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Settings"
+            android:name=".activities.frommenu.Settings"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".GoogleSingIn"
+            android:name=".activities.GoogleSingIn"
             android:exported="true"
             android:screenOrientation="landscape">
             <intent-filter>

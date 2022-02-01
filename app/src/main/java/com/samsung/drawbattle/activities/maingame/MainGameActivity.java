@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities.maingame;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +12,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
-import java.util.concurrent.TimeUnit;
+import com.samsung.drawbattle.classes.KeworkerCanvas;
+import com.samsung.drawbattle.R;
 
 public class MainGameActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -22,7 +23,7 @@ public class MainGameActivity extends Activity
     protected EditText editMainGameText;
     //Red, green, blue, yellow, orange, black, brown, purple
     protected ImageButton r, g, b, y, o, sch, br, p,
-            paintMode, lineMode, eraserMode, stickerAdd ;
+            paintMode, lineMode, eraserMode, stickerAdd;
     protected SeekBar strokeWidth;
     protected KeworkerCanvas canvas;
     protected Button timerView;
@@ -34,12 +35,14 @@ public class MainGameActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
-        timer = new Timer(SECONDS_FOR_ROUND);
-        timer.setSeconds(SECONDS_FOR_ROUND);
-        timer.reload(SECONDS_FOR_ROUND);
         editTextLayout = findViewById(R.id.editTextLayout);
         toolbarLayout = findViewById(R.id.toolbarLayout);
         canvas = findViewById(R.id.canvas);
+        timerView = findViewById(R.id.timerView);
+        timerView.setClickable(false);
+        timer = new Timer(SECONDS_FOR_ROUND);
+        timer.setSeconds(SECONDS_FOR_ROUND);
+        timer.reload(SECONDS_FOR_ROUND);
         findButtonAndSetOnClick(r, R.id.r);
         findButtonAndSetOnClick(g, R.id.g);
         findButtonAndSetOnClick(b, R.id.b);
@@ -52,14 +55,12 @@ public class MainGameActivity extends Activity
         findButtonAndSetOnClick(lineMode, R.id.lineMode);
         findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
         findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
-
-        news = findViewById(R.id.news);
-        news.setOnClickListener(this);
-        findButtonAndSetOnClick(timerView, R.id.timerView);
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
         editMainGameText = findViewById(R.id.editMainGameText);
 
+        news = findViewById(R.id.news);
+        news.setOnClickListener(this);
         //Временно переход по кнопке New, но потом будет по таймеру
     }
 
@@ -269,7 +270,8 @@ public class MainGameActivity extends Activity
         }
 
         public void end() {
-
+            seconds = -1;
+            timerView.setText(R.string.timeStop);
         }
 
         private class MyAsyncTask extends AsyncTask<Void, Integer, String> {

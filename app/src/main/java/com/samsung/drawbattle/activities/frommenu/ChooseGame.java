@@ -1,11 +1,14 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities.frommenu;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.samsung.drawbattle.R;
+import com.samsung.drawbattle.activities.drawtournament.DrawTournamentSettings;
+import com.samsung.drawbattle.activities.maingame.MainGameSettings;
 
 public class ChooseGame extends Activity implements View.OnClickListener {
     Button goToMainGame, goToDrawTournament;

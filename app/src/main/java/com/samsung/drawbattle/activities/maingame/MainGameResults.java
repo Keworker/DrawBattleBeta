@@ -1,7 +1,9 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities.maingame;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.samsung.drawbattle.R;
 
 public class MainGameResults extends Activity {
 

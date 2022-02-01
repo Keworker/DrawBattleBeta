@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.samsung.drawbattle.classes.LocalPersonalData;
+import com.samsung.drawbattle.R;
 
 public class GoogleSingIn extends Activity implements View.OnClickListener {
     protected static SignInButton signInButton;

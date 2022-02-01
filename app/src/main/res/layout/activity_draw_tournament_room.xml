@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DrawTournamentRoom"
+    tools:context=".activities.drawtournament.DrawTournamentRoom"
     android:background="@color/menu_background"
     android:padding="20dp">
     <LinearLayout

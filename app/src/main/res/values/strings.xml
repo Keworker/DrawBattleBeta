@@ -18,4 +18,5 @@
     <string name="mainGame" translatable="true">Complicated story</string>
     <string name="drawTournament" translatable="true">Draw Tournament</string>
     <string name="singOut" translatable="true">Log out with Google</string>
+    <string name="timeStop" translatable="true">Time Stop!</string>
 </resources>

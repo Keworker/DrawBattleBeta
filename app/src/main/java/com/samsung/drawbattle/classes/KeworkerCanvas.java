@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.classes;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.samsung.drawbattle.R;
+import com.samsung.drawbattle.activities.drawtournament.DrawTournamentActivity;
+import com.samsung.drawbattle.activities.maingame.MainGameActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 

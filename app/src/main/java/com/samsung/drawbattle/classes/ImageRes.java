@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.classes;
 
 import android.util.Log;
 import android.widget.ImageView;

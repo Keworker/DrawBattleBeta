@@ -18,4 +18,5 @@
     <string name="mainGame" translatable="true">Запутанная история</string>
     <string name="drawTournament" translatable="true">Турнир рисунков</string>
     <string name="singOut" translatable="true">Выйти из аккаунта Google</string>
+    <string name="timeStop" translatable="true">Время вышло!</string>
 </resources>

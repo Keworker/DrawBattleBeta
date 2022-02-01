@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities.drawtournament;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.samsung.drawbattle.classes.KeworkerCanvas;
+import com.samsung.drawbattle.R;
 
 public class DrawTournamentActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {

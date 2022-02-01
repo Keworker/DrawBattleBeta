@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities.maingame;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.app.FragmentTransaction;
+
+import com.samsung.drawbattle.fragments.FriendFragment;
+import com.samsung.drawbattle.R;
+import com.samsung.drawbattle.fragments.RandFragment;
 
 public class MainGameRoom extends Activity implements View.OnClickListener {
     protected FrameLayout frameLayout;

@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,11 +9,16 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.samsung.drawbattle.activities.frommenu.ChooseGame;
+import com.samsung.drawbattle.activities.frommenu.Saved;
+import com.samsung.drawbattle.activities.frommenu.Settings;
+import com.samsung.drawbattle.classes.ImageRes;
+import com.samsung.drawbattle.classes.LocalPersonalData;
+import com.samsung.drawbattle.R;
 
 public class Menu extends Activity implements View.OnClickListener {
     protected Button settings, start, saved;

@@ -1,4 +1,4 @@
-package com.samsung.drawbattle;
+package com.samsung.drawbattle.activities.frommenu;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.samsung.drawbattle.R;
+import com.samsung.drawbattle.activities.GoogleSingIn;
+import com.samsung.drawbattle.activities.Menu;
 
 public class Settings extends Activity
         implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
