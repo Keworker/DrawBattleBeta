@@ -31,11 +31,14 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_google_sing_in);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
+        display.getSize(size);
         googleImage = findViewById(R.id.googleImage);
         googleImageRes = new ImageRes(R.drawable.google, googleImage,
-                (((size.y / 3.0f) * 196) / 334.0f), size.y / 3.0f);
+                ((size.y / 3.0f) * 334) / 196.0f, size.y / 3.0f);
         sPref = getSharedPreferences("AndroidManifest.xml", 0);
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
@@ -43,8 +46,6 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
             Intent intent = new Intent(this, Menu.class);
             startActivity(intent);
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google_sing_in);
         signInButton = findViewById(R.id.signInButton);
         signInButton.setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions

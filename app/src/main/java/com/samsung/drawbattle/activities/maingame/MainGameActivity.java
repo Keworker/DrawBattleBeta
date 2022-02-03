@@ -330,6 +330,12 @@ public class MainGameActivity extends Activity
             protected String doInBackground(Void... voids) {
                 while (seconds > 0) {
                     seconds--;
+                    try {
+                        Thread.sleep(999);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     publishProgress(seconds);
                 }
                 return "All right";
@@ -343,9 +349,9 @@ public class MainGameActivity extends Activity
             @Override
             protected void onProgressUpdate(Integer... values) {
                 super.onProgressUpdate(values);
-                timerView.setText((values[0] / 60 < 10) ?
+                timerView.setText(((values[0] / 60 < 10) ?
                         ("0" + Integer.toString(values[0] / 60))
-                        : Integer.toString(values[0] / 60) + ":"
+                        : Integer.toString(values[0] / 60) + ":") + ":"
                         + ((values[0] % 60 < 10) ? ("0" + Integer.toString(values[0] % 60))
                         : Integer.toString(values[0] % 60))); //Time like 09:35
             }

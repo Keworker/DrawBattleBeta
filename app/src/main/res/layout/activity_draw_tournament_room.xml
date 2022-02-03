@@ -9,39 +9,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.4"
         android:layout_gravity="top|center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/krug_mihail"
-            android:id="@+id/player0"/>
+            android:id="@+id/player0DB"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/krug_mihail"
-            android:id="@+id/player1"/>
+            android:id="@+id/player1DB"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/krug_mihail"
-            android:id="@+id/player2"/>
+            android:id="@+id/player2DB"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/krug_mihail"
-            android:id="@+id/player3"/>
+            android:id="@+id/player3DB"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/krug_mihail"
-            android:id="@+id/player4"/>
+            android:id="@+id/player4DB"/>
     </LinearLayout>
 
     <FrameLayout
