@@ -11,9 +11,9 @@
     <color name="green">#FF00FF00</color>
     <color name="blue">#FF0000FF</color>
     <color name="yellow">#FFF5DC0F</color>
-    <color name="orange">#FA8C0F</color>
+    <color name="orange">#FFFA8C0F</color>
     <color name="purple">#FF9B1EF5</color>
-    <color name="brown">#64461E</color>
+    <color name="brown">#FF64461E</color>
     <color name="menu_background">#FF9B63F6</color>
     <color name="settings_background">#FF000532</color>
     <color name="button_background">#FF5B00B5</color>

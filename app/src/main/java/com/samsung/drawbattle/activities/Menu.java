@@ -25,7 +25,7 @@ public class Menu extends Activity implements View.OnClickListener {
     public static SharedPreferences readRules;
     public float screenWidth, screenHeight;
     protected ImageRes preview;
-    protected ImageView imagePerview;
+    protected ImageView imagePreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,8 @@ public class Menu extends Activity implements View.OnClickListener {
         display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
-        imagePerview= findViewById(R.id.preview);
-        preview = new ImageRes(R.drawable.preview, imagePerview,
+        imagePreview = findViewById(R.id.preview);
+        preview = new ImageRes(R.drawable.preview, imagePreview,
                 screenWidth / 3 * 2, screenWidth / 3 * 2 / 16 * 9);
         settings = findViewById(R.id.settings);
         settings.setOnClickListener(this);

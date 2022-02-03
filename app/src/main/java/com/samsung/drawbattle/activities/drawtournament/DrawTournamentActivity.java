@@ -2,8 +2,10 @@ package com.samsung.drawbattle.activities.drawtournament;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
 
@@ -28,37 +31,55 @@ public class DrawTournamentActivity extends Activity
     //1 star, 2 stars, 3 stars, ..., 10 stars
     protected ImageButton st1, st2, st3, st4,st5, st6, st7, st8, st9, s10;
     private boolean isClickOnStar = false;
+    protected ImageRes rRes, gRes, bRes, yRes, oRes, schRes, brRes, pRes,
+            paintModeRes, lineModeRes, eraserModeRes;
+    public float screenWidth, screenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tournament = true;
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenWidth = size.x;
+        screenHeight = size.y;
         setContentView(R.layout.activity_draw_tournament);
         canvas = findViewById(R.id.canvas);
+        onCreateSetter();
+    }
+
+    protected void onCreateSetter() {
         question = findViewById(R.id.question);
         toolbarLayout = findViewById(R.id.toolbarLayout);
         gradeLayout = findViewById(R.id.gradeLayout);
-        findButtonAndSetOnClick(st1, R.id.st1);
-        findButtonAndSetOnClick(st2, R.id.st2);
-        findButtonAndSetOnClick(st3, R.id.st3);
-        findButtonAndSetOnClick(st4, R.id.st4);
-        findButtonAndSetOnClick(st5, R.id.st5);
-        findButtonAndSetOnClick(st6, R.id.st6);
-        findButtonAndSetOnClick(st7, R.id.st7);
-        findButtonAndSetOnClick(st8, R.id.st8);
-        findButtonAndSetOnClick(st9, R.id.st9);
-        findButtonAndSetOnClick(s10, R.id.s10);
-        findButtonAndSetOnClick(r, R.id.r);
-        findButtonAndSetOnClick(g, R.id.g);
-        findButtonAndSetOnClick(b, R.id.b);
-        findButtonAndSetOnClick(y, R.id.y);
-        findButtonAndSetOnClick(o, R.id.o);
-        findButtonAndSetOnClick(sch, R.id.sch);
-        findButtonAndSetOnClick(br, R.id.br);
-        findButtonAndSetOnClick(p, R.id.p);
-        findButtonAndSetOnClick(paintMode, R.id.paintMode);
-        findButtonAndSetOnClick(lineMode, R.id.lineMode);
-        findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
+        st1 = findButtonAndSetOnClick(st1, R.id.st1);
+        st2 = findButtonAndSetOnClick(st2, R.id.st2);
+        st3 = findButtonAndSetOnClick(st3, R.id.st3);
+        st4 = findButtonAndSetOnClick(st4, R.id.st4);
+        st5 = findButtonAndSetOnClick(st5, R.id.st5);
+        st6 = findButtonAndSetOnClick(st6, R.id.st6);
+        st7 = findButtonAndSetOnClick(st7, R.id.st7);
+        st8 = findButtonAndSetOnClick(st8, R.id.st8);
+        st9 = findButtonAndSetOnClick(st9, R.id.st9);
+        s10 = findButtonAndSetOnClick(s10, R.id.s10);
+        r = findButtonAndSetOnClick(r, R.id.r);
+        g = findButtonAndSetOnClick(g, R.id.g);
+        b = findButtonAndSetOnClick(b, R.id.b);
+        y = findButtonAndSetOnClick(y, R.id.y);
+        o = findButtonAndSetOnClick(o, R.id.o);
+        sch = findButtonAndSetOnClick(sch, R.id.sch);
+        br = findButtonAndSetOnClick(br, R.id.br);
+        p = findButtonAndSetOnClick(p, R.id.p);
+        paintMode = findButtonAndSetOnClick(paintMode, R.id.paintMode);
+        lineMode = findButtonAndSetOnClick(lineMode, R.id.lineMode);
+        eraserMode = findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
+
+        lineModeRes = new ImageRes(R.drawable.line, lineMode,
+                (screenWidth / 3) / 8 - 0.1f, (screenWidth / 3) / 8 - 0.1f);
+        eraserModeRes = new ImageRes(R.drawable.rubber, eraserMode,
+                (screenWidth / 3) / 8 - 0.1f, (screenWidth / 3) / 8 - 0.1f);
+
         strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
     }
@@ -252,14 +273,16 @@ public class DrawTournamentActivity extends Activity
         }
     }
 
-    private void findButtonAndSetOnClick(Button button, int id) {
+    private Button findButtonAndSetOnClick(Button button, int id) {
         button = findViewById(id);
         button.setOnClickListener(this);
+        return button;
     }
 
-    private void findButtonAndSetOnClick(ImageButton button, int id) {
+    private ImageButton findButtonAndSetOnClick(ImageButton button, int id) {
         button = findViewById(id);
         button.setOnClickListener(this);
+        return button;
     }
 
     @Override

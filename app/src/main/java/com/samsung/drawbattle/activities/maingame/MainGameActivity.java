@@ -2,9 +2,11 @@ package com.samsung.drawbattle.activities.maingame;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
 
@@ -19,7 +22,7 @@ public class MainGameActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     protected final int SECONDS_FOR_ROUND = 90;
     private static byte gameStage;
-    protected LinearLayout editTextLayout, toolbarLayout;
+    protected LinearLayout editTextLayout, toolbarLayout, fullLatyout;
     protected EditText editMainGameText;
     //Red, green, blue, yellow, orange, black, brown, purple
     protected ImageButton r, g, b, y, o, sch, br, p,
@@ -28,6 +31,10 @@ public class MainGameActivity extends Activity
     protected KeworkerCanvas canvas;
     protected Button timerView;
     protected Timer timer;
+    protected ImageRes rRes, gRes, bRes, yRes, oRes, schRes, brRes, pRes,
+            paintModeRes, lineModeRes, eraserModeRes, stickerAddRes;
+    public float screenWidth, screenHeight;
+    private float normalButtonSize;
 
     Button news;
 
@@ -35,33 +42,70 @@ public class MainGameActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
-        editTextLayout = findViewById(R.id.editTextLayout);
-        toolbarLayout = findViewById(R.id.toolbarLayout);
-        canvas = findViewById(R.id.canvas);
-        timerView = findViewById(R.id.timerView);
-        timerView.setClickable(false);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenWidth = size.x;
+        screenHeight = size.y;
+        normalButtonSize = (screenWidth / 3) / 8 - 0.1f;
         timer = new Timer(SECONDS_FOR_ROUND);
         timer.setSeconds(SECONDS_FOR_ROUND);
         timer.reload(SECONDS_FOR_ROUND);
-        findButtonAndSetOnClick(r, R.id.r);
-        findButtonAndSetOnClick(g, R.id.g);
-        findButtonAndSetOnClick(b, R.id.b);
-        findButtonAndSetOnClick(y, R.id.y);
-        findButtonAndSetOnClick(o, R.id.o);
-        findButtonAndSetOnClick(sch, R.id.sch);
-        findButtonAndSetOnClick(br, R.id.br);
-        findButtonAndSetOnClick(p, R.id.p);
-        findButtonAndSetOnClick(paintMode, R.id.paintMode);
-        findButtonAndSetOnClick(lineMode, R.id.lineMode);
-        findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
-        findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
-        strokeWidth = findViewById(R.id.strokeWidth);
-        strokeWidth.setOnSeekBarChangeListener(this);
-        editMainGameText = findViewById(R.id.editMainGameText);
+        canvas = findViewById(R.id.canvas);
+        onCreateSetter();
 
         news = findViewById(R.id.news);
         news.setOnClickListener(this);
         //Временно переход по кнопке New, но потом будет по таймеру
+    }
+
+    protected void onCreateSetter() {
+        editTextLayout = findViewById(R.id.editTextLayout);
+        toolbarLayout = findViewById(R.id.toolbarLayout);
+        fullLatyout = findViewById(R.id.fullLayout);
+        timerView = findViewById(R.id.timerView);
+        timerView.setClickable(false);
+        r = findButtonAndSetOnClick(r, R.id.r);
+        g = findButtonAndSetOnClick(g, R.id.g);
+        b = findButtonAndSetOnClick(b, R.id.b);
+        y = findButtonAndSetOnClick(y, R.id.y);
+        o = findButtonAndSetOnClick(o, R.id.o);
+        sch = findButtonAndSetOnClick(sch, R.id.sch);
+        br = findButtonAndSetOnClick(br, R.id.br);
+        p = findButtonAndSetOnClick(p, R.id.p);
+        paintMode = findButtonAndSetOnClick(paintMode, R.id.paintMode);
+        lineMode = findButtonAndSetOnClick(lineMode, R.id.lineMode);
+        eraserMode = findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
+        stickerAdd = findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
+        fullLatyout.getLayoutParams().height = (int) normalButtonSize +
+                (int) (normalButtonSize * 0.05);
+        rRes = new ImageRes(R.drawable.red, r,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        gRes = new ImageRes(R.drawable.green, g,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        bRes = new ImageRes(R.drawable.blue, b,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        yRes = new ImageRes(R.drawable.yellow, y,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        oRes = new ImageRes(R.drawable.orange, o,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        schRes = new ImageRes(R.drawable.black, sch,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        brRes = new ImageRes(R.drawable.brown, b,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        pRes = new ImageRes(R.drawable.purplre, p,
+                normalButtonSize / 3.0f, normalButtonSize / 3.0f);
+        paintModeRes = new ImageRes(R.drawable.brush, paintMode,
+                normalButtonSize, normalButtonSize);
+        lineModeRes = new ImageRes(R.drawable.line, lineMode,
+                normalButtonSize, normalButtonSize);
+        eraserModeRes = new ImageRes(R.drawable.rubber, eraserMode,
+                normalButtonSize, normalButtonSize);
+        stickerAddRes = new ImageRes(R.drawable.stiker, stickerAdd,
+                normalButtonSize, normalButtonSize);
+        strokeWidth = findViewById(R.id.strokeWidth);
+        strokeWidth.setOnSeekBarChangeListener(this);
+        editMainGameText = findViewById(R.id.editMainGameText);
     }
 
     protected void onGameStageUpdate() {
@@ -235,14 +279,16 @@ public class MainGameActivity extends Activity
         }
     }
 
-    private void findButtonAndSetOnClick(Button button, int id) {
+    private Button findButtonAndSetOnClick(Button button, int id) {
         button = findViewById(id);
         button.setOnClickListener(this);
+        return button;
     }
 
-    private void findButtonAndSetOnClick(ImageButton button, int id) {
+    private ImageButton findButtonAndSetOnClick(ImageButton button, int id) {
         button = findViewById(id);
         button.setOnClickListener(this);
+        return button;
     }
 
     @Override

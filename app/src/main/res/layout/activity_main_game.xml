@@ -31,8 +31,9 @@
         android:layout_weight="4"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/fullLayout"
             android:layout_width="fill_parent"
-            android:layout_height="40sp"
+            android:layout_height="1dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,8 +58,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -67,58 +67,64 @@
                         android:gravity="center">
                         <!--Red-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/r"/>
+                            android:id="@+id/r"
+                            android:layout_weight="1"/>
 
                         <!--Green-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/g"/>
+                            android:id="@+id/g"
+                            android:layout_weight="1"/>
 
                         <!--Blue-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/b"/>
+                            android:id="@+id/b"
+                            android:layout_weight="1"/>
 
                         <!--Yellow-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:id="@+id/y"
-                            android:background="@drawable/krug_mihail"/>
+                            android:layout_weight="1"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:orientation="horizontal"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                        android:layout_weight="1">
                         <!--Orange-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/o"/>
+                            android:id="@+id/o"
+                            android:layout_weight="1"/>
 
                         <!--Black (schwarz)-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/sch"/>
+                            android:id="@+id/sch"
+                            android:layout_weight="1"/>
 
                         <!--Brown-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/br"/>
+                            android:id="@+id/br"
+                            android:layout_weight="1"/>
 
                         <!--Purple-->
                         <ImageButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/p"/>
+                            android:id="@+id/p"
+                            android:layout_weight="1"/>
                     </LinearLayout>
                 </LinearLayout>
 

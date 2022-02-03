@@ -1,6 +1,7 @@
 package com.samsung.drawbattle.classes;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 public class ImageRes {
@@ -14,13 +15,9 @@ public class ImageRes {
         this.width = (int) Math.floor(width);
         this.height = (int) Math.floor(height);
         this.imageView = imageView;
-//        imageView.setMinimumWidth(this.width - 1);
-//        imageView.setMaxWidth(this.width);
-//        imageView.setMinimumHeight(this.height - 1);
-//        imageView.setMaxHeight(this.height);
-//        imageView.setBackgroundResource(resId);
-        Log.d("My", Integer.toString(imageView.getHeight()) + " высота, толщина - " +
-                Integer.toString(imageView.getWidth()));
+        imageView.getLayoutParams().width = (int) width;
+        imageView.getLayoutParams().height = (int) height;
+        imageView.setBackgroundResource(resId);
     }
 
     public int getResId() {
