@@ -91,7 +91,7 @@ public class MainGameActivity extends Activity
                 normalButtonSize / 3.0f, normalButtonSize / 3.0f);
         schRes = new ImageRes(R.drawable.black, sch,
                 normalButtonSize / 3.0f, normalButtonSize / 3.0f);
-        brRes = new ImageRes(R.drawable.brown, b,
+        brRes = new ImageRes(R.drawable.brown, br,
                 normalButtonSize / 3.0f, normalButtonSize / 3.0f);
         pRes = new ImageRes(R.drawable.purplre, p,
                 normalButtonSize / 3.0f, normalButtonSize / 3.0f);

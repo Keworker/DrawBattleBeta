@@ -3,9 +3,13 @@ package com.samsung.drawbattle.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.widget.ImageView;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -13,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.LocalPersonalData;
 import com.samsung.drawbattle.R;
 
@@ -21,9 +26,16 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
     protected static GoogleSignInClient googleSignInClient;
     protected static int RC_SIGN_IN = 0;
     protected static SharedPreferences sPref;
+    protected ImageView googleImage;
+    private ImageRes googleImageRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        googleImage = findViewById(R.id.googleImage);
+        googleImageRes = new ImageRes(R.drawable.google, googleImage,
+                (((size.y / 3.0f) * 196) / 334.0f), size.y / 3.0f);
         sPref = getSharedPreferences("AndroidManifest.xml", 0);
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();

@@ -7,6 +7,11 @@
     tools:context=".activities.GoogleSingIn"
     android:gravity="center"
     android:background="@color/white">
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/googleImage"/>
+
     <com.google.android.gms.common.SignInButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
