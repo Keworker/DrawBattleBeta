@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".activities.frommenu.ChooseGame"
-    android:background="@color/settings_background">
+    android:background="@color/settings_background"
+    android:padding="10dp">
     <androidx.appcompat.widget.AppCompatButton
         style="@style/Buttons"
         android:layout_width="0dp"

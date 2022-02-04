@@ -42,11 +42,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:id="@+id/editTextLayout">
+                android:id="@+id/editTextLayout"
+                android:gravity="center_vertical">
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:hint="@string/editTextHint"
                     android:id="@+id/editMainGameText"/>
             </LinearLayout>

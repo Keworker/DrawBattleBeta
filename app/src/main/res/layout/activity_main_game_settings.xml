@@ -6,21 +6,19 @@
     tools:context=".activities.maingame.MainGameSettings"
     android:background="@color/settings_background"
     android:padding="10dp">
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/Buttons"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="@string/randomW"
-        android:textSize="18sp"
-        android:id="@+id/randomButton"/>
+        android:id="@+id/randomButton"
+        android:text="@string/randomW"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         style="@style/Buttons"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="@string/friendsW"
-        android:textSize="18sp"
-        android:id="@+id/friendButton"/>
+        android:id="@+id/friendButton"
+        android:text="@string/friendsW"/>
 </LinearLayout>
