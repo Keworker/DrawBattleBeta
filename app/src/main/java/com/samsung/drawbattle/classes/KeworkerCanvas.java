@@ -201,6 +201,8 @@ public class KeworkerCanvas extends View {
             line.setARGB(a, r, g, b);
         }
         else {
+            Log.e(KeworkerException.LOG_TAG_EXC, "You cant set this alpha " + a +
+                    ", red " + r + ", green" + g + ", blue" + b + " params");
             throw new KeworkerException();
         }
     }
@@ -216,7 +218,8 @@ public class KeworkerCanvas extends View {
             line.setStrokeWidth(width * MAX_WIDTH / 100);
             eraser.setStrokeWidth(width * MAX_WIDTH / 100);
         }
-        else {
+        else {Log.e(KeworkerException.LOG_TAG_EXC, "You cant set this width "
+                + width + " params");
             throw new KeworkerException();
         }
     }
@@ -314,11 +317,11 @@ public class KeworkerCanvas extends View {
     }
 
     public class KeworkerException extends Exception {
-        protected final String LOG_TAG_EXC = "Exception";
+        public static final String LOG_TAG_EXC = "Exception";
         /*We made our own exception class, because if we use the standard exception class,
                 we will not be able to notice an exception that is not related to our methods*/
         public KeworkerException() {
-            Log.e(LOG_TAG_EXC, "Exception was called because you make mistake while" +
+            Log.e(LOG_TAG_EXC, "Exception was called because you make mistake while " +
                     "write code, Keworker!");
         }
     }

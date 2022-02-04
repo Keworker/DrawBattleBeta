@@ -16,22 +16,31 @@ import com.google.android.gms.tasks.Task;
 import com.samsung.drawbattle.R;
 import com.samsung.drawbattle.activities.GoogleSingIn;
 import com.samsung.drawbattle.activities.Menu;
+import com.samsung.drawbattle.classes.LocalPersonalData;
 
-public class Settings extends Activity
-        implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class Settings extends Activity implements View.OnClickListener {
     protected Button back, singOut;
-    protected RadioGroup theme;
-    protected TextView aboutDev;
+    protected TextView aboutDev, accountName;
     protected boolean sure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        theme = findViewById(R.id.theme);
-        theme.setOnCheckedChangeListener(this);
         singOut = findViewById(R.id.signOut);
         singOut.setOnClickListener(this);
+        accountName = findViewById(R.id.accountName);
+        try {
+            if (LocalPersonalData.getPersonName().equals("")) {
+                throw new NullPointerException();
+            }
+            accountName.setText(LocalPersonalData.getPersonName());
+            singOut.setText(R.string.singOut);
+        }
+        catch (NullPointerException npe) {
+            accountName.setText(R.string.googleTextError);
+            singOut.setText(R.string.googleButtonError);
+        }
         back = findViewById(R.id.back);
         back.setOnClickListener(this);
         aboutDev = findViewById(R.id.aboutDev);
@@ -50,32 +59,17 @@ public class Settings extends Activity
                 break;
             }
             case R.id.signOut: {
-                singOut();
-                GoogleSingIn.setCashFalse();
-                Intent intent = new Intent(this, GoogleSingIn.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
+                createDialog(getString(R.string.app_name), getString(R.string.question));
+                if (sure) {
+                    singOut();
+                    GoogleSingIn.setCashFalse();
+                    Intent intent = new Intent(this, GoogleSingIn.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                }
                 break;
             }
         }
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        //Now this block stoped, because we have not got any color themes
-//        switch (radioGroup.getCheckedRadioButtonId()) {
-//            case R.id.darkTheme:{
-//                createDialog(getString(R.string.app_name), getString(R.string.question));
-//                if (sure) {
-//
-//                }
-//                break;
-//            }
-//            case R.id.lightTheme:{
-//                createDialog(getString(R.string.app_name), getString(R.string.question));
-//                break;
-//            }
-//        }
     }
 
     private void createDialog(String title, String content) {

@@ -55,6 +55,10 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
         googleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
+    public static boolean allreadyLogedIn() {
+        return sPref.getBoolean("alreadySignIn", true);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

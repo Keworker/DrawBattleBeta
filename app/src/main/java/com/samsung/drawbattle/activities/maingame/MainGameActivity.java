@@ -34,7 +34,9 @@ public class MainGameActivity extends Activity
     protected ImageRes rRes, gRes, bRes, yRes, oRes, schRes, brRes, pRes,
             paintModeRes, lineModeRes, eraserModeRes, stickerAddRes;
     public float screenWidth, screenHeight;
-    private float normalButtonSize;
+    private float normalButtonSize, normalLayoutWidth,
+            normalToolbarHeight, normalCanvasHeight;
+    protected LinearLayout mainGameLeftSide, mainGameRightSide;
 
     Button news;
 
@@ -48,10 +50,13 @@ public class MainGameActivity extends Activity
         screenWidth = size.x;
         screenHeight = size.y;
         normalButtonSize = (screenWidth / 3) / 8 - 0.1f;
+        normalLayoutWidth = screenWidth / 5 * 4;
+        normalCanvasHeight = normalLayoutWidth / 16 * 9;
+        normalToolbarHeight = screenHeight - normalCanvasHeight;
         timer = new Timer(SECONDS_FOR_ROUND);
         timer.setSeconds(SECONDS_FOR_ROUND);
         timer.reload(SECONDS_FOR_ROUND);
-        canvas = findViewById(R.id.canvas);
+        gameStage = 0;
         onCreateSetter();
 
         news = findViewById(R.id.news);
@@ -60,11 +65,13 @@ public class MainGameActivity extends Activity
     }
 
     protected void onCreateSetter() {
+        canvas = findViewById(R.id.canvas);
         editTextLayout = findViewById(R.id.editTextLayout);
         toolbarLayout = findViewById(R.id.toolbarLayout);
         fullLatyout = findViewById(R.id.fullLayout);
         timerView = findViewById(R.id.timerView);
-        timerView.setClickable(false);
+        mainGameLeftSide = findViewById(R.id.mainGameLeftSide);
+        mainGameRightSide = findViewById(R.id.mainGameRightSide);
         r = findButtonAndSetOnClick(r, R.id.r);
         g = findButtonAndSetOnClick(g, R.id.g);
         b = findButtonAndSetOnClick(b, R.id.b);
@@ -73,10 +80,23 @@ public class MainGameActivity extends Activity
         sch = findButtonAndSetOnClick(sch, R.id.sch);
         br = findButtonAndSetOnClick(br, R.id.br);
         p = findButtonAndSetOnClick(p, R.id.p);
+        strokeWidth = findViewById(R.id.strokeWidth);
+        editMainGameText = findViewById(R.id.editMainGameText);
+        editMainGameText.setVisibility(View.VISIBLE);
+        toolbarLayout.setVisibility(View.GONE);
+        mainGameLeftSide.getLayoutParams().width = (int) (screenWidth / 5.0f);
         paintMode = findButtonAndSetOnClick(paintMode, R.id.paintMode);
         lineMode = findButtonAndSetOnClick(lineMode, R.id.lineMode);
         eraserMode = findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
         stickerAdd = findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
+        mainGameRightSide.getLayoutParams().width = (int) normalLayoutWidth;
+        toolbarLayout.getLayoutParams().width = (int) normalLayoutWidth;
+        editTextLayout.getLayoutParams().width = (int) normalLayoutWidth;
+        canvas.getLayoutParams().width = (int) normalLayoutWidth;
+        canvas.getLayoutParams().height = (int) normalCanvasHeight;
+        toolbarLayout.getLayoutParams().height = (int) normalToolbarHeight;
+        editTextLayout.getLayoutParams().height = (int) normalToolbarHeight;
+        timerView.setClickable(false);
         fullLatyout.getLayoutParams().height = (int) normalButtonSize +
                 (int) (normalButtonSize * 0.05);
         rRes = new ImageRes(R.drawable.red, r,
@@ -103,31 +123,29 @@ public class MainGameActivity extends Activity
                 normalButtonSize, normalButtonSize);
         stickerAddRes = new ImageRes(R.drawable.stiker, stickerAdd,
                 normalButtonSize, normalButtonSize);
-        strokeWidth = findViewById(R.id.strokeWidth);
         strokeWidth.setOnSeekBarChangeListener(this);
-        editMainGameText = findViewById(R.id.editMainGameText);
     }
 
     protected void onGameStageUpdate() {
         if (gameStage % 2 == 0) {
-
-            toolbarLayout.setVisibility(View.GONE);
-            editTextLayout.setVisibility(View.VISIBLE);
-            gameStage++;
-        }
-        else if (gameStage < 6) {
-
             editTextLayout.setVisibility(View.GONE);
             toolbarLayout.setVisibility(View.VISIBLE);
-            gameStage++;
+        }
+        else if (gameStage < 7) {
+            toolbarLayout.setVisibility(View.GONE);
+            editTextLayout.setVisibility(View.VISIBLE);
         }
         else {
-
             gameStage = 0;
+            toolbarLayout.setVisibility(View.GONE);
+            editTextLayout.setVisibility(View.VISIBLE);
             Intent intent = new Intent(this, MainGameResults.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
+            return;
         }
+        timer.reload(SECONDS_FOR_ROUND);
+        gameStage++;
     }
 
     @Override
@@ -245,9 +263,8 @@ public class MainGameActivity extends Activity
 
                 break;
             }
-            default:{
-                onGameStageUpdate();
-            }
+            default:
+                timer.seconds = 5;
         }
     }
 
@@ -297,7 +314,7 @@ public class MainGameActivity extends Activity
     }
 
     public class Timer  {
-        private int seconds;
+        public int seconds;
 
         public Timer(int seconds) {
             this.seconds = seconds;
@@ -344,6 +361,8 @@ public class MainGameActivity extends Activity
             @Override
             protected void onPostExecute(String unused) {
                 super.onPostExecute(unused);
+                timerView.setText(R.string.timeStop);
+                onGameStageUpdate();
             }
 
             @Override

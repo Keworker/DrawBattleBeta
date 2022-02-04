@@ -21,28 +21,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/theme">
-                <RadioButton
-                    android:text="@string/light"
-                    style="@style/normalText"
-                    android:id="@+id/lightTheme"
-                    android:checked="true"/>
-
-                <RadioButton
-                    android:text="@string/dark"
-                    style="@style/normalText"
-                    android:id="@+id/darkTheme"
-                    android:checked="false"/>
-            </RadioGroup>
 
             <TextView
                 style="@style/normalText"
                 android:text="@string/acc"
                 android:textColor="@color/topic_text"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/topicText"
+                android:id="@+id/accountName"/>
 
             <Button
                 android:layout_width="wrap_content"

@@ -70,13 +70,25 @@ public class Menu extends Activity implements View.OnClickListener {
                 break;
             }
             case R.id.start:{
-                Intent intent = new Intent(this, ChooseGame.class);
+                if (GoogleSingIn.allreadyLogedIn()) {
+                    Intent intent = new Intent(this, ChooseGame.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    break;
+                }
+                Intent intent = new Intent(this, GoogleSingIn.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;
             }
             case R.id.saved:{
-                Intent intent = new Intent(this, Saved.class);
+                if (GoogleSingIn.allreadyLogedIn()) {
+                    Intent intent = new Intent(this, Saved.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    break;
+                }
+                Intent intent = new Intent(this, GoogleSingIn.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 break;

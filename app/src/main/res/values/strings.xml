@@ -12,11 +12,13 @@
     <string name="friendsW" translatable="true">Play with friends</string>
     <string name="randomW" translatable="true">Play with random peoples</string>
     <string name="editTextHint" translatable="true">Write a short story</string>
-    <string name="question" translatable="true">Are you sure want to change them?</string>
+    <string name="question" translatable="true">Are you sure want to log out?</string>
     <string name="yes" translatable="true">Yes</string>
     <string name="no" translatable="true">No</string>
     <string name="mainGame" translatable="true">Complicated story</string>
     <string name="drawTournament" translatable="true">Draw Tournament</string>
     <string name="singOut" translatable="true">Log out with Google</string>
     <string name="timeStop" translatable="true">Time Stop!</string>
+    <string name="googleTextError" translatable="true">You are not signed in to your Google account</string>
+    <string name="googleButtonError" translatable="true">Log in</string>
 </resources>

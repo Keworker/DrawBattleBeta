@@ -18,4 +18,8 @@ public class LocalPersonalData {
         LocalPersonalData.personEmail = personEmail;
         LocalPersonalData.personId = personId;
     }
+
+    public static String getPersonName() {
+        return personName;
+    }
 }

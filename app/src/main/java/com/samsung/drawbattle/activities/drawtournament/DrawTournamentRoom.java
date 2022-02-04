@@ -42,7 +42,7 @@ public class DrawTournamentRoom extends Activity implements View.OnClickListener
         screenHeight = size.y;
         buttonSize = size.y / 9.0f;
         frameLayout = findViewById(R.id.frameLayout);
-        start = findViewById(R.id.start);
+        start = findViewById(R.id.startDB);
         start.setOnClickListener(this);
         player0 = findViewById(R.id.player0DB);
         player0.setOnClickListener(this);
@@ -68,13 +68,13 @@ public class DrawTournamentRoom extends Activity implements View.OnClickListener
         if (DrawTournamentSettings.getIfFriends()) {
             friendFragment = new FriendFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.frameLayout, friendFragment, FRIEND_TAG);
+            fragmentTransaction.add(R.id.frameLayoutDB, friendFragment, FRIEND_TAG);
             fragmentTransaction.commit();
         }
         else {
             randFragment = new RandFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.frameLayout, randFragment, RAND_TAG);
+            fragmentTransaction.add(R.id.frameLayoutDB, randFragment, RAND_TAG);
             fragmentTransaction.commit();
         }
     }

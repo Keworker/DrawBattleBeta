@@ -12,11 +12,13 @@
     <string name="friendsW" translatable="true">Играть с друзьями</string>
     <string name="randomW" translatable="true">Играть со случайными людьми</string>
     <string name="editTextHint" translatable="true">Напишите короткую историю</string>
-    <string name="question" translatable="true">Вы уверены, что хотите сменить тему?</string>
+    <string name="question" translatable="true">Вы уверены, что хотите выйти из аккаунта?</string>
     <string name="yes" translatable="true">Да</string>
     <string name="no" translatable="true">Нет</string>
     <string name="mainGame" translatable="true">Запутанная история</string>
     <string name="drawTournament" translatable="true">Турнир рисунков</string>
     <string name="singOut" translatable="true">Выйти из аккаунта Google</string>
     <string name="timeStop" translatable="true">Время вышло!</string>
+    <string name="googleTextError" translatable="true">Вы не вошли в аккаунт Google</string>
+    <string name="googleButtonError" translatable="true">Войти в аккаунт</string>
 </resources>
