@@ -17,8 +17,10 @@
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_main_game_settings.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_menu.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_settings.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/fragment_toolbar.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/friend_button.xml" value="0.17760416666666667" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

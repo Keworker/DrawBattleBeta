@@ -37,6 +37,11 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:orientation="vertical">
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fcvMG"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+            
             <LinearLayout
                 android:layout_gravity="start"
                 android:layout_width="match_parent"
@@ -50,113 +55,6 @@
                     android:gravity="center_horizontal"
                     android:hint="@string/editTextHint"
                     android:id="@+id/editMainGameText"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_gravity="start"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:id="@+id/toolbarLayout"
-                android:gravity="center">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1"
-                        android:gravity="center">
-                        <!--Red-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/r"
-                            android:layout_weight="1"/>
-
-                        <!--Green-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/g"
-                            android:layout_weight="1"/>
-
-                        <!--Blue-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/b"
-                            android:layout_weight="1"/>
-
-                        <!--Yellow-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/y"
-                            android:layout_weight="1"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
-                        <!--Orange-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/o"
-                            android:layout_weight="1"/>
-
-                        <!--Black (schwarz)-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/sch"
-                            android:layout_weight="1"/>
-
-                        <!--Brown-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/br"
-                            android:layout_weight="1"/>
-
-                        <!--Purple-->
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/p"
-                            android:layout_weight="1"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/paintMode"/>
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lineMode"/>
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/eraserMode"/>
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/stickerAdd"/>
-
-                <SeekBar
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/strokeWidth"/>
             </LinearLayout>
         </LinearLayout>
 

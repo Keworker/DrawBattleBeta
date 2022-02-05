@@ -14,9 +14,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+
 import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
+import com.samsung.drawbattle.fragments.ToolbarFragment;
 
 public class MainGameActivity extends Activity
         implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
@@ -35,6 +39,7 @@ public class MainGameActivity extends Activity
     public float screenWidth, screenHeight;
     private float normalButtonSize, normalLayoutWidth, normalToolbarHeight, normalCanvasHeight;
     protected LinearLayout mainGameLeftSide, mainGameRightSide;
+    protected FragmentContainerView fcv;
 
     Button news;
 
@@ -56,6 +61,8 @@ public class MainGameActivity extends Activity
         timer.reload(SECONDS_FOR_ROUND);
         gameStage = 0;
         onCreateSetter();
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().add(R.id.fcvMG, ToolbarFragment.class, null).commit();
 
         news = findViewById(R.id.news);
         news.setOnClickListener(this);
@@ -64,6 +71,7 @@ public class MainGameActivity extends Activity
 
     protected void onCreateSetter() {
         canvas = findViewById(R.id.canvas);
+        fcv = findViewById(R.id.fcvMG);
         editTextLayout = findViewById(R.id.editTextLayout);
         toolbarLayout = findViewById(R.id.toolbarLayout);
         fullLayout = findViewById(R.id.fullLayout);
@@ -86,14 +94,14 @@ public class MainGameActivity extends Activity
         paintMode = findButtonAndSetOnClick(paintMode, R.id.paintMode);
         lineMode = findButtonAndSetOnClick(lineMode, R.id.lineMode);
         eraserMode = findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
-        stickerAdd = findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
+//        stickerAdd = findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
         mainGameRightSide.getLayoutParams().width = (int) normalLayoutWidth;
         toolbarLayout.getLayoutParams().width = (int) normalLayoutWidth;
         editTextLayout.getLayoutParams().width = (int) normalLayoutWidth;
+        toolbarLayout.getLayoutParams().height = 0;
+        editTextLayout.getLayoutParams().height = (int) normalToolbarHeight;
         canvas.getLayoutParams().width = (int) normalLayoutWidth;
         canvas.getLayoutParams().height = (int) normalCanvasHeight;
-        toolbarLayout.getLayoutParams().height = (int) normalToolbarHeight;
-        editTextLayout.getLayoutParams().height = (int) normalToolbarHeight;
         timerView.setClickable(false);
         fullLayout.getLayoutParams().height = (int) normalButtonSize + (int) (normalToolbarHeight);
         rRes = new ImageRes(R.drawable.red, r, normalButtonSize / 2.0f,
@@ -118,24 +126,24 @@ public class MainGameActivity extends Activity
                 normalButtonSize);
         eraserModeRes = new ImageRes(R.drawable.rubber, eraserMode, normalButtonSize,
                 normalButtonSize);
-        stickerAddRes = new ImageRes(R.drawable.stiker, stickerAdd, normalButtonSize,
-                normalButtonSize);
+//        stickerAddRes = new ImageRes(R.drawable.stiker, stickerAdd, normalButtonSize,
+//                normalButtonSize);
         strokeWidth.setOnSeekBarChangeListener(this);
     }
 
     protected void onGameStageUpdate() {
         if (gameStage % 2 == 0) {
-            editTextLayout.setVisibility(View.GONE);
-            toolbarLayout.setVisibility(View.VISIBLE);
+//            editTextLayout.setVisibility(View.GONE);
+//            toolbarLayout.setVisibility(View.VISIBLE);
         }
         else if (gameStage < 7) {
-            toolbarLayout.setVisibility(View.GONE);
-            editTextLayout.setVisibility(View.VISIBLE);
+//            toolbarLayout.setVisibility(View.GONE);
+//            editTextLayout.setVisibility(View.VISIBLE);
         }
         else {
             gameStage = 0;
-            toolbarLayout.setVisibility(View.GONE);
-            editTextLayout.setVisibility(View.VISIBLE);
+//            toolbarLayout.setVisibility(View.GONE);
+//            editTextLayout.setVisibility(View.VISIBLE);
             Intent intent = new Intent(this, MainGameResults.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
@@ -256,10 +264,10 @@ public class MainGameActivity extends Activity
                 canvas.setEraserMode();
                 break;
             }
-            case R.id.stickerAdd: {
+//            case R.id.stickerAdd: {
 
-                break;
-            }
+//                break;
+//            }
             default:
                 timer.dropTime();
         }
@@ -350,6 +358,17 @@ public class MainGameActivity extends Activity
 
             @Override
             protected String doInBackground(Void... voids) {
+                while (seconds > 0) {
+                    seconds--;
+                    try {
+                        Thread.sleep(999);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    publishProgress(seconds);
+                }
+                seconds = 15;
                 while (seconds > 0) {
                     seconds--;
                     try {
