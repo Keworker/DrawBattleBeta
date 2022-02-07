@@ -37,25 +37,11 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:orientation="vertical">
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fcvMG"
-                android:layout_width="0dp"
-                android:layout_height="0dp"/>
             
-            <LinearLayout
-                android:layout_gravity="start"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:id="@+id/editTextLayout"
-                android:gravity="center_vertical">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:hint="@string/editTextHint"
-                    android:id="@+id/editMainGameText"/>
-            </LinearLayout>
+            <FrameLayout
+                android:layout_height="1dp"
+                android:layout_width="1dp"
+                android:id="@+id/frameLayoutMG"/>
         </LinearLayout>
 
         <com.samsung.drawbattle.classes.KeworkerCanvas

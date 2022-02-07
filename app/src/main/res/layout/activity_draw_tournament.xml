@@ -8,12 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:id="@+id/textLayoutDT">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/topicText"
-            android:id="@+id/question"/>
+            android:id="@+id/questionDT"
+            android:text="@string/wait"/>
             <!--We must set text from Java-->
     </LinearLayout>
 
@@ -22,7 +24,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:id="@+id/toolbarLayout">
+        android:id="@+id/toolbarLayoutDT">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            style="@style/Buttons"
+            android:id="@+id/timerViewDT"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,25 +44,25 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/r"/>
+                    android:id="@+id/rDT"/>
 
                 <!--Green-->
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/g"/>
+                    android:id="@+id/gDT"/>
 
                 <!--Blue-->
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/b"/>
+                    android:id="@+id/bDT"/>
 
                 <!--Yellow-->
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/y"/>
+                    android:id="@+id/yDT"/>
             </LinearLayout>
 
             <LinearLayout
@@ -67,108 +74,50 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/o"/>
+                    android:id="@+id/oDT"/>
 
                 <!--Black (schwarz)-->
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/sch"/>
+                    android:id="@+id/schDT"/>
 
                 <!--Brown-->
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/br"/>
+                    android:id="@+id/brDT"/>
 
                 <!--Purple-->
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/p"/>
+                    android:id="@+id/pDT"/>
             </LinearLayout>
         </LinearLayout>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/paintMode"/>
+            android:id="@+id/paintModeDT"/>
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lineMode"/>
+            android:id="@+id/lineModeDT"/>
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/eraserMode"/>
+            android:id="@+id/eraserModeDT"/>
 
         <SeekBar
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/strokeWidth"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:visibility="gone"
-        android:id="@+id/gradeLayout">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st1"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st2"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st3"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st4"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st5"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st6"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st7"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st8"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/st9"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/s10"/>
+            android:id="@+id/strokeWidthDT"/>
     </LinearLayout>
 
     <com.samsung.drawbattle.classes.KeworkerCanvas
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/canvas"/>
+        android:id="@+id/canvasDT"/>
 </LinearLayout>

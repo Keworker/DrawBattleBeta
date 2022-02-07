@@ -16,27 +16,27 @@
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/player0DB"/>
+            android:id="@+id/player0DT"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/player1DB"/>
+            android:id="@+id/player1DT"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/player2DB"/>
+            android:id="@+id/player2DT"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/player3DB"/>
+            android:id="@+id/player3DT"/>
 
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/player4DB"/>
+            android:id="@+id/player4DT"/>
     </LinearLayout>
 
     <FrameLayout
@@ -44,7 +44,7 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:background="@color/settings_background"
-        android:id="@+id/frameLayoutDB"/>
+        android:id="@+id/frameLayoutDT"/>
 
     <Button
         style="@style/Buttons"
@@ -52,5 +52,5 @@
         android:text="@string/start"
         android:clickable="false"
         android:layout_gravity="bottom|center_horizontal"
-        android:id="@+id/startDB"/>
+        android:id="@+id/startDT"/>
 </LinearLayout>

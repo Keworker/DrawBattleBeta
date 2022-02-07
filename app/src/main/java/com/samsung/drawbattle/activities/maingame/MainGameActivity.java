@@ -1,6 +1,7 @@
 package com.samsung.drawbattle.activities.maingame;
 
-import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
@@ -9,37 +10,34 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
 
 import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
+import com.samsung.drawbattle.fragments.EditTextFragment;
 import com.samsung.drawbattle.fragments.ToolbarFragment;
 
-public class MainGameActivity extends Activity
-        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class MainGameActivity extends FragmentActivity implements View.OnClickListener {
     protected final int SECONDS_FOR_ROUND = 90;
     private static byte gameStage;
     protected LinearLayout editTextLayout, toolbarLayout, fullLayout;
-    protected EditText editMainGameText;
-    //Red, green, blue, yellow, orange, black, brown, purple
-    protected ImageButton r, g, b, y, o, sch, br, p, paintMode, lineMode, eraserMode, stickerAdd;
-    protected SeekBar strokeWidth;
     protected KeworkerCanvas canvas;
     protected Button timerView;
     protected Timer timer;
     protected ImageRes rRes, gRes, bRes, yRes, oRes, schRes, brRes, pRes,
             paintModeRes, lineModeRes, eraserModeRes, stickerAddRes;
     public float screenWidth, screenHeight;
-    private float normalButtonSize, normalLayoutWidth, normalToolbarHeight, normalCanvasHeight;
+    private float normalButtonSize, normalLayoutWidth, normalFragmentHeight, normalCanvasHeight;
     protected LinearLayout mainGameLeftSide, mainGameRightSide;
-    protected FragmentContainerView fcv;
+    protected ToolbarFragment toolbarFragment;
+    protected FrameLayout frameLayout;
+    protected EditTextFragment editTextFragment;
+    protected FragmentTransaction ft;
 
     Button news;
 
@@ -54,15 +52,15 @@ public class MainGameActivity extends Activity
         screenHeight = size.y;
         normalLayoutWidth = screenWidth / 5 * 4;
         normalCanvasHeight = normalLayoutWidth / 16.0f * 9.0f;
-        normalToolbarHeight = screenHeight - normalCanvasHeight;
-        normalButtonSize = (normalToolbarHeight - 5.0f);
+        normalFragmentHeight = screenHeight - normalCanvasHeight;
+        normalButtonSize = (normalFragmentHeight - 5.0f);
         timer = new Timer(SECONDS_FOR_ROUND);
         timer.setSeconds(SECONDS_FOR_ROUND);
         timer.reload(SECONDS_FOR_ROUND);
         gameStage = 0;
         onCreateSetter();
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().add(R.id.fcvMG, ToolbarFragment.class, null).commit();
+        editTextFragment = new EditTextFragment();
+        addFragment(editTextFragment);
 
         news = findViewById(R.id.news);
         news.setOnClickListener(this);
@@ -71,79 +69,54 @@ public class MainGameActivity extends Activity
 
     protected void onCreateSetter() {
         canvas = findViewById(R.id.canvas);
-        fcv = findViewById(R.id.fcvMG);
-        editTextLayout = findViewById(R.id.editTextLayout);
-        toolbarLayout = findViewById(R.id.toolbarLayout);
+        frameLayout = findViewById(R.id.frameLayoutMG);
         fullLayout = findViewById(R.id.fullLayout);
         timerView = findViewById(R.id.timerView);
         mainGameLeftSide = findViewById(R.id.mainGameLeftSide);
         mainGameRightSide = findViewById(R.id.mainGameRightSide);
-        r = findButtonAndSetOnClick(r, R.id.r);
-        g = findButtonAndSetOnClick(g, R.id.g);
-        b = findButtonAndSetOnClick(b, R.id.b);
-        y = findButtonAndSetOnClick(y, R.id.y);
-        o = findButtonAndSetOnClick(o, R.id.o);
-        sch = findButtonAndSetOnClick(sch, R.id.sch);
-        br = findButtonAndSetOnClick(br, R.id.br);
-        p = findButtonAndSetOnClick(p, R.id.p);
-        strokeWidth = findViewById(R.id.strokeWidth);
-        editMainGameText = findViewById(R.id.editMainGameText);
-        editMainGameText.setVisibility(View.VISIBLE);
-        toolbarLayout.setVisibility(View.GONE);
         mainGameLeftSide.getLayoutParams().width = (int) (screenWidth / 5.0f);
-        paintMode = findButtonAndSetOnClick(paintMode, R.id.paintMode);
-        lineMode = findButtonAndSetOnClick(lineMode, R.id.lineMode);
-        eraserMode = findButtonAndSetOnClick(eraserMode, R.id.eraserMode);
-//        stickerAdd = findButtonAndSetOnClick(stickerAdd, R.id.stickerAdd);
         mainGameRightSide.getLayoutParams().width = (int) normalLayoutWidth;
-        toolbarLayout.getLayoutParams().width = (int) normalLayoutWidth;
-        editTextLayout.getLayoutParams().width = (int) normalLayoutWidth;
-        toolbarLayout.getLayoutParams().height = 0;
-        editTextLayout.getLayoutParams().height = (int) normalToolbarHeight;
+        frameLayout.getLayoutParams().width = (int) normalLayoutWidth;
+        frameLayout.getLayoutParams().height = (int) normalFragmentHeight;
         canvas.getLayoutParams().width = (int) normalLayoutWidth;
         canvas.getLayoutParams().height = (int) normalCanvasHeight;
         timerView.setClickable(false);
-        fullLayout.getLayoutParams().height = (int) normalButtonSize + (int) (normalToolbarHeight);
-        rRes = new ImageRes(R.drawable.red, r, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        gRes = new ImageRes(R.drawable.green, g, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        bRes = new ImageRes(R.drawable.blue, b, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        yRes = new ImageRes(R.drawable.yellow, y, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        oRes = new ImageRes(R.drawable.orange, o, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        schRes = new ImageRes(R.drawable.black, sch, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        brRes = new ImageRes(R.drawable.brown, br, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        pRes = new ImageRes(R.drawable.purplre, p, normalButtonSize / 2.0f,
-                normalButtonSize / 2.0f);
-        paintModeRes = new ImageRes(R.drawable.brush, paintMode, normalButtonSize,
-                normalButtonSize);
-        lineModeRes = new ImageRes(R.drawable.line, lineMode, normalButtonSize,
-                normalButtonSize);
-        eraserModeRes = new ImageRes(R.drawable.rubber, eraserMode, normalButtonSize,
-                normalButtonSize);
-//        stickerAddRes = new ImageRes(R.drawable.stiker, stickerAdd, normalButtonSize,
+        fullLayout.getLayoutParams().height = (int) (normalFragmentHeight);
+//        rRes = new ImageRes(R.drawable.red, toolbarFragment.r, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        gRes = new ImageRes(R.drawable.green, toolbarFragment.g, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        bRes = new ImageRes(R.drawable.blue, toolbarFragment.b, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        yRes = new ImageRes(R.drawable.yellow, toolbarFragment.y, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        oRes = new ImageRes(R.drawable.orange, toolbarFragment.o, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        schRes = new ImageRes(R.drawable.black, toolbarFragment.sch, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        brRes = new ImageRes(R.drawable.brown, toolbarFragment.br, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        pRes = new ImageRes(R.drawable.purplre, toolbarFragment.p, normalButtonSize / 2.0f,
+//                normalButtonSize / 2.0f);
+//        paintModeRes = new ImageRes(R.drawable.brush, toolbarFragment.paintMode, normalButtonSize,
 //                normalButtonSize);
-        strokeWidth.setOnSeekBarChangeListener(this);
+//        lineModeRes = new ImageRes(R.drawable.line, toolbarFragment.lineMode, normalButtonSize,
+//                normalButtonSize);
+//        eraserModeRes = new ImageRes(R.drawable.rubber, toolbarFragment.eraserMode, normalButtonSize,
+//                normalButtonSize);
+//        stickerAddRes = new ImageRes(R.drawable.stiker, toolbarFragment.stickerAdd, normalButtonSize,
+//                normalButtonSize);
     }
 
     protected void onGameStageUpdate() {
         if (gameStage % 2 == 0) {
-//            editTextLayout.setVisibility(View.GONE);
-//            toolbarLayout.setVisibility(View.VISIBLE);
+
         }
         else if (gameStage < 7) {
-//            toolbarLayout.setVisibility(View.GONE);
-//            editTextLayout.setVisibility(View.VISIBLE);
+
         }
         else {
             gameStage = 0;
-//            toolbarLayout.setVisibility(View.GONE);
-//            editTextLayout.setVisibility(View.VISIBLE);
             Intent intent = new Intent(this, MainGameResults.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
@@ -156,163 +129,21 @@ public class MainGameActivity extends Activity
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.r: { //Red
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 255, 0, 0);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.g: { //Green
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 0, 255, 0);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.b: { //Blue
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 0, 0, 255);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.y: { //Yellow
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 245, 220, 15);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.o: { //Orange
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 250, 140, 15);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.sch: { //Black (schwarz)
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 0, 0, 0);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.br: { //Brown
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 100, 70, 30);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.p: { //Purple
-                while (true) {
-                    try {
-                        canvas.setPaintARGB(255, 155, 30, 245);
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-            case R.id.paintMode: {
-                canvas.setPaintMode();
-                break;
-            }
-            case R.id.lineMode: {
-                canvas.setLineMode();
-                break;
-            }
-            case R.id.eraserMode: {
-                canvas.setEraserMode();
-                break;
-            }
-//            case R.id.stickerAdd: {
-
-//                break;
-//            }
             default:
+                Log.d("My", editTextFragment.getText());
                 timer.dropTime();
         }
     }
 
+    private void addFragment(Fragment fragment) {
+        ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMG, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
     public static byte getGameStage() {
         return gameStage;
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        switch (seekBar.getId()) {
-            case R.id.strokeWidth: {
-                while (true) {
-                    try {
-                        canvas.setWidth((float) seekBar.getProgress());
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-    }
-
-    private Button findButtonAndSetOnClick(Button button, int id) {
-        button = findViewById(id);
-        button.setOnClickListener(this);
-        return button;
-    }
-
-    private ImageButton findButtonAndSetOnClick(ImageButton button, int id) {
-        button = findViewById(id);
-        button.setOnClickListener(this);
-        return button;
     }
 
     @Override
@@ -339,11 +170,6 @@ public class MainGameActivity extends Activity
             asyncTask.cancel(true);
             asyncTask = new MyAsyncTask();
             asyncTask.execute();
-        }
-
-        public void end() {
-            seconds = -1;
-            timerView.setText(R.string.timeStop);
         }
 
         protected void dropTime() {

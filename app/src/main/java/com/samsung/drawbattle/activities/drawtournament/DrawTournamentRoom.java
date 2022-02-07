@@ -42,25 +42,25 @@ public class DrawTournamentRoom extends Activity implements View.OnClickListener
         screenHeight = size.y;
         buttonSize = size.y / 9.0f;
         frameLayout = findViewById(R.id.frameLayout);
-        start = findViewById(R.id.startDB);
+        start = findViewById(R.id.startDT);
         start.setOnClickListener(this);
-        player0 = findViewById(R.id.player0DB);
+        player0 = findViewById(R.id.player0DT);
         player0.setOnClickListener(this);
         p0Res = new ImageRes(R.drawable.avatar2, player0,
                 buttonSize, buttonSize);
-        player1 = findViewById(R.id.player1DB);
+        player1 = findViewById(R.id.player1DT);
         player1.setOnClickListener(this);
         p1Res = new ImageRes(R.drawable.add_player, player1,
                 buttonSize, buttonSize);
-        player2 = findViewById(R.id.player2DB);
+        player2 = findViewById(R.id.player2DT);
         player2.setOnClickListener(this);
         p2Res = new ImageRes(R.drawable.add_player, player2,
                 buttonSize, buttonSize);
-        player3 = findViewById(R.id.player3DB);
+        player3 = findViewById(R.id.player3DT);
         player3.setOnClickListener(this);
         p3Res = new ImageRes(R.drawable.add_player, player3,
                 buttonSize, buttonSize);
-        player4 = findViewById(R.id.player4DB);
+        player4 = findViewById(R.id.player4DT);
         player4.setOnClickListener(this);
         p4Res = new ImageRes(R.drawable.add_player, player4,
                 buttonSize, buttonSize);
@@ -68,13 +68,13 @@ public class DrawTournamentRoom extends Activity implements View.OnClickListener
         if (DrawTournamentSettings.getIfFriends()) {
             friendFragment = new FriendFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.frameLayoutDB, friendFragment, FRIEND_TAG);
+            fragmentTransaction.add(R.id.frameLayoutDT, friendFragment, FRIEND_TAG);
             fragmentTransaction.commit();
         }
         else {
             randFragment = new RandFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.frameLayoutDB, randFragment, RAND_TAG);
+            fragmentTransaction.add(R.id.frameLayoutDT, randFragment, RAND_TAG);
             fragmentTransaction.commit();
         }
     }
@@ -82,27 +82,27 @@ public class DrawTournamentRoom extends Activity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.player0:{
+            case R.id.player0DT:{
 
                 break;
             }
-            case R.id.player1:{
+            case R.id.player1DT:{
 
                 break;
             }
-            case R.id.player2:{
+            case R.id.player2DT:{
 
                 break;
             }
-            case R.id.player3:{
+            case R.id.player3DT:{
 
                 break;
             }
-            case R.id.player4:{
+            case R.id.player4DT:{
 
                 break;
             }
-            case R.id.start:{
+            case R.id.startDT:{
                 //Условие, что размер массива игроков в комнате равен 6
                 Intent intent = new Intent(this, DrawTournamentActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
