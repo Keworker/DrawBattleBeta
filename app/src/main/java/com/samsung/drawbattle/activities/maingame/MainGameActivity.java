@@ -14,19 +14,18 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentContainerView;
 
 import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
 import com.samsung.drawbattle.fragments.EditTextFragment;
-import com.samsung.drawbattle.fragments.ToolbarFragment;
+import com.samsung.drawbattle.fragments.ToolbarFragmentMG;
 
 public class MainGameActivity extends FragmentActivity implements View.OnClickListener {
     protected final int SECONDS_FOR_ROUND = 90;
     private static byte gameStage;
-    protected LinearLayout editTextLayout, toolbarLayout, fullLayout;
-    protected KeworkerCanvas canvas;
+    protected LinearLayout fullLayout;
+    public static KeworkerCanvas canvas;
     protected Button timerView;
     protected Timer timer;
     protected ImageRes rRes, gRes, bRes, yRes, oRes, schRes, brRes, pRes,
@@ -34,9 +33,9 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
     public float screenWidth, screenHeight;
     private float normalButtonSize, normalLayoutWidth, normalFragmentHeight, normalCanvasHeight;
     protected LinearLayout mainGameLeftSide, mainGameRightSide;
-    protected ToolbarFragment toolbarFragment;
     protected FrameLayout frameLayout;
     protected EditTextFragment editTextFragment;
+    protected ToolbarFragmentMG toolbarFragment;
     protected FragmentTransaction ft;
 
     Button news;
@@ -50,6 +49,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
         display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
+        canvas = findViewById(R.id.canvas);
         normalLayoutWidth = screenWidth / 5 * 4;
         normalCanvasHeight = normalLayoutWidth / 16.0f * 9.0f;
         normalFragmentHeight = screenHeight - normalCanvasHeight;
@@ -60,6 +60,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
         gameStage = 0;
         onCreateSetter();
         editTextFragment = new EditTextFragment();
+        toolbarFragment = new ToolbarFragmentMG();
         addFragment(editTextFragment);
 
         news = findViewById(R.id.news);
@@ -82,40 +83,17 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
         canvas.getLayoutParams().height = (int) normalCanvasHeight;
         timerView.setClickable(false);
         fullLayout.getLayoutParams().height = (int) (normalFragmentHeight);
-//        rRes = new ImageRes(R.drawable.red, toolbarFragment.r, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        gRes = new ImageRes(R.drawable.green, toolbarFragment.g, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        bRes = new ImageRes(R.drawable.blue, toolbarFragment.b, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        yRes = new ImageRes(R.drawable.yellow, toolbarFragment.y, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        oRes = new ImageRes(R.drawable.orange, toolbarFragment.o, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        schRes = new ImageRes(R.drawable.black, toolbarFragment.sch, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        brRes = new ImageRes(R.drawable.brown, toolbarFragment.br, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        pRes = new ImageRes(R.drawable.purplre, toolbarFragment.p, normalButtonSize / 2.0f,
-//                normalButtonSize / 2.0f);
-//        paintModeRes = new ImageRes(R.drawable.brush, toolbarFragment.paintMode, normalButtonSize,
-//                normalButtonSize);
-//        lineModeRes = new ImageRes(R.drawable.line, toolbarFragment.lineMode, normalButtonSize,
-//                normalButtonSize);
-//        eraserModeRes = new ImageRes(R.drawable.rubber, toolbarFragment.eraserMode, normalButtonSize,
-//                normalButtonSize);
-//        stickerAddRes = new ImageRes(R.drawable.stiker, toolbarFragment.stickerAdd, normalButtonSize,
-//                normalButtonSize);
     }
 
     protected void onGameStageUpdate() {
         if (gameStage % 2 == 0) {
-
+            addFragment(toolbarFragment);
         }
         else if (gameStage < 7) {
-
+            addFragment(editTextFragment);
         }
         else {
+            addFragment(editTextFragment);
             gameStage = 0;
             Intent intent = new Intent(this, MainGameResults.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -130,8 +108,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             default:
-                Log.d("My", editTextFragment.getText());
-                timer.dropTime();
+                onGameStageUpdate();
         }
     }
 
