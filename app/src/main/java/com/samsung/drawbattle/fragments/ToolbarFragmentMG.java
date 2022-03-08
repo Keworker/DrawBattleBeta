@@ -6,10 +6,15 @@ import android.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.SeekBar;
+
+import androidx.annotation.Nullable;
 
 import com.samsung.drawbattle.R;
 import com.samsung.drawbattle.activities.maingame.MainGameActivity;
@@ -25,14 +30,14 @@ public class ToolbarFragmentMG extends Fragment
             paintModeRes, lineModeRes, eraserModeRes, stickerAddRes;
     protected SeekBar strokeWidth;
     protected KeworkerCanvas canvas;
+    protected LinearLayout colors;
     protected int colorButtonSize, modeButtonSize;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_text, container, false);
+        View view = inflater.inflate(R.layout.fragment_toolbar_mg, container, false);
         r = view.findViewById(R.id.rMGF);
-        Log.d("My", Integer.toString(r.getId()));
         g = view.findViewById(R.id.gMGF);
         b = view.findViewById(R.id.bMGF);
         y = view.findViewById(R.id.yMGF);
@@ -59,10 +64,15 @@ public class ToolbarFragmentMG extends Fragment
         eraserMode.setOnClickListener(this);
         stickerAdd.setOnClickListener(this);
         strokeWidth.setOnSeekBarChangeListener(this);
-        return inflater.inflate(R.layout.fragment_edit_text, container, false);
+        colors = view.findViewById(R.id.colors);
+        setLayoutValues();
+        return view;
     }
 
-    public void setLayoutValues(int colorButtonSize, int modeButtonSize) {
+    public void setLayoutValues() {
+        modeButtonSize = (int) MainGameActivity.normalButtonSize;
+        colorButtonSize = (int) (modeButtonSize / 2.0f);
+        colors.getLayoutParams().width = colorButtonSize * 4 + 4;
         rRes = new ImageRes(R.drawable.red, r, colorButtonSize, colorButtonSize);
         gRes = new ImageRes(R.drawable.green, g, colorButtonSize, colorButtonSize);
         bRes = new ImageRes(R.drawable.blue, b, colorButtonSize, colorButtonSize);
@@ -79,6 +89,79 @@ public class ToolbarFragmentMG extends Fragment
                 modeButtonSize, modeButtonSize);
         stickerAddRes = new ImageRes(R.drawable.stiker, stickerAdd,
                 modeButtonSize, modeButtonSize);
+    }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+        popupMenu.inflate(R.menu.popupmenu);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.st1: {
+                        try {
+                            canvas.setStickerMode((short) 1);
+                            return true;
+                        }
+                        catch (KeworkerCanvas.KeworkerException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                    case R.id.st2: {
+                        try {
+                            canvas.setStickerMode((short) 2);
+                            return true;
+                        }
+                        catch (KeworkerCanvas.KeworkerException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                    case R.id.st3: {
+                        try {
+                            canvas.setStickerMode((short) 3);
+                            return true;
+                        }
+                        catch (KeworkerCanvas.KeworkerException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                    case R.id.st4: {
+                        try {
+                            canvas.setStickerMode((short) 4);
+                            return true;
+                        }
+                        catch (KeworkerCanvas.KeworkerException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                    case R.id.st5: {
+                        try {
+                            canvas.setStickerMode((short) 5);
+                            return true;
+                        }
+                        catch (KeworkerCanvas.KeworkerException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                    case R.id.st6: {
+                        try {
+                            canvas.setStickerMode((short) 6);
+                            return true;
+                        }
+                        catch (KeworkerCanvas.KeworkerException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -177,7 +260,7 @@ public class ToolbarFragmentMG extends Fragment
                 break;
             }
             case R.id.stickerAddMGF: {
-
+                showPopupMenu(view);
                 break;
             }
         }

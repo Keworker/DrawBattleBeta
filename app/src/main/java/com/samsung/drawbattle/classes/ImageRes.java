@@ -1,7 +1,5 @@
 package com.samsung.drawbattle.classes;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.widget.ImageView;
 
 public class ImageRes {

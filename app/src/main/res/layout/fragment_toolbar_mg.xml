@@ -14,63 +14,64 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:id="@+id/colors">
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
                 <!--Red-->
                 <ImageButton
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:id="@+id/rMGF"/>
 
                 <!--Green-->
                 <ImageButton
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:id="@+id/gMGF"/>
 
                 <!--Blue-->
                 <ImageButton
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:id="@+id/bMGF"/>
 
                 <!--Yellow-->
                 <ImageButton
                     android:id="@+id/yMGF"
-                    android:layout_width="1dp"
-                    android:layout_height="1dp" />
+                    android:layout_width="10dp"
+                    android:layout_height="10dp" />
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
                 <!--Orange-->
                 <ImageButton
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:id="@+id/oMGF"/>
 
                 <!--Black (schwarz)-->
                 <ImageButton
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:id="@+id/schMGF"/>
 
                 <!--Brown-->
                 <ImageButton
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:id="@+id/brMGF"/>
 
                 <!--Purple-->
                 <ImageButton
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:id="@+id/pMGF"/>
             </LinearLayout>
         </LinearLayout>

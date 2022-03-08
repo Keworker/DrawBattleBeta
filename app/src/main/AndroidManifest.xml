@@ -35,8 +35,14 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.maingame.MainGameActivity"
-            android:exported="false"
-            android:screenOrientation="landscape" />
+            android:exported="true"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.maingame.MainGameRoom"
             android:exported="false"
@@ -59,13 +65,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.GoogleSingIn"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

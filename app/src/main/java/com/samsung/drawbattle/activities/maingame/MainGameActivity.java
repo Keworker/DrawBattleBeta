@@ -31,7 +31,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
     protected ImageRes rRes, gRes, bRes, yRes, oRes, schRes, brRes, pRes,
             paintModeRes, lineModeRes, eraserModeRes, stickerAddRes;
     public float screenWidth, screenHeight;
-    private float normalButtonSize, normalLayoutWidth, normalFragmentHeight, normalCanvasHeight;
+    public static float normalButtonSize, normalLayoutWidth, normalFragmentHeight, normalCanvasHeight;
     protected LinearLayout mainGameLeftSide, mainGameRightSide;
     protected FrameLayout frameLayout;
     protected EditTextFragment editTextFragment;
@@ -108,6 +108,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             default:
+                timer.dropTime();
                 onGameStageUpdate();
         }
     }
@@ -166,9 +167,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
                     try {
                         Thread.sleep(999);
                     }
-                    catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    catch (InterruptedException e) {}
                     publishProgress(seconds);
                 }
                 seconds = 15;
@@ -177,9 +176,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
                     try {
                         Thread.sleep(999);
                     }
-                    catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    catch (InterruptedException e) {}
                     publishProgress(seconds);
                 }
                 return "All right";
@@ -196,10 +193,12 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
             protected void onProgressUpdate(Integer... values) {
                 super.onProgressUpdate(values);
                 timerView.setText(((values[0] / 60 < 10) ?
-                        ("0" + Integer.toString(values[0] / 60)) :
-                        Integer.toString(values[0] / 60) + ":") + ":" +
-                        ((values[0] % 60 < 10) ? ("0" + Integer.toString(values[0] % 60))
-                        : Integer.toString(values[0] % 60))); //Time like 09:35
+                        ("0" + values[0] / 60) :
+                        values[0] / 60 + ":") +
+                        ":" +
+                        ((values[0] % 60 < 10) ?
+                        ("0" + values[0] % 60) :
+                        values[0] % 60)); //Time like 09:35
             }
         }
     }

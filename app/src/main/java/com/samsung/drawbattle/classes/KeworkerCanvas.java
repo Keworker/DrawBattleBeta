@@ -33,6 +33,7 @@ public class KeworkerCanvas extends View {
     private final float TOUCH_TOLERANCE = 4;
     protected Line curLine;
     protected KeworkerPath curPath;
+    protected short stickNumb;
 
     public KeworkerCanvas(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -245,6 +246,17 @@ public class KeworkerCanvas extends View {
         paintMode = false;
         lineMode = false;
         eraserMode = true;
+    }
+
+    public void setStickerMode(short stickNumb) throws KeworkerException {
+        if (stickNumb < 1 || stickNumb > 6) {
+            throw new KeworkerException("We haven't sticker with number " +
+                    stickNumb + ", I'm sorry.");
+        }
+        else {
+            this.stickNumb = stickNumb;
+            stickerAdd = true;
+        }
     }
 
     public class Line implements Drawable {
