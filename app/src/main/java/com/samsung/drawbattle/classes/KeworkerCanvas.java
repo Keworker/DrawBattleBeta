@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.samsung.drawbattle.R;
 import com.samsung.drawbattle.activities.drawtournament.DrawTournamentActivity;
@@ -38,10 +39,9 @@ public class KeworkerCanvas extends View {
     protected Sticker curSticker;
     protected short stickNumb;
     protected static int[] stickId = {R.drawable.sticker1, R.drawable.sticker2, R.drawable.sticker3,
-            R.drawable.sticker4, R.drawable.sticker5, R.drawable.sticker6};
+            R.drawable.sticker4, R.drawable.sticker6, R.drawable.sticker5};
     private float stickerX1, stickerY1,
-            stickerX2, stickerY2,
-            stickerNX, stickerNY;
+            stickerX2, stickerY2;
 
     public KeworkerCanvas(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -65,8 +65,8 @@ public class KeworkerCanvas extends View {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
+    protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+        super.onSizeChanged(w, h, oldW, oldH);
         bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
     }
@@ -108,14 +108,16 @@ public class KeworkerCanvas extends View {
                         stickerFirstTouchFlag = false;
                         invalidate();
                     }
-                    stickerX1 = event.getX();
-                    stickerY1 = event.getY();
                     break;
                 }
 
                 case MotionEvent.ACTION_POINTER_DOWN: {
-                    stickerX2 = event.getX();
-                    stickerY2 = event.getY();
+                    if (stickerAdd) {
+                        stickerX1 = event.getX(0);
+                        stickerY1 = event.getY(0);
+                        stickerX2 = event.getX(1);
+                        stickerY2 = event.getY(1);
+                    }
                     break;
                 }
 
@@ -199,7 +201,7 @@ public class KeworkerCanvas extends View {
         float dy = Math.abs(y - eraserY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
             curPath.path.quadTo(eraserX, eraserY,
-                    (x + eraserX)/2, (y + eraserY)/2);
+                    (x + eraserX) / 2, (y + eraserY) / 2);
             eraserX = x;
             eraserY = y;
         }
@@ -262,18 +264,21 @@ public class KeworkerCanvas extends View {
         paintMode = true;
         lineMode = false;
         eraserMode = false;
+        stickerAdd = false;
     }
 
     public void setLineMode() {
         paintMode = false;
         lineMode = true;
         eraserMode = false;
+        stickerAdd = false;
     }
 
     public void setEraserMode() {
         paintMode = false;
         lineMode = false;
         eraserMode = true;
+        stickerAdd = false;
     }
 
     public void setStickerMode(short stickNumb) throws KeworkerException {
@@ -292,12 +297,12 @@ public class KeworkerCanvas extends View {
     }
 
     public double pi(float x1, float y1, float x2, float y2) {
-        return Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2));
+       return Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2));
     }
 
     public class Line implements Drawable {
-        public float x1, y1, x2, y2;
-        public Paint paint;
+        private float x1, y1, x2, y2;
+        private Paint paint;
 
         public Line(float x1, float y1) {
             this.x1 = x1;
@@ -330,10 +335,10 @@ public class KeworkerCanvas extends View {
     }
 
     public class KeworkerPath implements Drawable, Cloneable {
-        Paint bitmapPaint;
-        Bitmap bitmap;
-        Paint paint;
-        Path path;
+        private Paint bitmapPaint;
+        private Bitmap bitmap;
+        private Paint paint;
+        private Path path;
 
         public KeworkerPath(Paint paint, Path path, Bitmap bitmap, Paint bitmapPaint) {
             this.paint = new Paint();
@@ -359,32 +364,41 @@ public class KeworkerCanvas extends View {
     }
 
     public class Sticker implements Drawable {
-        Bitmap bitmap;
-        float x, y;
-        Paint paint;
+        private Bitmap bitmap;
+        private float x, y;
+        private Paint paint;
+        private int id;
+        private int width, height;
 
         public Sticker(int id, int width, int height,
                        float x, float y) {
             paint = new Paint();
+            this.id = id;
             bitmap = BitmapFactory.decodeResource(getResources(), id);
             bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
-            this.x = x - bitmap.getWidth() / 2f;
-            this.y = y - bitmap.getHeight() / 2f;
+            this.x = x;
+            this.y = y;
         }
 
         public void resetWH(double s1, double s2) {
-            int wh = (int) ((s2 * bitmap.getWidth()) / s1);
-            bitmap.setWidth(wh); bitmap.setHeight(wh);
+            int wh = (int) Math.floor((s2 * bitmap.getWidth()) / s1);
+            if (wh < 100 || wh > 2000) {
+                Toast.makeText(getContext(), R.string.toastSticker, Toast.LENGTH_LONG).show();
+            }
+            else {
+                bitmap = BitmapFactory.decodeResource(getResources(), id);
+                bitmap = Bitmap.createScaledBitmap(bitmap, wh, wh, true);
+            }
         }
-
         public void resetXY(float x, float y) {
-            this.x = x - bitmap.getWidth() / 2f;
-            this.y = y - bitmap.getHeight() / 2f;
+            this.x = x;
+            this.y = y;
         }
 
         @Override
         public void onDraw(Canvas canvas) {
-            canvas.drawBitmap(bitmap, x, y, paint);
+            canvas.drawBitmap(bitmap, (x - (bitmap.getWidth() / 2f)),
+                    (y - bitmap.getHeight() / 2f), paint);
         }
     }
 

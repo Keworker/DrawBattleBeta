@@ -22,5 +22,5 @@
     <string name="googleTextError" translatable="true">Вы не вошли в аккаунт Google</string>
     <string name="googleButtonError" translatable="true">Войти в аккаунт</string>
     <string name="wait" translatable="true">Пожалуйста, подождите</string>
-
+    <string name="toastSticker" translatable="true">Простите, мы не можем поставить этот размер стикеру</string>
 </resources>
