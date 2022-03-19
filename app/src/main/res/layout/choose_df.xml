@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="272dp"
+    android:layout_width="300dp"
     android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -16,21 +16,21 @@
             android:layout_margin="5dp"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/sticker1"
+            android:background="@drawable/sticker1"
             android:id="@+id/sticker1DF"/>
 
         <ImageButton
             android:layout_margin="5dp"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/sticker2"
+            android:background="@drawable/sticker2"
             android:id="@+id/sticker2DF"/>
 
         <ImageButton
             android:layout_margin="5dp"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/sticker3"
+            android:background="@drawable/sticker3"
             android:id="@+id/sticker3DF"/>
     </LinearLayout>
 
@@ -44,21 +44,21 @@
             android:layout_margin="5dp"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/sticker4"
+            android:background="@drawable/sticker4"
             android:id="@+id/sticker4DF"/>
 
         <ImageButton
             android:layout_margin="5dp"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/sticker5"
-            android:id="@+id/sticker5DF"/>
+            android:background="@drawable/sticker5"
+            android:id="@+id/sticker6DF"/>
 
         <ImageButton
             android:layout_margin="5dp"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:src="@drawable/sticker6"
-            android:id="@+id/sticker6DF"/>
+            android:background="@drawable/sticker6"
+            android:id="@+id/sticker5DF"/>
     </LinearLayout>
 </LinearLayout>
