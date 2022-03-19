@@ -2,6 +2,7 @@ package com.samsung.drawbattle.classes;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -22,8 +23,9 @@ import java.util.List;
 public class KeworkerCanvas extends View {
     protected Paint paint, line, eraser;
     protected List<Drawable> lines = new ArrayList<>();
-    protected final int MAX_ARGB = 255, MAX_WIDTH = 80;
-    protected boolean paintMode = true, lineMode = false, eraserMode = false, stickerAdd = false;
+    protected final int MAX_ARGB = 255, MAX_WIDTH = 80, STANDARD_STICKER_SIZE = 500;
+    protected boolean paintMode = true, lineMode = false, eraserMode = false, stickerAdd = false,
+            stickerFirstTouchFlag = true;
     protected Paint bitmapPaint, bitmapEraser;
     protected Canvas canvas;
     protected Bitmap bitmap;
@@ -33,7 +35,13 @@ public class KeworkerCanvas extends View {
     private final float TOUCH_TOLERANCE = 4;
     protected Line curLine;
     protected KeworkerPath curPath;
+    protected Sticker curSticker;
     protected short stickNumb;
+    protected static int[] stickId = {R.drawable.sticker1, R.drawable.sticker2, R.drawable.sticker3,
+            R.drawable.sticker4, R.drawable.sticker5, R.drawable.sticker6};
+    private float stickerX1, stickerY1,
+            stickerX2, stickerY2,
+            stickerNX, stickerNY;
 
     public KeworkerCanvas(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -92,9 +100,22 @@ public class KeworkerCanvas extends View {
                         curPath = (KeworkerPath) lines.get(lines.size() - 1);
                         invalidate();
                     }
-                    else if (stickerAdd) {
-
+                    else if (stickerAdd && stickerFirstTouchFlag) {
+                        curSticker = new Sticker(stickId[stickNumb],
+                                STANDARD_STICKER_SIZE, STANDARD_STICKER_SIZE,
+                                event.getX(), event.getY());
+                        lines.add(curSticker);
+                        stickerFirstTouchFlag = false;
+                        invalidate();
                     }
+                    stickerX1 = event.getX();
+                    stickerY1 = event.getY();
+                    break;
+                }
+
+                case MotionEvent.ACTION_POINTER_DOWN: {
+                    stickerX2 = event.getX();
+                    stickerY2 = event.getY();
                     break;
                 }
 
@@ -109,7 +130,14 @@ public class KeworkerCanvas extends View {
                         onEraserActionMove(event.getX(), event.getY());
                     }
                     else if (stickerAdd) {
-
+                        if (event.getPointerCount() == 1) {
+                            curSticker.resetXY(event.getX(), event.getY());
+                        }
+                        else {
+                            curSticker.resetWH(pi(stickerX1, stickerY1, stickerX2, stickerY2),
+                                    pi(event.getX(0), event.getY(0),
+                                            event.getX(1), event.getY(1)));
+                        }
                     }
                     invalidate();
                     break;
@@ -254,9 +282,17 @@ public class KeworkerCanvas extends View {
                     stickNumb + ", I'm sorry.");
         }
         else {
-            this.stickNumb = stickNumb;
+            this.stickNumb = (short) (stickNumb - 1);
+            stickerFirstTouchFlag = true;
             stickerAdd = true;
+            paintMode = false;
+            lineMode = false;
+            eraserMode = false;
         }
+    }
+
+    public double pi(float x1, float y1, float x2, float y2) {
+        return Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2));
     }
 
     public class Line implements Drawable {
@@ -319,6 +355,36 @@ public class KeworkerCanvas extends View {
         public void onDraw(Canvas canvas) {
             canvas.drawBitmap(bitmap, 0, 0, bitmapPaint);
             canvas.drawPath(this.path, paint);
+        }
+    }
+
+    public class Sticker implements Drawable {
+        Bitmap bitmap;
+        float x, y;
+        Paint paint;
+
+        public Sticker(int id, int width, int height,
+                       float x, float y) {
+            paint = new Paint();
+            bitmap = BitmapFactory.decodeResource(getResources(), id);
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+            this.x = x - bitmap.getWidth() / 2f;
+            this.y = y - bitmap.getHeight() / 2f;
+        }
+
+        public void resetWH(double s1, double s2) {
+            int wh = (int) ((s2 * bitmap.getWidth()) / s1);
+            bitmap.setWidth(wh); bitmap.setHeight(wh);
+        }
+
+        public void resetXY(float x, float y) {
+            this.x = x - bitmap.getWidth() / 2f;
+            this.y = y - bitmap.getHeight() / 2f;
+        }
+
+        @Override
+        public void onDraw(Canvas canvas) {
+            canvas.drawBitmap(bitmap, x, y, paint);
         }
     }
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="272dp"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/menu_background"
+    app:layout_constraintCircleRadius="8dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageButton
+            android:layout_margin="5dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/sticker1"
+            android:id="@+id/sticker1DF"/>
+
+        <ImageButton
+            android:layout_margin="5dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/sticker2"
+            android:id="@+id/sticker2DF"/>
+
+        <ImageButton
+            android:layout_margin="5dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/sticker3"
+            android:id="@+id/sticker3DF"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageButton
+            android:layout_margin="5dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/sticker4"
+            android:id="@+id/sticker4DF"/>
+
+        <ImageButton
+            android:layout_margin="5dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/sticker5"
+            android:id="@+id/sticker5DF"/>
+
+        <ImageButton
+            android:layout_margin="5dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/sticker6"
+            android:id="@+id/sticker6DF"/>
+    </LinearLayout>
+</LinearLayout>
