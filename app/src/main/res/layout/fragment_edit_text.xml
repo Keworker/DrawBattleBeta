@@ -7,7 +7,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/edittextFr"
+        android:id="@+id/editTextFR"
         android:hint="@string/editTextHint"
         android:gravity="center"/>
 </FrameLayout>

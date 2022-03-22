@@ -1,6 +1,9 @@
 package com.samsung.drawbattle.activities.maingame;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Point;
@@ -8,13 +11,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.samsung.drawbattle.activities.dialogfragments.ShowTextDF;
 import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
@@ -37,6 +43,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
     protected EditTextFragment editTextFragment;
     protected ToolbarFragmentMG toolbarFragment;
     protected FragmentTransaction ft;
+    String etRes;
 
     Button news;
 
@@ -86,17 +93,23 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
     }
 
     protected void onGameStageUpdate() {
-        if (gameStage % 2 == 0) {
-            addFragment(toolbarFragment);
-        }
-        else if (gameStage < 7) {
-            addFragment(editTextFragment);
+        if (gameStage < 5) {
+            if (gameStage % 2 == 0) {
+                etRes = editTextFragment.getText();
+                addFragment(toolbarFragment);
+                ShowTextDF df = new ShowTextDF();
+                df.setText(etRes);
+                FragmentManager manager = getFragmentManager();
+                df.show(manager, "ShowMeText");
+            }
+            else {
+                addFragment(editTextFragment);
+            }
         }
         else {
-            addFragment(editTextFragment);
-            gameStage = 0;
+            gameStage = -1;
             Intent intent = new Intent(this, MainGameResults.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             return;
         }

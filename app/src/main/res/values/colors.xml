@@ -19,4 +19,6 @@
     <color name="button_background">#FF5B00B5</color>
     <color name="topic_text">#FFC7CAFF</color>
     <color name="normal_text">#FF8468FF</color>
+    <color name="light_black">#605E6E</color>
+    <color name="result_blue">#FF2040BB</color>
 </resources>

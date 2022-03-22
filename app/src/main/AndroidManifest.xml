@@ -13,14 +13,22 @@
         android:theme="@style/DrawBattle">
         <activity
             android:name=".activities.maingame.MainGameResults"
-            android:exported="false" />
-        <activity
-            android:name=".activities.drawtournament.DrawTournamentResults"
-            android:exported="false" />
-        <activity
-            android:name=".activities.Menu"
             android:exported="false"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.drawtournament.DrawTournamentResults"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.Menu"
+            android:exported="true"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.drawtournament.DrawTournamentActivity"
             android:exported="false"
@@ -35,14 +43,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.maingame.MainGameActivity"
-            android:exported="true"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".activities.maingame.MainGameRoom"
             android:exported="false"
@@ -66,8 +68,7 @@
         <activity
             android:name=".activities.GoogleSingIn"
             android:exported="false"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

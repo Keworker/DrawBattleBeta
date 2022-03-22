@@ -56,7 +56,12 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
     }
 
     public static boolean allreadyLogedIn() {
-        return sPref.getBoolean("alreadySignIn", true);
+        try {
+            return sPref.getBoolean("alreadySignIn", true);
+        }
+        catch (NullPointerException e) {
+            return false;
+        }
     }
 
     @Override

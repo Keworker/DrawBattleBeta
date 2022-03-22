@@ -23,4 +23,7 @@
     <string name="googleButtonError" translatable="true">Войти в аккаунт</string>
     <string name="wait" translatable="true">Пожалуйста, подождите</string>
     <string name="toastSticker" translatable="true">Простите, мы не можем поставить этот размер стикеру</string>
+    <string name="exit" translatable="true">Выйти</string>
+    <string name="accept" translatable="true">Продолжить</string>
+    <string name="drawIt">Нарисуйте это!</string>
 </resources>

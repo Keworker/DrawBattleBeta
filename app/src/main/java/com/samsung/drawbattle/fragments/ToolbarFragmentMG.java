@@ -193,7 +193,7 @@ public class ToolbarFragmentMG extends Fragment
             case R.id.stickerAddMGF: {
                 FragmentManager manager = getActivity().getFragmentManager();
                 ChooseDF df = new ChooseDF();
-                df.show(manager, "myDialog");
+                df.show(manager, "ChooseSticker");
                 break;
             }
         }

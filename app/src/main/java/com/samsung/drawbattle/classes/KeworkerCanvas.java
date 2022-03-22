@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RecordingCanvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -295,6 +296,11 @@ public class KeworkerCanvas extends View {
             eraserMode = false;
         }
     }
+
+//    public Bitmap toBitmap() {
+//        return Bitmap.createBitmap((int) MainGameActivity.normalLayoutWidth,
+//                (int) MainGameActivity.normalCanvasHeight, Bitmap.Config.RGB_565);
+//    }
 
     public double pi(float x1, float y1, float x2, float y2) {
        return Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2));

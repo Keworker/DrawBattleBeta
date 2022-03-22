@@ -22,5 +22,9 @@
     <string name="googleTextError" translatable="true">You are not signed in to your Google account</string>
     <string name="googleButtonError" translatable="true">Log in</string>
     <string name="wait" translatable="true">Please, wait</string>
-    <string name="toastSticker" translatable="true">Sorry, we can nott set this size for your sticker</string>
+    <string name="toastSticker" translatable="true">Sorry, we can not set this size for your sticker</string>
+    <string name="exit" translatable="true">Exit</string>
+    <string name="nick" translatable="false">Nickname</string>
+    <string name="accept" translatable="true">Accept</string>
+    <string name="drawIt">Draw It!</string>
 </resources>
