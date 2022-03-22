@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:id="@+id/l"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:orientation="horizontal"
+                android:id="@+id/stsDTF">
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:orientation="vertical"
+                    android:id="@+id/leftStDTF">
+                    <!--Orange-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/oDTF"/>
+
+                    <!--Black (schwarz)-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/schDTF"/>
+
+                    <!--Brown-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/brDTF"/>
+
+                    <!--Purple-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/pDTF"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:orientation="vertical"
+                    android:id="@+id/rightStDTF">
+                    <!--Red-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/rDTF"/>
+
+                    <!--Green-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/gDTF"/>
+
+                    <!--Blue-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/bDTF"/>
+
+                    <!--Yellow-->
+                    <ImageButton
+                        android:layout_width="1dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/yDTF"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:id="@+id/paintModeDTF"/>
+
+            <ImageButton
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:id="@+id/lineModeDTF"/>
+
+            <ImageButton
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:id="@+id/eraserModeDTF"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <SeekBar
+                android:id="@+id/strokeWidthDTF"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:rotation="-90"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

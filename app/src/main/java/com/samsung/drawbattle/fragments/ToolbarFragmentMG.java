@@ -73,7 +73,7 @@ public class ToolbarFragmentMG extends Fragment
         return view;
     }
 
-    public void setLayoutValues() {
+    private void setLayoutValues() {
         modeButtonSize = (int) MainGameActivity.normalButtonSize;
         colorButtonSize = (int) (modeButtonSize / 2.0f);
         colors.getLayoutParams().width = colorButtonSize * 4 + 4;
@@ -220,7 +220,6 @@ public class ToolbarFragmentMG extends Fragment
             }
         }
     }
-
 
     public static class ChooseDF extends DialogFragment implements View.OnClickListener {
         @Override

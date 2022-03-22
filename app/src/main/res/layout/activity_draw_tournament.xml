@@ -7,117 +7,41 @@
     android:background="@color/menu_background">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textLayoutDT">
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:id="@+id/onLayoutDT">
+        <Button
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:id="@+id/timerDT"
+            android:clickable="false"
+            android:text="00:00"
+            style="@style/Buttons"
+            android:layout_marginStart="15dp"/>
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:gravity="center"
             style="@style/topicText"
-            android:id="@+id/questionDT"
-            android:text="@string/wait"/>
-            <!--We must set text from Java-->
+            android:text="@string/wait"
+            android:id="@+id/taskDT"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:id="@+id/toolbarLayoutDT">
-        <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/underLayoutDT">
+        <com.samsung.drawbattle.classes.KeworkerCanvas
             android:layout_width="1dp"
             android:layout_height="1dp"
-            style="@style/Buttons"
-            android:id="@+id/timerViewDT"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <!--Red-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rDT"/>
+            android:id="@+id/canvasDT"/>
 
-                <!--Green-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/gDT"/>
-
-                <!--Blue-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bDT"/>
-
-                <!--Yellow-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/yDT"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <!--Orange-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/oDT"/>
-
-                <!--Black (schwarz)-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/schDT"/>
-
-                <!--Brown-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/brDT"/>
-
-                <!--Purple-->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pDT"/>
-            </LinearLayout>
-        </LinearLayout>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/paintModeDT"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lineModeDT"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/eraserModeDT"/>
-
-        <SeekBar
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/strokeWidthDT"/>
+        <FrameLayout
+            android:id="@+id/fragmentDT"
+            android:layout_width="1dp"
+            android:layout_height="1dp"/>
     </LinearLayout>
-
-    <com.samsung.drawbattle.classes.KeworkerCanvas
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/canvasDT"/>
 </LinearLayout>
