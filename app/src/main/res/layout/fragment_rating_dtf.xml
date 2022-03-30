@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center">
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star10DTF"/>
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star9DTF"/>
+
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star8DTF"/>
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star7DTF"/>
+
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star6DTF"/>
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star5DTF"/>
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star4DTF"/>
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star3DTF"/>
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star2DTF"/>
+
+    <ImageButton
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/star1DTF"/>
+</LinearLayout>

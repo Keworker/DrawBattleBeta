@@ -19,14 +19,17 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.samsung.drawbattle.activities.maingame.MainGameResults;
 import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
+import com.samsung.drawbattle.fragments.RatingFragmentDT;
 import com.samsung.drawbattle.fragments.ToolbarFragmentDT;
 
 import org.w3c.dom.Text;
 
 public class DrawTournamentActivity extends Activity implements View.OnClickListener {
+    private static byte gameStage;
     private static boolean tournament;
     protected LinearLayout onL, underL;
     protected Button timerView;
@@ -35,8 +38,9 @@ public class DrawTournamentActivity extends Activity implements View.OnClickList
     protected FrameLayout fl;
     protected float screenWidth, screenHeight;
     public static int toolbarHeight, toolbarWidth;
-    FragmentTransaction ft;
-    ToolbarFragmentDT toolbar;
+    private FragmentTransaction ft;
+    private ToolbarFragmentDT toolbar;
+    private RatingFragmentDT rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,16 @@ public class DrawTournamentActivity extends Activity implements View.OnClickList
         screenWidth = size.x; screenHeight = size.y;
         onCreateSetter();
         toolbar = new ToolbarFragmentDT();
+        rate = new RatingFragmentDT();
+        gameStage = 0;
         addFragment(toolbar);
+
+        timerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onGameStageUpdate();
+            }
+        });
     }
 
     private void onCreateSetter() {
@@ -72,11 +85,31 @@ public class DrawTournamentActivity extends Activity implements View.OnClickList
         fl.getLayoutParams().width = toolbarWidth;
     }
 
+    protected void onGameStageUpdate() {
+        if (gameStage % 2 == 0) {
+            addFragment(rate);
+        }
+        else if (gameStage < 6) {
+            addFragment(toolbar);
+        }
+        else {
+            gameStage = -1;
+            Intent intent = new Intent(this, DrawTournamentResults.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        gameStage++;
+    }
+
     private void addFragment(Fragment fragment) {
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragmentDT, fragment);
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    public static byte getGameStage() {
+        return gameStage;
     }
 
     @Override
@@ -88,6 +121,11 @@ public class DrawTournamentActivity extends Activity implements View.OnClickList
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        canvas.back();
     }
 
     public static boolean isTournament() {

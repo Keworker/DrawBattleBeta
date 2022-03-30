@@ -48,6 +48,7 @@ public class ToolbarFragmentDT extends Fragment implements View.OnClickListener,
         eraserMode = view.findViewById(R.id.eraserModeDTF);
         strokeWidth = view.findViewById(R.id.strokeWidthDTF);
         canvas = DrawTournamentActivity.canvas;
+        setLayoutValues();
         r.setOnClickListener(this);
         g.setOnClickListener(this);
         b.setOnClickListener(this);
@@ -60,7 +61,6 @@ public class ToolbarFragmentDT extends Fragment implements View.OnClickListener,
         lineMode.setOnClickListener(this);
         eraserMode.setOnClickListener(this);
         strokeWidth.setOnSeekBarChangeListener(this);
-        setLayoutValues();
         return view;
     }
 
@@ -202,7 +202,7 @@ public class ToolbarFragmentDT extends Fragment implements View.OnClickListener,
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         switch (seekBar.getId()) {
-            case R.id.strokeWidthMGF:{
+            case R.id.strokeWidthDTF:{
                 while (true) {
                     try {
                         canvas.setWidth((float) seekBar.getProgress());

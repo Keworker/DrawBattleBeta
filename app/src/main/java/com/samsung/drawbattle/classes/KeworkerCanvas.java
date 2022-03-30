@@ -83,7 +83,8 @@ public class KeworkerCanvas extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (MainGameActivity.getGameStage() % 2 != 0 || DrawTournamentActivity.isTournament()) {
+        if (DrawTournamentActivity.isTournament() ? (DrawTournamentActivity.getGameStage() % 2 == 0)
+                : ((MainGameActivity.getGameStage() & 1) == 1)) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN: {
                     if (paintMode) {
