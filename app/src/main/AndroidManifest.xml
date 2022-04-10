@@ -21,13 +21,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.Menu"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.drawtournament.DrawTournamentActivity"
@@ -67,8 +62,13 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.GoogleSingIn"
-            android:exported="false"
-            android:screenOrientation="landscape"></activity>
+            android:exported="true"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter></activity>
     </application>
 
 </manifest>

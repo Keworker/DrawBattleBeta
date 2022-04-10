@@ -68,15 +68,15 @@ public class ToolbarFragmentDT extends Fragment implements View.OnClickListener,
         toolbarHeight = DrawTournamentActivity.toolbarHeight;
         toolbarWidth = DrawTournamentActivity.toolbarWidth;
         int absoluteWidth = toolbarWidth / 2;
-        l.getLayoutParams().width = absoluteWidth;
+        int colorButSize = Math.min(absoluteWidth / 2, toolbarHeight / 8);
+        l.getLayoutParams().width = colorButSize * 3;
         l.getLayoutParams().height = toolbarHeight;
         sts.getLayoutParams().width = absoluteWidth;
-        sts.getLayoutParams().height = absoluteWidth * 2;
-        leftSt.getLayoutParams().width = absoluteWidth / 2;
-        leftSt.getLayoutParams().height = absoluteWidth * 2;
-        rightSt.getLayoutParams().width = absoluteWidth / 2;
-        rightSt.getLayoutParams().height = absoluteWidth * 2;
-        int colorButSize = absoluteWidth / 2;
+        sts.getLayoutParams().height = colorButSize * 4;
+        leftSt.getLayoutParams().width = colorButSize;
+        leftSt.getLayoutParams().height = colorButSize * 4;
+        rightSt.getLayoutParams().width = colorButSize;
+        rightSt.getLayoutParams().height = colorButSize * 4;
         rRes = new ImageRes(R.drawable.red, r, colorButSize, colorButSize);
         gRes = new ImageRes(R.drawable.green, g, colorButSize, colorButSize);
         bRes = new ImageRes(R.drawable.blue, b, colorButSize, colorButSize);
@@ -203,13 +203,11 @@ public class ToolbarFragmentDT extends Fragment implements View.OnClickListener,
     public void onStopTrackingTouch(SeekBar seekBar) {
         switch (seekBar.getId()) {
             case R.id.strokeWidthDTF:{
-                while (true) {
-                    try {
-                        canvas.setWidth((float) seekBar.getProgress());
-                        break;
-                    }
-                    catch (KeworkerCanvas.KeworkerException keworkerException) {}
+                try {
+                    canvas.setWidth((float) seekBar.getProgress());
+                    break;
                 }
+                catch (KeworkerCanvas.KeworkerException keworkerException) {}
                 break;
             }
         }

@@ -74,7 +74,8 @@ public class ToolbarFragmentMG extends Fragment
     }
 
     private void setLayoutValues() {
-        modeButtonSize = (int) MainGameActivity.normalButtonSize;
+        modeButtonSize = Math.min((int) MainGameActivity.normalButtonSize,
+                (int) (MainGameActivity.normalLayoutWidth / 9.0f));
         colorButtonSize = (int) (modeButtonSize / 2.0f);
         colors.getLayoutParams().width = colorButtonSize * 4 + 4;
         rRes = new ImageRes(R.drawable.red, r, colorButtonSize, colorButtonSize);

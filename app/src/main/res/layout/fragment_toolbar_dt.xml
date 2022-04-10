@@ -21,7 +21,8 @@
                     android:layout_width="1dp"
                     android:layout_height="1dp"
                     android:orientation="vertical"
-                    android:id="@+id/leftStDTF">
+                    android:id="@+id/leftStDTF"
+                    android:gravity="center">
                     <!--Orange-->
                     <ImageButton
                         android:layout_width="1dp"
@@ -51,7 +52,8 @@
                     android:layout_width="1dp"
                     android:layout_height="1dp"
                     android:orientation="vertical"
-                    android:id="@+id/rightStDTF">
+                    android:id="@+id/rightStDTF"
+                    android:gravity="center">
                     <!--Red-->
                     <ImageButton
                         android:layout_width="1dp"
