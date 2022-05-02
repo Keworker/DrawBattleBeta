@@ -1,6 +1,7 @@
 package com.samsung.drawbattle.activities.maingame;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -14,24 +15,24 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import androidx.fragment.app.FragmentActivity;
 
 import com.samsung.drawbattle.activities.dialogfragments.ShowTextDF;
-import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
 import com.samsung.drawbattle.fragments.EditTextFragment;
 import com.samsung.drawbattle.fragments.ToolbarFragmentMG;
 
-public class MainGameActivity extends FragmentActivity implements View.OnClickListener {
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class MainGameActivity extends Activity implements View.OnClickListener {
     protected final int SECONDS_FOR_ROUND = 90;
     private static byte gameStage;
     protected LinearLayout fullLayout;
     public static KeworkerCanvas canvas;
     protected Button timerView;
     protected Timer timer;
-    protected ImageRes rRes, gRes, bRes, yRes, oRes, schRes, brRes, pRes,
-            paintModeRes, lineModeRes, eraserModeRes, stickerAddRes;
     public float screenWidth, screenHeight;
     public static float normalButtonSize, normalLayoutWidth, normalFragmentHeight, normalCanvasHeight;
     protected LinearLayout mainGameLeftSide, mainGameRightSide;
@@ -65,6 +66,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
         editTextFragment = new EditTextFragment();
         toolbarFragment = new ToolbarFragmentMG();
         addFragment(editTextFragment);
+        new ServerListener().start();
 
         news = findViewById(R.id.news);
         news.setOnClickListener(this);
@@ -89,7 +91,7 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
     }
 
     protected void onGameStageUpdate() {
-        if (gameStage < 5) {
+        if (gameStage < 1) { //< 6
             if (gameStage % 2 == 0) {
                 etRes = editTextFragment.getText();
                 addFragment(toolbarFragment);
@@ -109,7 +111,6 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
             startActivity(intent);
             return;
         }
-        timer.reload(SECONDS_FOR_ROUND);
         gameStage++;
     }
 
@@ -195,7 +196,6 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
             protected void onPostExecute(String unused) {
                 super.onPostExecute(unused);
                 timerView.setText(R.string.timeStop);
-                onGameStageUpdate();
             }
 
             @Override
@@ -206,8 +206,35 @@ public class MainGameActivity extends FragmentActivity implements View.OnClickLi
                         values[0] / 60 + ":") +
                         ":" +
                         ((values[0] % 60 < 10) ?
-                        ("0" + values[0] % 60) :
-                        values[0] % 60)); //Time like 09:35
+                                ("0" + values[0] % 60) :
+                                values[0] % 60)); //Time like 09:35
+            }
+        }
+    }
+
+    private class ServerListener extends Thread {
+        @Override
+        public void run() {
+            PrintWriter pW = MainGameRoom.getpW();
+            Scanner in = MainGameRoom.getIn();
+            while (in.hasNext()) {
+                String m[] = in.nextLine().split("/");
+                switch (m[0]) {
+                    case "request": {
+                        switch (m[1]) {
+                            case "text": {
+                                pW.println("text/" + editTextFragment.getText());
+                                pW.flush();
+                                break;
+                            }
+                            case "image": {
+
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
