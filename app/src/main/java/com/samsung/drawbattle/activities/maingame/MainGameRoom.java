@@ -29,27 +29,27 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class MainGameRoom extends Activity implements View.OnClickListener {
+    public static MainGameRoom room;
     protected FrameLayout frameLayout;
     protected Button start;
-    protected ImageButton player0, player1, player2, player3, player4, player5;
+    protected static ImageButton player0, player1, player2, player3, player4, player5;
     protected FragmentManager fragmentManager;
     protected FragmentTransaction fragmentTransaction;
     protected FriendFragment friendFragment;
     protected RandFragment randFragment;
     protected final static String FRIEND_TAG = "Friend_Fragment";
     protected final static String RAND_TAG = "Rand_Fragment";
-    protected ImageRes p0Res, p1Res, p2Res, p3Res, p4Res, p5Res;
-    private float buttonSize;
+    protected static ImageRes p0Res, p1Res, p2Res, p3Res, p4Res, p5Res;
+    private static float buttonSize;
     public float screenWidth, screenHeight;
-    private static PrintWriter pW;
-    private static Scanner in;
-    private String users[] = new String[6];
     private Context context = this;
+    private String users[] = new String[6];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game_room);
+        room = this;
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -90,91 +90,11 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.frameLayout, randFragment, RAND_TAG);
             fragmentTransaction.commit();
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Socket socket = new Socket("10.0.2.2", 5000);
-                        pW = new PrintWriter(socket.getOutputStream());
-                        pW.println("init/0/" + LocalPersonalData.getPersonName());
-                        pW.flush();
-                        in = new Scanner(socket.getInputStream());
-                        new Thread() {
-                            @Override
-                            public void run() {
-                                next:
-                                while (true) {
-                                    if (in.hasNext()) {
-                                        String q = in.nextLine();
-                                        String s[] = q.split("/");
-                                        Log.d("Server", q);
-                                        try {
-                                            switch (s[0]) {
-                                                case "init": {
-                                                    String members[] = s[3].split(";");
-                                                    for (int i = 0; i < members.length; i++) {
-                                                        users[i] = members[i];
-                                                    }
-                                                    rebootAvas();
-                                                    continue next;
-                                                }
-                                                case "request": {
-                                                    switch(s[1]) {
-                                                        ////nen ghj,ktvs rfrbt nj ,t z ecnfk
-                                                        case "run": {
-                                                            Log.d("Server", "123");
-                                                            String teams[] = s[2].split(",");
-                                                            for (int i = 0; i < 2; i++) {
-                                                                users[i] = teams[i];
-                                                            }
-                                                            Intent intent = new Intent(context, MainGameActivity.class);
-                                                            startActivity(intent);
-                                                            break;
-                                                        }
-                                                        default: {
-                                                            Log.d("Server", "134");
-                                                        }
-                                                    }
-                                                    break;
-                                                }
-                                                case "exit": {
-                                                    if (Integer.parseInt(s[1]) == 200) {
-                                                        Intent intent = new Intent(context, Menu.class);
-                                                        startActivity(intent);
-                                                        return;
-                                                    }
-                                                    break;
-                                                }
-                                                case "new": {
-                                                    int i = 0;
-                                                    while (users[i] != null) {
-                                                        i++;
-                                                    }
-                                                    users[i] = s[1];
-                                                    rebootAvas();
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        catch (ArrayIndexOutOfBoundsException exception) {
-                                            exception.printStackTrace();
-                                        }
-                                    }
-                                }
-                            }
-                        }.start();
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d("Server", e.toString());
-                        Log.d("Server", "###Fail###");
-                    }
-                }
-            }.start();
+            new ServerConnect();
         }
     }
 
-    private void rebootAvas() {
+    public void rebootAvas() {
         p0Res = new ImageRes(
                 (users[0] == null ? R.drawable.add_player :
                         R.drawable.avatar1), player0,
@@ -203,60 +123,25 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        new Thread() {
-            @Override
-            public void run() {
-                pW.println("exit/");
-                pW.flush();
-            }
-        }.start();
+
+    }
+
+    public void toMenu() {
+        Intent intent = new Intent(context, Menu.class);
+        startActivity(intent);
+    }
+
+    public void toGame() {
+        Intent intent = new Intent(context, MainGameActivity.class);
+        startActivity(intent);
+    }
+
+    public void setUsers(String users[]) {
+        this.users = users;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.player0:{
 
-                break;
-            }
-            case R.id.player1:{
-
-                break;
-            }
-            case R.id.player2:{
-
-                break;
-            }
-            case R.id.player3:{
-
-                break;
-            }
-            case R.id.player4:{
-
-                break;
-            }
-            case R.id.player5:{
-
-                break;
-            }
-            case R.id.start:{
-                new Thread() {
-                    @Override
-                    public void run() {
-                        pW.println("run/try");
-                        pW.flush();
-                    }
-                }.start();
-                break;
-            }
-        }
-    }
-
-    public static PrintWriter getpW() {
-        return pW;
-    }
-
-    public static Scanner getIn() {
-        return in;
     }
 }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainGameResults extends Activity implements View.OnClickListener {
+    public static MainGameResults res;
     Button exit;
     ListView listMGRes;
     ArrayList<PublicationMG> list = new ArrayList<PublicationMG>();
@@ -24,6 +25,7 @@ public class MainGameResults extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game_results);
+        res = this;
         exit = findViewById(R.id.exitMG);
         exit.setOnClickListener(this);
         listMGRes = findViewById(R.id.listMGRes);

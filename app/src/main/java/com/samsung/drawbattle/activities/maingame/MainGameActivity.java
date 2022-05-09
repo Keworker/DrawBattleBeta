@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class MainGameActivity extends Activity implements View.OnClickListener {
+    public static MainGameActivity game;
     protected final int SECONDS_FOR_ROUND = 90;
     private static byte gameStage;
     protected LinearLayout fullLayout;
@@ -48,6 +49,7 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
+        game = this;
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -66,7 +68,6 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
         editTextFragment = new EditTextFragment();
         toolbarFragment = new ToolbarFragmentMG();
         addFragment(editTextFragment);
-        new ServerListener().start();
 
         news = findViewById(R.id.news);
         news.setOnClickListener(this);
@@ -90,10 +91,9 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
         fullLayout.getLayoutParams().height = (int) (normalFragmentHeight);
     }
 
-    protected void onGameStageUpdate() {
+    public void onGameStageUpdate() {
         if (gameStage < 1) { //< 6
             if (gameStage % 2 == 0) {
-                etRes = editTextFragment.getText();
                 addFragment(toolbarFragment);
                 ShowTextDF df = new ShowTextDF();
                 df.setText(etRes);
@@ -123,6 +123,10 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    public String getText() {
+        return editTextFragment.getText();
+    }
+
     private void addFragment(Fragment fragment) {
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayoutMG, fragment);
@@ -132,6 +136,10 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
 
     public static byte getGameStage() {
         return gameStage;
+    }
+
+    public void setEtRes(String etRes) {
+        this.etRes = etRes;
     }
 
     @Override
@@ -203,38 +211,11 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
                 super.onProgressUpdate(values);
                 timerView.setText(((values[0] / 60 < 10) ?
                         ("0" + values[0] / 60) :
-                        values[0] / 60 + ":") +
+                        Integer.toString(values[0] / 60)) +
                         ":" +
                         ((values[0] % 60 < 10) ?
                                 ("0" + values[0] % 60) :
                                 values[0] % 60)); //Time like 09:35
-            }
-        }
-    }
-
-    private class ServerListener extends Thread {
-        @Override
-        public void run() {
-            PrintWriter pW = MainGameRoom.getpW();
-            Scanner in = MainGameRoom.getIn();
-            while (in.hasNext()) {
-                String m[] = in.nextLine().split("/");
-                switch (m[0]) {
-                    case "request": {
-                        switch (m[1]) {
-                            case "text": {
-                                pW.println("text/" + editTextFragment.getText());
-                                pW.flush();
-                                break;
-                            }
-                            case "image": {
-
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
             }
         }
     }
