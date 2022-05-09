@@ -92,7 +92,7 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
     }
 
     public void onGameStageUpdate() {
-        if (gameStage < 1) { //< 6
+        if (gameStage < 2) { //< 6
             if (gameStage % 2 == 0) {
                 addFragment(toolbarFragment);
                 ShowTextDF df = new ShowTextDF();

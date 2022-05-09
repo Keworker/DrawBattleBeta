@@ -44,6 +44,7 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
     public float screenWidth, screenHeight;
     private Context context = this;
     private String users[] = new String[6];
+    private boolean tryToGo = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,8 +141,21 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
         this.users = users;
     }
 
+    public boolean isTryToGo() {
+        return tryToGo;
+    }
+
+    public void setTryToGo(boolean tryToGo) {
+        this.tryToGo = tryToGo;
+    }
+
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.start: {
+                tryToGo = true;
+                break;
+            }
+        }
     }
 }

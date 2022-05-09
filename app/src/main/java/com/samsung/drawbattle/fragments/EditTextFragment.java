@@ -22,7 +22,7 @@ public class EditTextFragment extends Fragment {
     }
 
     public String getText() {
-        Log.d("My", "In fragment " + editText.getText().toString());
-        return editText.getText().toString();
+        return editText.getText().toString().length() > 1 ?
+                editText.getText().toString() : "Nothing to write";
     }
 }

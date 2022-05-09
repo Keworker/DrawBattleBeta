@@ -29,20 +29,22 @@ public class ServerConnect {
         public void run() {
             try {
                 Log.d("Server", "Try to start connection...");
-                socket = new Socket("10.0.0.2", 5000);
+                socket = new Socket("10.0.2.2", 5000);
                 Log.d("Server", "Successful connected");
                 pW = new PrintWriter(socket.getOutputStream());
                 pW.println("init/0/" + LocalPersonalData.getPersonName());
                 pW.flush();
+                in = new Scanner(socket.getInputStream());
+                Log.d("Server", "Server start to write here");
                 while (true) {
                     if (in.hasNext()) {
-                        String q = in.nextLine();
-                        String s[] = q.split("/");
-                        Log.d("Server", "q = " + q + ".");
+                        String message = in.nextLine();
+                        String link[] = message.split("/");
+                        Log.d("Server", "message = " + message);
                         try {
-                            switch (s[0]) {
+                            switch (link[0]) {
                                 case "init": {
-                                    String members[] = s[3].split(";");
+                                    String members[] = link[3].split(";");
                                     for (int i = 0; i < members.length; i++) {
                                         users[i] = members[i];
                                     }
@@ -51,10 +53,10 @@ public class ServerConnect {
                                     continue;
                                 }
                                 case "request": {
-                                    switch(s[1]) {
+                                    switch(link[1]) {
                                         case "run": {
-                                            String members[] = s[2].split(",");
-                                            for (int i = 0; i < 2; i++) {
+                                            String members[] = link[2].split(",");
+                                            for (int i = 0; i < members.length; i++) {
                                                 users[i] = members[i];
                                             }
                                             MainGameRoom.room.setUsers(users);
@@ -80,12 +82,12 @@ public class ServerConnect {
                                     break;
                                 }
                                 case "text": {
-                                    MainGameActivity.game.setEtRes(s[1]);
+                                    MainGameActivity.game.setEtRes(link[1]);
                                     MainGameActivity.game.onGameStageUpdate();
                                     break;
                                 }
                                 case "exit": {
-                                    if (Integer.parseInt(s[1]) == 200) {
+                                    if (Integer.parseInt(link[1]) == 200) {
                                         MainGameRoom.room.toMenu();
                                         in.close();
                                         try {
@@ -104,7 +106,7 @@ public class ServerConnect {
                                     while (users[i] != null) {
                                         i++;
                                     }
-                                    users[i] = s[1];
+                                    users[i] = link[1];
                                     MainGameRoom.room.setUsers(users);
                                     MainGameRoom.room.rebootAvas();
                                     break;
@@ -130,12 +132,13 @@ public class ServerConnect {
     private class ReadThread extends Thread {
         @Override
         public void run() {
-//            try {
-//                in = new Scanner(socket.getInputStream());
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            while (true) {
+                if (MainGameRoom.room.isTryToGo()) {
+                    MainGameRoom.room.setTryToGo(false);
+                    pW.println("run/try/");
+                    pW.flush();
+                }
+            }
         }
     }
 
