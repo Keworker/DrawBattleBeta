@@ -9,12 +9,19 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+
+import androidx.annotation.NonNull;
 
 import com.samsung.drawbattle.activities.dialogfragments.ShowTextDF;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
@@ -31,9 +38,8 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
     protected final int SECONDS_FOR_ROUND = 90;
     private static byte gameStage;
     protected LinearLayout fullLayout;
-    public static KeworkerCanvas canvas;
+    public KeworkerCanvas canvas;
     protected Button timerView;
-    protected Timer timer;
     public float screenWidth, screenHeight;
     public static float normalButtonSize, normalLayoutWidth, normalFragmentHeight, normalCanvasHeight;
     protected LinearLayout mainGameLeftSide, mainGameRightSide;
@@ -41,14 +47,32 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
     protected EditTextFragment editTextFragment;
     protected ToolbarFragmentMG toolbarFragment;
     protected FragmentTransaction ft;
+    protected Handler handler;
+    public final int HANDLER_FOR_GAME_ST_UPDATE = 1;
     String etRes;
+    Timer timer;
+    protected ImageButton show;
 
-    Button news;
+    ImageButton news;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
+        handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.arg1) {
+                    case HANDLER_FOR_GAME_ST_UPDATE: {
+                        onGameStageUpdate();
+                        break;
+                    }
+                }
+            }
+        };
+        show = findViewById(R.id.show);
+        show.setClickable(false);
         game = this;
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -92,15 +116,23 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
     }
 
     public void onGameStageUpdate() {
-        if (gameStage < 2) { //< 6
+        if (gameStage < 6) { //< 6
             if (gameStage % 2 == 0) {
-                addFragment(toolbarFragment);
+                show.setVisibility(View.GONE);
+                canvas.setVisibility(View.VISIBLE);
+                canvas.setFrozen(false);
                 ShowTextDF df = new ShowTextDF();
                 df.setText(etRes);
                 FragmentManager manager = getFragmentManager();
                 df.show(manager, "ShowMeText");
+                addFragment(toolbarFragment);
             }
             else {
+                canvas.setVisibility(View.GONE);
+                show.setVisibility(View.VISIBLE);
+                show.setImageBitmap(canvas.getBitmapFromServ());
+                news.setImageBitmap(canvas.getBitmapFromServ());
+                canvas.reset();
                 addFragment(editTextFragment);
             }
         }
@@ -112,14 +144,16 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
             return;
         }
         gameStage++;
+        timer.reload(game.SECONDS_FOR_ROUND);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             default:
-                timer.dropTime();
-                onGameStageUpdate();
+                Message m = new Message();
+                m.arg1 = 1;
+                MainGameActivity.game.handler.sendMessage(m);
         }
     }
 
@@ -180,15 +214,6 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
 
             @Override
             protected String doInBackground(Void... voids) {
-                while (seconds > 0) {
-                    seconds--;
-                    try {
-                        Thread.sleep(999);
-                    }
-                    catch (InterruptedException e) {}
-                    publishProgress(seconds);
-                }
-                seconds = 15;
                 while (seconds > 0) {
                     seconds--;
                     try {

@@ -54,7 +54,7 @@ public class ToolbarFragmentMG extends Fragment
         eraserMode = view.findViewById(R.id.eraserModeMGF);
         stickerAdd = view.findViewById(R.id.stickerAddMGF);
         strokeWidth = view.findViewById(R.id.strokeWidthMGF);
-        this.canvas = MainGameActivity.canvas;
+        this.canvas = MainGameActivity.game.canvas;
         r.setOnClickListener(this);
         g.setOnClickListener(this);
         b.setOnClickListener(this);

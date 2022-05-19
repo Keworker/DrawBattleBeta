@@ -42,10 +42,10 @@ public class GoogleSingIn extends Activity implements View.OnClickListener {
         sPref = getSharedPreferences("AndroidManifest.xml", 0);
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
-        if (sPref.getBoolean("alreadySignIn", true)) {
-            Intent intent = new Intent(this, Menu.class);
-            startActivity(intent);
-        }
+//        if (sPref.getBoolean("alreadySignIn", true)) {
+//            Intent intent = new Intent(this, Menu.class);
+//            startActivity(intent);
+//        }
         signInButton = findViewById(R.id.signInButton);
         signInButton.setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions

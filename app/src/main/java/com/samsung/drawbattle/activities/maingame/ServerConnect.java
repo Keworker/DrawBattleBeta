@@ -1,6 +1,12 @@
 package com.samsung.drawbattle.activities.maingame;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+
+import com.google.gson.Gson;
 import com.samsung.drawbattle.classes.LocalPersonalData;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -64,7 +70,15 @@ public class ServerConnect {
                                             break;
                                         }
                                         case "next": {
-                                            MainGameActivity.game.onGameStageUpdate();
+                                            try {
+                                                sleep(500);
+                                            }
+                                            catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Message m = new Message();
+                                            m.arg1 = 1;
+                                            MainGameActivity.game.handler.sendMessage(m);
                                             break;
                                         }
                                         case "text": {
@@ -73,17 +87,29 @@ public class ServerConnect {
                                             break;
                                         }
                                         case "image": {
+                                            Bitmap bitmap = MainGameActivity.game.canvas.getBitmap();
+                                            int w = bitmap.getWidth(), h = bitmap.getHeight();
+                                            int[] pixels = new int[w * h];
+                                            bitmap.getPixels(pixels, 0, w, 0, 0, w, h);
+                                            Gson gson = new Gson();
+                                            pW.println("image/" + gson.toJson(pixels));
+                                            pW.flush();
                                             break;
                                         }
                                         default: {
-                                            Log.d("Server", "404 not found");
+                                            Log.d("Server", "Request 404 not found");
                                         }
                                     }
                                     break;
                                 }
                                 case "text": {
                                     MainGameActivity.game.setEtRes(link[1]);
-                                    MainGameActivity.game.onGameStageUpdate();
+                                    break;
+                                }
+                                case "image": {
+                                    MainGameActivity.game.canvas.setFrozen(true);
+                                    MainGameActivity.game.canvas.setBitmap(new Gson().
+                                            fromJson(link[1], int[].class));
                                     break;
                                 }
                                 case "exit": {

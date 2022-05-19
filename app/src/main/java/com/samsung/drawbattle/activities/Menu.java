@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.samsung.drawbattle.activities.frommenu.ChooseGame;
 import com.samsung.drawbattle.activities.frommenu.Saved;
 import com.samsung.drawbattle.activities.frommenu.Settings;
+import com.samsung.drawbattle.activities.maingame.MainGameRoom;
 import com.samsung.drawbattle.classes.ImageRes;
 import com.samsung.drawbattle.classes.LocalPersonalData;
 import com.samsung.drawbattle.R;
@@ -70,13 +71,7 @@ public class Menu extends Activity implements View.OnClickListener {
                 break;
             }
             case R.id.start:{
-                if (GoogleSingIn.allreadyLogedIn()) {
-                    Intent intent = new Intent(this, ChooseGame.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    break;
-                }
-                Intent intent = new Intent(this, GoogleSingIn.class);
+                Intent intent = new Intent(this, MainGameRoom.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;

@@ -20,7 +20,7 @@
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_draw_tournament_results.xml" value="0.1" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_draw_tournament_room.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_google_sing_in.xml" value="0.17760416666666667" />
-        <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_main_game.xml" value="0.17760416666666667" />
+        <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_main_game.xml" value="0.1" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_main_game_results.xml" value="0.47426981919332406" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_main_game_room.xml" value="0.7333333333333334" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/activity_main_game_settings.xml" value="0.17760416666666667" />
@@ -41,5 +41,5 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

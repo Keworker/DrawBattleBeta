@@ -84,7 +84,7 @@ public class MainGameRoom extends Activity implements View.OnClickListener {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.frameLayout, friendFragment, FRIEND_TAG);
             fragmentTransaction.commit();
-
+            new ServerConnect();
         }
         else {
             randFragment = new RandFragment();

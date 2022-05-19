@@ -1,6 +1,6 @@
 package com.samsung.drawbattle.classes;
 
-import android.content.Context;
+import  android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,12 +8,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.RecordingCanvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.samsung.drawbattle.R;
 import com.samsung.drawbattle.activities.drawtournament.DrawTournamentActivity;
@@ -43,10 +41,15 @@ public class KeworkerCanvas extends View {
             R.drawable.sticker4, R.drawable.sticker6, R.drawable.sticker5};
     private float stickerX1, stickerY1,
             stickerX2, stickerY2;
+    private String commands;
+    private Bitmap fromServer;
+    private boolean frozen;
 
     public KeworkerCanvas(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
+        frozen = false;
         this.context = context;
+        commands = "";
         bitmapPaint = new Paint(Paint.DITHER_FLAG);
         bitmapEraser = new Paint(Paint.DITHER_FLAG);
         paint = new Paint();
@@ -75,54 +78,35 @@ public class KeworkerCanvas extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(getResources().getColor(R.color.white));
+        this.canvas.drawColor(getResources().getColor(R.color.white));
         for (int i = 0; i < lines.size(); i++) {
             lines.get(i).onDraw(canvas);
+            lines.get(i).onDraw(this.canvas);
         }
         super.onDraw(canvas);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (DrawTournamentActivity.isTournament() ? (DrawTournamentActivity.getGameStage() % 2 == 0)
+        if (! frozen &&
+                DrawTournamentActivity.isTournament() ?
+                (DrawTournamentActivity.getGameStage() % 2 == 0)
                 : ((MainGameActivity.getGameStage() & 1) == 1)) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN: {
-                    if (paintMode) {
-                        onPaintActionDown(event.getX(), event.getY());
-                        curPath = (KeworkerPath) lines.get(lines.size() - 1);
-                        invalidate();
-                    }
-                    else if (lineMode) {
-                        lines.add(new Line(event.getX(), event.getY()));
-                        curLine = (Line) lines.get(lines.size() - 1);
-                        curLine.setColorAndWidth(paint.getColor(), paint.getStrokeWidth());
-                    }
-                    else if (eraserMode) {
-                        onEraserActionDown(event.getX(), event.getY());
-                        curPath = (KeworkerPath) lines.get(lines.size() - 1);
-                        invalidate();
-                    }
-                    else if (stickerAdd && stickerFirstTouchFlag) {
-                        curSticker = new Sticker(stickId[stickNumb],
-                                STANDARD_STICKER_SIZE, STANDARD_STICKER_SIZE,
-                                event.getX(), event.getY());
-                        lines.add(curSticker);
-                        stickerFirstTouchFlag = false;
-                        invalidate();
-                    }
+//                    commands += "\\ad/" + event.getX() + "/" + event.getY();
+                    onActionDown(event.getX(), event.getY());
                     break;
                 }
-
                 case MotionEvent.ACTION_POINTER_DOWN: {
-                    if (stickerAdd) {
-                        stickerX1 = event.getX(0);
-                        stickerY1 = event.getY(0);
-                        stickerX2 = event.getX(1);
-                        stickerY2 = event.getY(1);
-                    }
+//                    commands += "\\apd/" + event.getX(0) + "/" +
+//                            event.getY(0) + "/" +
+//                            event.getX(1) + "/" +
+//                            event.getY(1);
+                    onActionPointerDown(event.getX(0), event.getY(0),
+                            event.getX(1), event.getY(1));
                     break;
                 }
-
                 case MotionEvent.ACTION_MOVE: {
                     if (paintMode) {
                         onPaintActionMove(event.getX(), event.getY());
@@ -164,6 +148,45 @@ public class KeworkerCanvas extends View {
         }
         return true;
     }
+
+    private void onActionDown(float x, float y) {
+        if (paintMode) {
+            onPaintActionDown(x, y);
+            curPath = (KeworkerPath) lines.get(lines.size() - 1);
+            invalidate();
+        }
+        else if (lineMode) {
+            lines.add(new Line(x, y));
+            curLine = (Line) lines.get(lines.size() - 1);
+            curLine.setColorAndWidth(paint.getColor(), paint.getStrokeWidth());
+        }
+        else if (eraserMode) {
+            onEraserActionDown(x, y);
+            curPath = (KeworkerPath) lines.get(lines.size() - 1);
+            invalidate();
+        }
+        else if (stickerAdd && stickerFirstTouchFlag) {
+            curSticker = new Sticker(stickId[stickNumb],
+                    STANDARD_STICKER_SIZE, STANDARD_STICKER_SIZE,
+                    x, y);
+            lines.add(curSticker);
+            stickerFirstTouchFlag = false;
+            invalidate();
+        }
+    }
+
+    private void onActionPointerDown(float x0, float y0, float x1, float y1) {
+        if (stickerAdd) {
+            stickerX1 = x0;
+            stickerY1 = y0;
+            stickerX2 = x1;
+            stickerY2 = y1;
+        }
+    }
+
+//    private void onActionMove() {}
+
+//    private void onActionUp() {}
 
     private void onPaintActionDown(float x, float y) {
         Path path = new Path();
@@ -249,6 +272,7 @@ public class KeworkerCanvas extends View {
             paint.setStrokeWidth(width * MAX_WIDTH / 100);
             line.setStrokeWidth(width * MAX_WIDTH / 100);
             eraser.setStrokeWidth(width * MAX_WIDTH / 100);
+//            commands += "\\sw/" + width;
         }
         else {
             throw new KeworkerException("You cant set this width " + width + " params");
@@ -259,6 +283,7 @@ public class KeworkerCanvas extends View {
         if (lines.size() > 0) {
             lines.remove(lines.size() - 1);
             invalidate();
+//            commands += "\\b";
         }
     }
 
@@ -267,6 +292,7 @@ public class KeworkerCanvas extends View {
         lineMode = false;
         eraserMode = false;
         stickerAdd = false;
+//        commands += "\\pm";
     }
 
     public void setLineMode() {
@@ -274,6 +300,7 @@ public class KeworkerCanvas extends View {
         lineMode = true;
         eraserMode = false;
         stickerAdd = false;
+//        commands += "\\lm";
     }
 
     public void setEraserMode() {
@@ -281,6 +308,7 @@ public class KeworkerCanvas extends View {
         lineMode = false;
         eraserMode = true;
         stickerAdd = false;
+//        commands += "\\em";
     }
 
     public void setStickerMode(short stickNumb) throws KeworkerException {
@@ -295,16 +323,41 @@ public class KeworkerCanvas extends View {
             paintMode = false;
             lineMode = false;
             eraserMode = false;
+//            commands += "\\sm/" + stickNumb;
         }
     }
 
-//    public Bitmap toBitmap() {
-//        return Bitmap.createBitmap((int) MainGameActivity.normalLayoutWidth,
-//                (int) MainGameActivity.normalCanvasHeight, Bitmap.Config.RGB_565);
-//    }
-
     public double pi(float x1, float y1, float x2, float y2) {
        return Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(Math.abs(y1 - y2), 2));
+    }
+
+    public void setBitmap(int pixels[]) {
+        Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, canvas.getWidth(), 0, 0,
+                canvas.getWidth(), canvas.getHeight());
+        fromServer = bitmap;
+    }
+
+    public  Bitmap getBitmapFromServ() {
+        return fromServer;
+    }
+
+    public void drawBitmap() {
+        lines = new ArrayList<Drawable>();
+        invalidate();
+    }
+
+    public void reset() {
+        lines = new ArrayList<Drawable>();
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setFrozen(boolean frozen) {
+        this.frozen = frozen;
     }
 
     public class Line implements Drawable {
@@ -389,10 +442,7 @@ public class KeworkerCanvas extends View {
 
         public void resetWH(double s1, double s2) {
             int wh = (int) Math.floor((s2 * bitmap.getWidth()) / s1);
-            if (wh < 100 || wh > 2000) {
-                Toast.makeText(getContext(), R.string.toastSticker, Toast.LENGTH_LONG).show();
-            }
-            else {
+            if (wh > 99 && wh < 2001) {
                 bitmap = BitmapFactory.decodeResource(getResources(), id);
                 bitmap = Bitmap.createScaledBitmap(bitmap, wh, wh, true);
             }
