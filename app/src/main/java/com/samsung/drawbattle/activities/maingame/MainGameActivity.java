@@ -116,7 +116,7 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
     }
 
     public void onGameStageUpdate() {
-        if (gameStage < 6) { //< 6
+        if (gameStage < 5) { //< 6
             if (gameStage % 2 == 0) {
                 show.setVisibility(View.GONE);
                 canvas.setVisibility(View.VISIBLE);
@@ -131,7 +131,6 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
                 canvas.setVisibility(View.GONE);
                 show.setVisibility(View.VISIBLE);
                 show.setImageBitmap(canvas.getBitmapFromServ());
-                news.setImageBitmap(canvas.getBitmapFromServ());
                 canvas.reset();
                 addFragment(editTextFragment);
             }

@@ -87,6 +87,7 @@ public class ServerConnect {
                                             break;
                                         }
                                         case "image": {
+                                            MainGameActivity.game.canvas.setFrozen(true);
                                             Bitmap bitmap = MainGameActivity.game.canvas.getBitmap();
                                             int w = bitmap.getWidth(), h = bitmap.getHeight();
                                             int[] pixels = new int[w * h];
@@ -107,7 +108,7 @@ public class ServerConnect {
                                     break;
                                 }
                                 case "image": {
-                                    MainGameActivity.game.canvas.setFrozen(true);
+                                    MainGameActivity.game.canvas.setFrozen(false);
                                     MainGameActivity.game.canvas.setBitmap(new Gson().
                                             fromJson(link[1], int[].class));
                                     break;
