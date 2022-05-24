@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
+import com.samsung.drawbattle.activities.Menu;
 import com.samsung.drawbattle.activities.dialogfragments.ShowTextDF;
 import com.samsung.drawbattle.classes.KeworkerCanvas;
 import com.samsung.drawbattle.R;
@@ -35,7 +36,7 @@ import java.util.Scanner;
 
 public class MainGameActivity extends Activity implements View.OnClickListener {
     public static MainGameActivity game;
-    protected final int SECONDS_FOR_ROUND = 90;
+    protected final int SECONDS_FOR_ROUND = 85;
     private static byte gameStage;
     protected LinearLayout fullLayout;
     public KeworkerCanvas canvas;
@@ -116,7 +117,7 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
     }
 
     public void onGameStageUpdate() {
-        if (gameStage < 5) { //< 6
+        if (gameStage < 1) { //< 6
             if (gameStage % 2 == 0) {
                 show.setVisibility(View.GONE);
                 canvas.setVisibility(View.VISIBLE);
@@ -126,6 +127,8 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
                 FragmentManager manager = getFragmentManager();
                 df.show(manager, "ShowMeText");
                 addFragment(toolbarFragment);
+                gameStage++;
+                timer.reload(game.SECONDS_FOR_ROUND);
             }
             else {
                 canvas.setVisibility(View.GONE);
@@ -133,26 +136,25 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
                 show.setImageBitmap(canvas.getBitmapFromServ());
                 canvas.reset();
                 addFragment(editTextFragment);
+                gameStage++;
+                timer.reload(game.SECONDS_FOR_ROUND);
             }
         }
         else {
             gameStage = -1;
-            Intent intent = new Intent(this, MainGameResults.class);
+            Intent intent = new Intent(this, Menu.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            return;
         }
-        gameStage++;
-        timer.reload(game.SECONDS_FOR_ROUND);
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+        public void onClick(View view) {
+            switch (view.getId()) {
             default:
-                Message m = new Message();
-                m.arg1 = 1;
-                MainGameActivity.game.handler.sendMessage(m);
+//                Message m = new Message();
+//                m.arg1 = 1;
+//                MainGameActivity.game.handler.sendMessage(m);
         }
     }
 
@@ -165,6 +167,7 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
         ft.replace(R.id.frameLayoutMG, fragment);
         ft.addToBackStack(null);
         ft.commit();
+        editTextFragment.deleteText();
     }
 
     public static byte getGameStage() {
@@ -216,7 +219,7 @@ public class MainGameActivity extends Activity implements View.OnClickListener {
                 while (seconds > 0) {
                     seconds--;
                     try {
-                        Thread.sleep(999);
+                        Thread.sleep(1000);
                     }
                     catch (InterruptedException e) {}
                     publishProgress(seconds);

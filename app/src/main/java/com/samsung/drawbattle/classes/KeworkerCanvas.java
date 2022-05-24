@@ -88,10 +88,10 @@ public class KeworkerCanvas extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (! frozen &&
-                DrawTournamentActivity.isTournament() ?
+        if (!frozen &&
+                (DrawTournamentActivity.isTournament() ?
                 (DrawTournamentActivity.getGameStage() % 2 == 0)
-                : ((MainGameActivity.getGameStage() & 1) == 1)) {
+                : ((MainGameActivity.getGameStage() & 1) == 1))) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN: {
 //                    commands += "\\ad/" + event.getX() + "/" + event.getY();

@@ -34,12 +34,12 @@
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/fragment_toolbar_m_g.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/fragment_toolbar_mg.xml" value="0.1" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/friend_button.xml" value="0.17760416666666667" />
-        <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/publication_item.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/publication_item.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/random_fragment.xml" value="0.17760416666666667" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/layout/show_text_df.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/LukaAzanov/Desktop/Java/Android/DrawBattleFinal/app/src/main/res/menu/popupmenu.xml" value="0.17760416666666667" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

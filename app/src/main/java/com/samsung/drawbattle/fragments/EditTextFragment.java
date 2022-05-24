@@ -18,11 +18,16 @@ public class EditTextFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_text, container, false);
         editText = view.findViewById(R.id.editTextFR);
+        editText.setText("");
         return view;
     }
 
     public String getText() {
         return editText.getText().toString().length() > 1 ?
                 editText.getText().toString() : "Nothing to write";
+    }
+
+    public void deleteText() {
+//        editText.setText("");
     }
 }

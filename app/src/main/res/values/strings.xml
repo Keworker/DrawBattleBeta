@@ -7,7 +7,7 @@
     <string name="dark" translatable="true">Dark theme</string>
     <string name="acc" translatable="true">Account:</string>
     <string name="aboutName" translatable="true">About development:</string>
-    <string name="aboutText" translatable="true">&#160;&#160;&#160;&#160;This app was created in the course of studying at Samsung IT School. Thanks to Konstantin Aktybaev for training in general, and for help on all issues in particular. You can find our project on GitHub:\n<a href="https://github.com/Keworker">https://github.com/Keworker</a></string>
+    <string name="aboutText" translatable="true">&#160;&#160;&#160;&#160;This app was created in the course of studying at Samsung IT School. Thanks to Konstantin Aktybaev for learning. You can find our project at my GitHub acc:\n<a href="https://github.com/Keworker">https://github.com/Keworker</a></string>
     <string name="back" translatable="true">Back</string>
     <string name="friendsW" translatable="true">Play with friends</string>
     <string name="randomW" translatable="true">Play with random peoples</string>

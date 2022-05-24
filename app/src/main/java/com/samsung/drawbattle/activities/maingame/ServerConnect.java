@@ -36,6 +36,7 @@ public class ServerConnect {
             try {
                 Log.d("Server", "Try to start connection...");
                 socket = new Socket("10.0.2.2", 5000);
+//                socket = new Socket("localhost", 5000);
                 Log.d("Server", "Successful connected");
                 pW = new PrintWriter(socket.getOutputStream());
                 pW.println("init/0/" + LocalPersonalData.getPersonName());
@@ -61,6 +62,8 @@ public class ServerConnect {
                                 case "request": {
                                     switch(link[1]) {
                                         case "run": {
+                                            pW.println("serv/");
+                                            pW.flush();
                                             String members[] = link[2].split(",");
                                             for (int i = 0; i < members.length; i++) {
                                                 users[i] = members[i];
@@ -79,6 +82,11 @@ public class ServerConnect {
                                             Message m = new Message();
                                             m.arg1 = 1;
                                             MainGameActivity.game.handler.sendMessage(m);
+                                            break;
+                                        }
+                                        case "serv": {
+                                            pW.println("serv/");
+                                            pW.flush();
                                             break;
                                         }
                                         case "text": {
@@ -109,8 +117,8 @@ public class ServerConnect {
                                 }
                                 case "image": {
                                     MainGameActivity.game.canvas.setFrozen(false);
-                                    MainGameActivity.game.canvas.setBitmap(new Gson().
-                                            fromJson(link[1], int[].class));
+//                                    MainGameActivity.game.canvas.setBitmap(new Gson().
+//                                            fromJson(link[1], int[].class));
                                     break;
                                 }
                                 case "exit": {
@@ -138,6 +146,38 @@ public class ServerConnect {
                                     MainGameRoom.room.rebootAvas();
                                     break;
                                 }
+//                                case "t1": {
+//                                    Message m = new Message();
+//                                    m.arg1 = 0;
+//                                    m.obj = link[1];
+//                                    MainGameResults.res.handler.sendMessage(m);
+////                                    p.init(0).setText(link[1]);
+//                                    break;
+//                                }
+//                                case "t2": {
+//                                    Message m = new Message();
+//                                    m.arg1 = 1;
+//                                    m.obj = link[1];
+//                                    MainGameResults.res.handler.sendMessage(m);
+//                                    //                                    MainGameResults.res.p.init(1).setText(link[1]);
+//                                    break;
+//                                }
+//                                case "i1": {
+//                                    Message m = new Message();
+//                                    m.arg1 = 2;
+//                                    m.obj = link[1];
+//                                    MainGameResults.res.handler.sendMessage(m);
+//                                    //                                    MainGameResults.res.set(0, link[1]);
+//                                    break;
+//                                }
+//                                case "i2": {
+//                                    Message m = new Message();
+//                                    m.arg1 = 3;
+//                                    m.obj = link[1];
+//                                    MainGameResults.res.handler.sendMessage(m);
+//                                    //                                    MainGameResults.res.set(1, link[1]);
+//                                    break;
+//                                }
                             }
                         }
                         catch (ArrayIndexOutOfBoundsException exception) {
@@ -159,6 +199,12 @@ public class ServerConnect {
     private class ReadThread extends Thread {
         @Override
         public void run() {
+            try {
+                sleep(5000);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             while (true) {
                 if (MainGameRoom.room.isTryToGo()) {
                     MainGameRoom.room.setTryToGo(false);
